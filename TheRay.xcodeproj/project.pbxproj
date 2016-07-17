@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E97810BC1D3C068C00F41F1E /* Controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E97810BA1D3C068C00F41F1E /* Controller.cpp */; };
 		E9FF0D321D3B4CE200C70CD3 /* Actuators.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E9FF0D281D3B4CE200C70CD3 /* Actuators.cpp */; };
 		E9FF0D331D3B4CE200C70CD3 /* Collision.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E9FF0D2A1D3B4CE200C70CD3 /* Collision.cpp */; };
 		E9FF0D341D3B4CE200C70CD3 /* IR.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E9FF0D2C1D3B4CE200C70CD3 /* IR.cpp */; };
@@ -27,6 +28,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		E97810BA1D3C068C00F41F1E /* Controller.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Controller.cpp; sourceTree = "<group>"; };
+		E97810BB1D3C068C00F41F1E /* Controller.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Controller.hpp; sourceTree = "<group>"; };
 		E9FF0CF61D3B32F500C70CD3 /* TheRay */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = TheRay; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9FF0D011D3B334B00C70CD3 /* TheRay.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = TheRay.ino; sourceTree = "<group>"; };
 		E9FF0D041D3B334B00C70CD3 /* keywords.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = keywords.txt; sourceTree = "<group>"; };
@@ -85,6 +88,8 @@
 			children = (
 				E9FF0D011D3B334B00C70CD3 /* TheRay.ino */,
 				E9FF0D0E1D3B339B00C70CD3 /* Config.hpp */,
+				E97810BA1D3C068C00F41F1E /* Controller.cpp */,
+				E97810BB1D3C068C00F41F1E /* Controller.hpp */,
 				E9FF0D0F1D3B3A5000C70CD3 /* Robot */,
 			);
 			path = TheRay;
@@ -181,6 +186,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E9FF0D351D3B4CE200C70CD3 /* Robot.cpp in Sources */,
+				E97810BC1D3C068C00F41F1E /* Controller.cpp in Sources */,
 				E9FF0D331D3B4CE200C70CD3 /* Collision.cpp in Sources */,
 				E9FF0D341D3B4CE200C70CD3 /* IR.cpp in Sources */,
 				E9FF0D321D3B4CE200C70CD3 /* Actuators.cpp in Sources */,

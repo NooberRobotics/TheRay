@@ -1,4 +1,5 @@
 #include <phys253.h>
+#include "Controller.hpp"
 
 void setup()
 {
@@ -8,5 +9,8 @@ void setup()
 
 void loop()
 {
+    Controller controller = Controller();
+    
+    
 }
 
