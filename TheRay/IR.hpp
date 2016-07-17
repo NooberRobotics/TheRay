@@ -10,6 +10,7 @@
 #define IR_hpp
 
 #include "Config.hpp"
+#include "Arduino.h"
 
 #ifndef phys253_h
 #define phys253_h
