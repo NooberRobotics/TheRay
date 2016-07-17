@@ -1,14 +1,12 @@
 //
-//  Config.h
+//  Config.hpp
 //  TheRay
 //
 //  Copyright © 2016 Noober Robotics. All rights reserved.
 //
-//
 
 #ifndef _CONFIG
 #define _CONFIG
-#endif
 
 #define KP 38;
 #define KD 47;
@@ -54,9 +52,9 @@
 #define MOTOR_ARM 2
 
 
-#define MOTOR_LEFT_SIGN_FORWARD 1   //TODO: Change to refletct setup
-#define MOTOR_RIGHT_SIGN_FORWARD 1   //TODO: Change to refletct setup
-#define MOTOR_ARM_SIGN_UP 1   //TODO: Change to refletct setup
+#define MOTOR_LEFT_SIGN_FORWARD 1
+#define MOTOR_RIGHT_SIGN_FORWARD 1
+#define MOTOR_ARM_SIGN_UP 1   
 
 // SERVO ANGLES
 
@@ -74,26 +72,14 @@
 #define VELOCITY_ARM_MAX 100
 #define VELOCITY_ARM_INTIAL 30
 #define VELOCITY_ARM_INCREASE 1
-
 #define VELOCITY_PICKUP 100 //when checking IR signal
 
 // CALIBRATION
 
 #define FINGER_MOTION_DURATION 500 // in milliseconds
-
 #define PICKUP_CALIBRATION_DISTANCE 0.01 //meters
 
-//dummy function to get rid of erros
-bool digitalRead(int channel) {
-    return false;
-}
-int analogRead(int channel) {
-    return 0;
-}
-
-int millis() {
-    return 0;
-}
+#endif
 
 
    
