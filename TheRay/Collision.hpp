@@ -9,15 +9,25 @@
 #ifndef Collision_hpp
 #define Collision_hpp
 
-//#ifndef Config_hpp
-//#define Config_hpp
-//#include "Config.hpp"
-//#endif
+#include "Config.hpp"
 
 #ifndef phys253_h
 #define phys253_h
 #include "phys253.h"
 #endif
+
+namespace Collsion {
+    
+    enum Result {
+        None,
+        Left,
+        Right,
+        Both,
+        Back
+    };
+    
+    Result check();
+}
 
 
 

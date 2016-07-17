@@ -9,6 +9,10 @@
 #ifndef Tape_hpp
 #define Tape_hpp
 
-#include <stdio.h>
+class Tape {
+public:
+    int last;
+};
+
 
 #endif /* Tape_hpp */
