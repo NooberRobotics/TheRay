@@ -15,7 +15,8 @@
 // Thresholds
 
 #define THRESH_QRD 150
-#define THRESH_IR 5
+#define THRESH_LOW_IR 5
+#define THRESH_HIGH_IR 30
 
 // QRD (ANALOG)
 
@@ -82,7 +83,7 @@
 #define FINGER_MOTION_DURATION 500 // in milliseconds
 #define PICKUP_CALIBRATION_DISTANCE 0.01 //meters
 
-#define INTERSECTION_TIME 500 // in milliseconds, duration for intersection sensing to be remembered and passed as active when queried to account for intersections with squeued angles
+#define INTERSECTION_TIME 500 // in milliseconds, duration for intersection sensing to be remembered and passed as active when queried to account for intersections with skewed angles
 
 
 #endif

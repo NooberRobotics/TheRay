@@ -10,6 +10,7 @@
 #define IR_hpp
 
 #include "Config.hpp"
+#include "Arduino.h"
 
 namespace IR {
     
@@ -24,8 +25,6 @@ namespace IR {
     Result check();
     
 }
-
-
 
 
 #endif /* IR_hpp */
