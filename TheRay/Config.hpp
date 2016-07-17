@@ -51,10 +51,8 @@
 #define MOTOR_LEFT 0 
 #define MOTOR_ARM 2
 
-
-#define MOTOR_LEFT_SIGN_FORWARD 1
-#define MOTOR_RIGHT_SIGN_FORWARD 1
-#define MOTOR_ARM_SIGN_UP 1   
+// Positive for right is forward, negative for left is forward
+#define MOTOR_ARM_SIGN_UP 1
 
 // SERVO ANGLES
 
