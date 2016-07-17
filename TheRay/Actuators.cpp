@@ -67,5 +67,6 @@ void openClaw() {
 }
 
 void closeClaw() {
-    
+    RCServo0.write(SERVO_OPEN);
+    RCServo0.write(SERVO_CLOSED);
 }
