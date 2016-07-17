@@ -10,13 +10,14 @@
 #define Collision_hpp
 
 #include "Config.hpp"
+#include <Arduino.h>
 
 #ifndef phys253_h
 #define phys253_h
 #include "phys253.h"
 #endif
 
-namespace Collsion {
+namespace Collision {
     
     enum Result {
         None,
