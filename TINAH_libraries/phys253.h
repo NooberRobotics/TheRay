@@ -1,7 +1,6 @@
 #ifndef phys253_h
 #define phys253_h
 
-
 // include all of the h-file headers used in general Phys 253 programs
 // added by Jon Nakane, 2009 March 23
 // edit 2010 May 3 - removed WConstants.h from here and motor.h for Wiring-0026.
@@ -91,7 +90,5 @@ void analogWriteReset(int PWMPin)   // added 2009 May 18th - required to disable
 }
 
 */
-
-
 
 #endif

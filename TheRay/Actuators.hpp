@@ -2,20 +2,16 @@
 //  Actuators.hpp
 //  TheRay
 //
-//  Created by Morten Kals on 16/07/2016.
 //  Copyright © 2016 Noober. All rights reserved.
 //
 
 #ifndef Actuators_hpp
 #define Actuators_hpp
 
-#ifndef phys253_h
-#define phys253_h
-#include "phys253.h"
-#endif
-
-
 #include "Config.hpp"
+
+#include "motor.h"
+#include <Arduino.h>
 
 namespace Actuators {
     
@@ -35,6 +31,7 @@ namespace Actuators {
     };
     
     void turnInPlace(int turnAngle);
+    void drive(Velocity velocity, int turn);
     void drive(Velocity velocity, bool turnRight, Turn turn, bool reverse = false);
     void raiseArm();
     void lowerArm();

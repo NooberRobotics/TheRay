@@ -6,7 +6,7 @@
 //
 
 #ifndef Config_hpp
-//#define Config_hpp
+#define Config_hpp
 
 #define KP 38;
 #define KD 47;
@@ -75,6 +75,8 @@
 #define TURN_SLIGHT 5
 #define TURN_HARD 15
 
+#define TURN_IN_PLACE_VELOCITY 150
+
 // CALIBRATION
 
 #define FINGER_MOTION_DURATION 500 // in milliseconds
@@ -84,7 +86,6 @@
 
 
 #endif
-
 
    
 

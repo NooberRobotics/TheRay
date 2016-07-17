@@ -11,11 +11,6 @@
 
 #include "Config.hpp"
 
-#ifndef phys253_h
-#define phys253_h
-#include "phys253.h"
-#endif
-
 namespace IR {
     
     enum Result {

@@ -14,8 +14,17 @@
 #include "IR.hpp"
 #include "Tape.hpp"
 
+
 class Robot {
+    
+    
+    
+    
 public:
+    
+    
+    
+    
     
 };
 
