@@ -8,7 +8,6 @@
 
 #ifndef _CONFIG
 #define _CONFIG
-#endif
 
 #define KP 38;
 #define KD 47;
@@ -94,6 +93,8 @@ int analogRead(int channel) {
 int millis() {
     return 0;
 }
+
+#endif
 
 
    
