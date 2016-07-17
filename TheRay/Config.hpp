@@ -77,6 +77,8 @@
 #define TURN_HARD 15
 
 #define TURN_IN_PLACE_VELOCITY 150
+#define TURN_IN_PLACE_DURATION 10 //multiply by angle to get duration
+#define TURN_IN_PLACE_CONSTANT 0 // constnat added to product of angle and duration to accunt for delay in
 
 // CALIBRATION
 
