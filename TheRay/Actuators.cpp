@@ -37,11 +37,17 @@ void drive(Actuators::Velocity velocity, bool turnRight, Actuators::Turn turn, b
 }
 
 void raiseArm() {
-    
+    motorClass motor = motorClass();
+    while ( !TOUCH_SWITCH_ARM_UP ){
+        motor.speed(MOTOR_ARM, VELOCITY_ARM);
+    }
 }
 
 void lowerArm() {
-    
+    motorClass motor = motorClass();
+    while ( !TOUCH_SWITCH_ARM_DOWN ){
+        motor.speed(MOTOR_ARM, -VELOCITY_ARM);
+    }
 }
 
 void openClaw() {
