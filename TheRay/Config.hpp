@@ -42,8 +42,8 @@
 #define TOUCH_SWITCH_RIGHT 4
 #define TOUCH_SWITCH_LEFT 3
 #define TOUCH_SWITCH_BACK 5
-#define TOUCH_SWITCH_ARM_UP 2
-#define TOUCH_SWITCH_ARM_DOWN 3
+#define TOUCH_SWITCH_ARM_UP 2 //lower switch
+#define TOUCH_SWITCH_ARM_DOWN 3 //upper switch
 
 // MOTORS
 
@@ -68,9 +68,9 @@
 #define VELOCITY_NORMAL 200
 #define VELOCITY_FAST 300
 
-#define VELOCITY_ARM_MAX 100
-#define VELOCITY_ARM_INTIAL 30
-#define VELOCITY_ARM_INCREASE 1
+#define VELOCITY_ARM 100
+//#define VELOCITY_ARM_INTIAL 30
+//#define VELOCITY_ARM_INCREASE 1
 #define VELOCITY_PICKUP 100 //when checking IR signal
 
 #define TURN_SLIGHT 5
