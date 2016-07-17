@@ -6,6 +6,14 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		E9FF0D121D3B3A6800C70CD3 /* Robot.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E9FF0D101D3B3A6800C70CD3 /* Robot.cpp */; };
+		E9FF0D1B1D3B3AA300C70CD3 /* Collision.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E9FF0D191D3B3AA300C70CD3 /* Collision.cpp */; };
+		E9FF0D201D3B3ACA00C70CD3 /* IR.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E9FF0D1C1D3B3ACA00C70CD3 /* IR.cpp */; };
+		E9FF0D211D3B3ACA00C70CD3 /* Tape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E9FF0D1E1D3B3ACA00C70CD3 /* Tape.cpp */; };
+		E9FF0D271D3B40C300C70CD3 /* Actuators.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E9FF0D251D3B40C300C70CD3 /* Actuators.cpp */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXCopyFilesBuildPhase section */
 		E9FF0CF41D3B32F500C70CD3 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -32,6 +40,16 @@
 		E9FF0D0C1D3B334B00C70CD3 /* ServoTINAH.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ServoTINAH.cpp; sourceTree = "<group>"; };
 		E9FF0D0D1D3B334B00C70CD3 /* ServoTINAH.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ServoTINAH.h; sourceTree = "<group>"; };
 		E9FF0D0E1D3B339B00C70CD3 /* Config.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Config.hpp; sourceTree = "<group>"; };
+		E9FF0D101D3B3A6800C70CD3 /* Robot.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Robot.cpp; path = Robot/Robot.cpp; sourceTree = "<group>"; };
+		E9FF0D111D3B3A6800C70CD3 /* Robot.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Robot.hpp; path = Robot/Robot.hpp; sourceTree = "<group>"; };
+		E9FF0D191D3B3AA300C70CD3 /* Collision.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Collision.cpp; path = Robot/Collision.cpp; sourceTree = "<group>"; };
+		E9FF0D1A1D3B3AA300C70CD3 /* Collision.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Collision.hpp; path = Robot/Collision.hpp; sourceTree = "<group>"; };
+		E9FF0D1C1D3B3ACA00C70CD3 /* IR.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = IR.cpp; path = Robot/IR.cpp; sourceTree = "<group>"; };
+		E9FF0D1D1D3B3ACA00C70CD3 /* IR.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = IR.hpp; path = Robot/IR.hpp; sourceTree = "<group>"; };
+		E9FF0D1E1D3B3ACA00C70CD3 /* Tape.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Tape.cpp; path = Robot/Tape.cpp; sourceTree = "<group>"; };
+		E9FF0D1F1D3B3ACA00C70CD3 /* Tape.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Tape.hpp; path = Robot/Tape.hpp; sourceTree = "<group>"; };
+		E9FF0D251D3B40C300C70CD3 /* Actuators.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Actuators.cpp; path = Robot/Actuators.cpp; sourceTree = "<group>"; };
+		E9FF0D261D3B40C300C70CD3 /* Actuators.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Actuators.hpp; path = Robot/Actuators.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +85,7 @@
 			children = (
 				E9FF0D011D3B334B00C70CD3 /* TheRay.ino */,
 				E9FF0D0E1D3B339B00C70CD3 /* Config.hpp */,
+				E9FF0D0F1D3B3A5000C70CD3 /* Robot */,
 			);
 			path = TheRay;
 			sourceTree = "<group>";
@@ -86,6 +105,23 @@
 				E9FF0D0D1D3B334B00C70CD3 /* ServoTINAH.h */,
 			);
 			path = TINAH_libraries;
+			sourceTree = "<group>";
+		};
+		E9FF0D0F1D3B3A5000C70CD3 /* Robot */ = {
+			isa = PBXGroup;
+			children = (
+				E9FF0D251D3B40C300C70CD3 /* Actuators.cpp */,
+				E9FF0D261D3B40C300C70CD3 /* Actuators.hpp */,
+				E9FF0D101D3B3A6800C70CD3 /* Robot.cpp */,
+				E9FF0D111D3B3A6800C70CD3 /* Robot.hpp */,
+				E9FF0D191D3B3AA300C70CD3 /* Collision.cpp */,
+				E9FF0D1A1D3B3AA300C70CD3 /* Collision.hpp */,
+				E9FF0D1C1D3B3ACA00C70CD3 /* IR.cpp */,
+				E9FF0D1D1D3B3ACA00C70CD3 /* IR.hpp */,
+				E9FF0D1E1D3B3ACA00C70CD3 /* Tape.cpp */,
+				E9FF0D1F1D3B3ACA00C70CD3 /* Tape.hpp */,
+			);
+			name = Robot;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -144,6 +180,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E9FF0D1B1D3B3AA300C70CD3 /* Collision.cpp in Sources */,
+				E9FF0D271D3B40C300C70CD3 /* Actuators.cpp in Sources */,
+				E9FF0D201D3B3ACA00C70CD3 /* IR.cpp in Sources */,
+				E9FF0D121D3B3A6800C70CD3 /* Robot.cpp in Sources */,
+				E9FF0D211D3B3ACA00C70CD3 /* Tape.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
