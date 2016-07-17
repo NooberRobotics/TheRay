@@ -6,10 +6,6 @@
 	objectVersion = 46;
 	objects = {
 
-/* Begin PBXBuildFile section */
-		E9FF0CFA1D3B32F500C70CD3 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E9FF0CF91D3B32F500C70CD3 /* main.cpp */; };
-/* End PBXBuildFile section */
-
 /* Begin PBXCopyFilesBuildPhase section */
 		E9FF0CF41D3B32F500C70CD3 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -24,7 +20,18 @@
 
 /* Begin PBXFileReference section */
 		E9FF0CF61D3B32F500C70CD3 /* TheRay */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = TheRay; sourceTree = BUILT_PRODUCTS_DIR; };
-		E9FF0CF91D3B32F500C70CD3 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		E9FF0D011D3B334B00C70CD3 /* TheRay.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = TheRay.ino; sourceTree = "<group>"; };
+		E9FF0D041D3B334B00C70CD3 /* keywords.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = keywords.txt; sourceTree = "<group>"; };
+		E9FF0D051D3B334B00C70CD3 /* motor.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = motor.cpp; sourceTree = "<group>"; };
+		E9FF0D061D3B334B00C70CD3 /* motor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = motor.h; sourceTree = "<group>"; };
+		E9FF0D071D3B334B00C70CD3 /* phys253.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = phys253.cpp; sourceTree = "<group>"; };
+		E9FF0D081D3B334B00C70CD3 /* phys253.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = phys253.h; sourceTree = "<group>"; };
+		E9FF0D091D3B334B00C70CD3 /* phys253pins.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = phys253pins.h; sourceTree = "<group>"; };
+		E9FF0D0A1D3B334B00C70CD3 /* phys253setup.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = phys253setup.txt; sourceTree = "<group>"; };
+		E9FF0D0B1D3B334B00C70CD3 /* readme.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = readme.txt; sourceTree = "<group>"; };
+		E9FF0D0C1D3B334B00C70CD3 /* ServoTINAH.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ServoTINAH.cpp; sourceTree = "<group>"; };
+		E9FF0D0D1D3B334B00C70CD3 /* ServoTINAH.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ServoTINAH.h; sourceTree = "<group>"; };
+		E9FF0D0E1D3B339B00C70CD3 /* Config.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Config.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -41,7 +48,8 @@
 		E9FF0CED1D3B32F500C70CD3 = {
 			isa = PBXGroup;
 			children = (
-				E9FF0CF81D3B32F500C70CD3 /* TheRay */,
+				E9FF0D001D3B334B00C70CD3 /* TheRay */,
+				E9FF0D021D3B334B00C70CD3 /* TINAH_libraries */,
 				E9FF0CF71D3B32F500C70CD3 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -54,12 +62,30 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		E9FF0CF81D3B32F500C70CD3 /* TheRay */ = {
+		E9FF0D001D3B334B00C70CD3 /* TheRay */ = {
 			isa = PBXGroup;
 			children = (
-				E9FF0CF91D3B32F500C70CD3 /* main.cpp */,
+				E9FF0D011D3B334B00C70CD3 /* TheRay.ino */,
+				E9FF0D0E1D3B339B00C70CD3 /* Config.hpp */,
 			);
 			path = TheRay;
+			sourceTree = "<group>";
+		};
+		E9FF0D021D3B334B00C70CD3 /* TINAH_libraries */ = {
+			isa = PBXGroup;
+			children = (
+				E9FF0D041D3B334B00C70CD3 /* keywords.txt */,
+				E9FF0D051D3B334B00C70CD3 /* motor.cpp */,
+				E9FF0D061D3B334B00C70CD3 /* motor.h */,
+				E9FF0D071D3B334B00C70CD3 /* phys253.cpp */,
+				E9FF0D081D3B334B00C70CD3 /* phys253.h */,
+				E9FF0D091D3B334B00C70CD3 /* phys253pins.h */,
+				E9FF0D0A1D3B334B00C70CD3 /* phys253setup.txt */,
+				E9FF0D0B1D3B334B00C70CD3 /* readme.txt */,
+				E9FF0D0C1D3B334B00C70CD3 /* ServoTINAH.cpp */,
+				E9FF0D0D1D3B334B00C70CD3 /* ServoTINAH.h */,
+			);
+			path = TINAH_libraries;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -118,7 +144,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E9FF0CFA1D3B32F500C70CD3 /* main.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
