@@ -110,10 +110,10 @@
 		E9FF0D0F1D3B3A5000C70CD3 /* Robot */ = {
 			isa = PBXGroup;
 			children = (
-				E9FF0D251D3B40C300C70CD3 /* Actuators.cpp */,
-				E9FF0D261D3B40C300C70CD3 /* Actuators.hpp */,
 				E9FF0D101D3B3A6800C70CD3 /* Robot.cpp */,
 				E9FF0D111D3B3A6800C70CD3 /* Robot.hpp */,
+				E9FF0D251D3B40C300C70CD3 /* Actuators.cpp */,
+				E9FF0D261D3B40C300C70CD3 /* Actuators.hpp */,
 				E9FF0D191D3B3AA300C70CD3 /* Collision.cpp */,
 				E9FF0D1A1D3B3AA300C70CD3 /* Collision.hpp */,
 				E9FF0D1C1D3B3ACA00C70CD3 /* IR.cpp */,

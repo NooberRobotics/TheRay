@@ -74,6 +74,9 @@
 #define VELOCITY_ARM_INCREASE 1
 #define VELOCITY_PICKUP 100 //when checking IR signal
 
+#define TURN_SLIGHT 5
+#define TURN_HARD 15
+
 // CALIBRATION
 
 #define FINGER_MOTION_DURATION 500 // in milliseconds
