@@ -5,8 +5,8 @@
 //  Copyright © 2016 Noober Robotics. All rights reserved.
 //
 
-#ifndef _CONFIG
-#define _CONFIG
+#ifndef Config_hpp
+#define Config_hpp
 
 #define KP 38;
 #define KD 47;

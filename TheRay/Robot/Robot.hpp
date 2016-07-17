@@ -9,6 +9,14 @@
 #ifndef Robot_hpp
 #define Robot_hpp
 
-#include <stdio.h>
+#include "Actuators.hpp"
+#include "Collision.hpp"
+#include "IR.hpp"
+#include "Tape.hpp"
+
+class Robot {
+public:
+    
+};
 
 #endif /* Robot_hpp */
