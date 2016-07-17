@@ -14,27 +14,29 @@
 #include "phys253.h"
 #endif
 
-#ifndef Config_hpp
-#define Config_hpp
 #include "Config.hpp"
-#endif
 
-void turnInPlace(int turnAngle);
-void drive(Velocity velocity, bool turnRight, Turn turn, bool reverse = false);
 
-enum Velocity {
+enum Velocity : int {
     Stop = 0,
     Slow = VELOCITY_SLOW,
     Normal = VELOCITY_NORMAL,
     Fast = VELOCITY_FAST
 };
 
-enum Turn {
+enum Turn : int {
     Straight = 0,
-    SlightRight = 0,
-    SlightLeft = 0,
-    HardRight = 0
+    SlightRight = TURN_SLIGHT,
+    SlightLeft = -TURN_SLIGHT,
+    HardRight = TURN_HARD,
+    HardLeft = -TURN_HARD
 };
 
+void turnInPlace(int turnAngle);
+void drive(Velocity velocity, bool turnRight, Turn turn, bool reverse = false);
+void raiseArm();
+void lowerArm();
+void openClaw();
+void closeClaw();
 
 #endif /* Actuators_hpp */
