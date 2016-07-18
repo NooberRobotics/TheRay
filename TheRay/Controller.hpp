@@ -7,8 +7,10 @@
 
 #ifndef Controller_hpp
 #define Controller_hpp
+
 #include "Robot.hpp"
 #include <stdio.h>
+
 
 class Controller {
     
@@ -32,6 +34,5 @@ public:
         execution();
     }
 };
-
 
 #endif /* Controller_hpp */

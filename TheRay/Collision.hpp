@@ -19,9 +19,7 @@ namespace Collision {
         Right,
         Both,
     };
-
-
-
+    
     Result check();
 };
 

@@ -10,9 +10,9 @@
 
 #include "Config.hpp"
 
-#include "ServoTINAH.h"
-#include "motor.h"
 #include <Arduino.h>
+#include <phys253.h>
+
 
 namespace Actuators {
    
