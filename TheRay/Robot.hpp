@@ -12,7 +12,7 @@
 #include "Collision.hpp"
 #include "IR.hpp"
 #include "Tape.hpp"
-
+#include <Arduino.h>
 
 class Robot {
     

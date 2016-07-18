@@ -7,25 +7,29 @@
 
 #include "Robot.hpp"
 
+
 void Robot::drive() {
     
     switch (IR::check()) {
         case IR::None:
-            
+            Serial.print("none");
             break;
         case IR::WeakLeft:
-            
+            Serial.print("weak left");
             break;
         case IR::WeakRight:
-            
+            Serial.print("weak right");
+
             break;
         case IR::StrongLeft:
-            
-            //pickUpPassenger(false);
+            Serial.print("strong left");
+
+            Robot::pickUpPassenger(false);
             break;
         case IR::StrongRight:
-            
-            //pickUpPassenger(true);
+            Serial.print("strong right");
+
+            Robot::pickUpPassenger(true);
             break;
     }
     
@@ -62,6 +66,7 @@ bool Robot::pickUpPassenger(bool rightSide) {
     
     int approachStartTime = millis();
     Actuators::Velocity velocity = Actuators::Slow;
+    
     Actuators::drive(velocity, Actuators::Straight);
     
     while (Collision::check() == Collision::None) {} // wait until both are tripped //TODO: change to allow for one tripping...
@@ -95,6 +100,6 @@ void Robot::evade() {
     
     Actuators::drive(Actuators::Slow, Actuators::Straight, true);
     delay(500);
-    Actuators::turnInPlace(180);
+    Actuators::turnInPlace(170);
     drive();
 }
