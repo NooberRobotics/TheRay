@@ -21,11 +21,12 @@ void Robot::drive() {
             break;
         case IR::StrongLeft:
             
-            pickUpPassenger(false);
+            //pickUpPassenger(false);
             break;
         case IR::StrongRight:
             
-            pickUpPassenger(true);
+            //pickUpPassenger(true);
+           
             break;
             break;
     }
@@ -34,13 +35,13 @@ void Robot::drive() {
         case Collision::None:
             break;
         case Collision::Both:
-            evade();
+            //evade();
             break;
         case Collision::Left:
-            evade();
+            //evade();
             break;
         case Collision::Right:
-            evade();
+            //evade();
             break;
     }
     

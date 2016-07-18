@@ -40,18 +40,18 @@
 
 // TOUCH SWITCHES (DIGITAL)
 
-#define TOUCH_SWITCH_RIGHT 4
-#define TOUCH_SWITCH_LEFT 3
+#define TOUCH_SWITCH_RIGHT 0
+#define TOUCH_SWITCH_LEFT 1
 #define TOUCH_SWITCH_BACK 5
-#define TOUCH_SWITCH_ARM_UP 2 //lower switch
-#define TOUCH_SWITCH_ARM_DOWN 3 //upper switch
+#define TOUCH_SWITCH_ARM_UP 5 //lower switch
+#define TOUCH_SWITCH_ARM_DOWN 4 //upper switch
 
 // MOTORS
 
 #define MOTOR_SERVO 0
-#define MOTOR_RIGHT 1
-#define MOTOR_LEFT 0 
-#define MOTOR_ARM 2
+#define MOTOR_RIGHT 2
+#define MOTOR_LEFT 1
+#define MOTOR_ARM 0
 
 // Positive for right is forward, negative for left is forward
 #define MOTOR_ARM_SIGN_UP 1
