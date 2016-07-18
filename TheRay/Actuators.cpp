@@ -67,4 +67,10 @@ void openClaw() {
 void closeClaw() {
     ServoTINAH RCServo0;
     RCServo0.write(SERVO_CLOSED);
+    
+}
+void stop(){
+    motorClass motor = motorClass();
+    motor.speed(MOTOR_LEFT, 0);
+    motor.speed(MOTOR_RIGHT, 0);
 }

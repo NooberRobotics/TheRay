@@ -11,20 +11,19 @@
 #include "Config.hpp"
 #include <Arduino.h>
 
-class Collision {
+namespace Collision {
     
-public:
-
     enum Result {
         None,
         Left,
         Right,
         Both,
     };
-    
-    Result check();
-}
 
+
+
+    Result check();
+};
 
 
 #endif /* Collision_hpp */

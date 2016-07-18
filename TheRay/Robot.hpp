@@ -17,13 +17,9 @@
 class Robot {
     
 public:
- 
-    bool pickUpPassenger(bool rightSide);
-    Status drive()
     
-    
-    
-    
+    void drive();
+    void PickUpPassenger(bool rightSide);
     
 };
 
@@ -33,8 +29,6 @@ enum Status {
     IRRight,
     IRLeft,
     Intersection
-    
-    
 };
 
 #endif /* Robot_hpp */

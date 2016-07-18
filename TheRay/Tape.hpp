@@ -11,9 +11,8 @@
 #include "Config.hpp"
 #include <Arduino.h>
 
-class Tape {
+namespace Tape {
        
-public:
     
     class Directions {
     public:

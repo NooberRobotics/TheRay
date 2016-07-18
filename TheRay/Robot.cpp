@@ -9,7 +9,7 @@
 
 void Robot::drive() {
     
-    switch (ir.check()) {
+    switch (IR::check()) {
         case IR::None:
             
             break;
@@ -27,7 +27,7 @@ void Robot::drive() {
             break;
     }
     
-    switch (collision.check()) {
+    switch (Collision::check()) {
         case Collision::None:
             break;
         case Collision::Both:
@@ -41,32 +41,47 @@ void Robot::drive() {
             break;
     }
     
-    Tape::Directions intersection = tape.intersection();
+    Tape::Directions intersection = Tape::intersection();
     if (intersection.left == true || intersection.right == true) {
         //we have intersection. handle!
     }
     
-    actuators.drive(Actuators::Normal, tape.driveCorrection()); //TODO: change speed
+    Actuators::drive(Actuators::Normal, Tape::driveCorrection()); //TODO: change speed
     
 }
 
 void Robot::PickUpPassenger(bool rightSide) {
     
-    int turnAngle = rightSide ? -90 : 90;
-    actuators.turnInPlace(turnAngle);
+    int turnAngle = rightSide ? 90 : -90;
     
-    actuators.openClaw();
-    actuators.lowerArm();
     
-    actuators.drive(Actuators::Slow, Actuators::Turn::Straight);
+    Actuators::turnInPlace(turnAngle);
     
-    while (collision.check() != Collision::Both) {} // wait until both are tripped //TODO: change to allow for one tripping...
+    Actuators::openClaw();
+    Actuators::lowerArm();
     
-    actuators.closeClaw();
-    //TODO: add delay to ensure law is closed properly before arm lifts
-    actuators.raiseArm();
+    int approachStartTime = millis();
+    Actuators::drive(Actuators::Slow, Actuators::Straight);
     
-    actuators.drive(Actuators::Slow, Actuators::Straight, true);
+    while (Collision::check() != Collision::Both) {} // wait until both are tripped //TODO: change to allow for one tripping...
+    int approachTime = millis() - approachStartTime;
+    Actuators::stop();
+    
+    Actuators::closeClaw();
+    
+    //TODO: add delay to ensure claw is closed properly before arm lifts
+    
+    delay(SERVO_OPERATION_TIME);
+    
+    Actuators::raiseArm();
+    
+    IR::check();
+    
+    Actuators::drive(Actuators::Slow, Actuators::Straight, true);
+    delay(approachTime);
+    Actuators::stop();
+    
+    
     
     // TODO: add delay until any QRD sensor reading
     

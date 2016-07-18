@@ -25,4 +25,9 @@ IR::Result IR::check() {
         if(left > THRESH_HIGH_IR) return IR::Result(StrongLeft);
         return IR::Result(WeakLeft);
     }
+
+}
+
+bool IR::frontDetected() {
+    return (analogRead(IR_MIDLEFT) > THRESH_FRONT_IR) || (analogRead(IR_MIDRIGHT) > THRESH_FRONT_IR);
 }

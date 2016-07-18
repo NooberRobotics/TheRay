@@ -17,6 +17,7 @@
 #define THRESH_QRD 150
 #define THRESH_LOW_IR 5
 #define THRESH_HIGH_IR 30
+#define THRESH_FRONT_IR 30
 
 // QRD (ANALOG)
 
@@ -61,6 +62,7 @@
 
 #define SERVO_OPEN 100
 #define SERVO_CLOSED 10
+#define SERVO_OPERATION_TIME 500 //millis
 
 // VELOCITIES
 
@@ -71,8 +73,6 @@
 #define VELOCITY_FAST 300
 
 #define VELOCITY_ARM 100
-//#define VELOCITY_ARM_INTIAL 30
-//#define VELOCITY_ARM_INCREASE 1
 #define VELOCITY_PICKUP 100 //when checking IR signal
 
 #define TURN_SLIGHT 5

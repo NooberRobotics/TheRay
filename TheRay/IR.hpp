@@ -11,9 +11,7 @@
 #include "Config.hpp"
 #include <Arduino.h>
 
-class IR {
-    
-public:
+namespace IR {
     
     enum Result {
         None,
@@ -24,8 +22,9 @@ public:
     };
   
     Result check();
+    bool frontDetected();
     
-}
+};
 
 
 #endif /* IR_hpp */

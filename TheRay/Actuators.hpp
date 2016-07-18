@@ -14,12 +14,9 @@
 #include "motor.h"
 #include <Arduino.h>
 
-class Actuators {
+namespace Actuators {
    
-public:
-
     enum Velocity : int {
-        Stop = 0,
         Slow = VELOCITY_SLOW,
         Normal = VELOCITY_NORMAL,
         Fast = VELOCITY_FAST
@@ -40,8 +37,9 @@ public:
     void lowerArm();
     void openClaw();
     void closeClaw();
+    void stop();
 
-}
+};
 
 
 #endif /* Actuators_hpp */

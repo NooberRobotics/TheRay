@@ -7,6 +7,8 @@
 
 #include "Collision.hpp"
 
+
+
 Collision::Result Collision::check() {
     
     bool left = analogRead(TOUCH_SWITCH_LEFT);
@@ -18,3 +20,6 @@ Collision::Result Collision::check() {
     else if (right) return Collision::Right;
     else return Collision::None;
 }
+
+
+
