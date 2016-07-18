@@ -44,15 +44,16 @@ void Actuators::drive(Actuators::Velocity velocity, Actuators::Turn turn, bool r
 }
 
 void Actuators::raiseArm() {
-    while ( !TOUCH_SWITCH_ARM_UP ){
+    while ( digitalRead(TOUCH_SWITCH_ARM_UP) ){
         motor.speed(MOTOR_ARM, VELOCITY_ARM * MOTOR_ARM_SIGN_UP);
     }
 }
 
 void Actuators::lowerArm() {
-    while ( !TOUCH_SWITCH_ARM_DOWN ){
+    while ( digitalRead(TOUCH_SWITCH_ARM_DOWN)){
         motor.speed(MOTOR_ARM, -VELOCITY_ARM * MOTOR_ARM_SIGN_UP);
     }
+    
 }
 
 void Actuators::openClaw() {
