@@ -50,21 +50,21 @@ void drive(Actuators::Velocity velocity, bool turnRight, Actuators::Turn turn, b
         leftSpeed = -leftSpeed;
     }
     
-    motor.speed(MOTOR_LEFT, rightSpeed);
-    motor.speed(MOTOR_RIGHT, leftSpeed);
+    motor.speed(MOTOR_LEFT, leftSpeed * MOTOR_LEFT_SIGN_UP);
+    motor.speed(MOTOR_RIGHT, rightSpeed * MOTOR_RIGHT_SIGN_UP);
 }
 
 void raiseArm() {
     motorClass motor = motorClass();
     while ( !TOUCH_SWITCH_ARM_UP ){
-        motor.speed(MOTOR_ARM, VELOCITY_ARM);
+        motor.speed(MOTOR_ARM, VELOCITY_ARM * MOTOR_ARM_SIGN_UP);
     }
 }
 
 void lowerArm() {
     motorClass motor = motorClass();
     while ( !TOUCH_SWITCH_ARM_DOWN ){
-        motor.speed(MOTOR_ARM, -VELOCITY_ARM);
+        motor.speed(MOTOR_ARM, -VELOCITY_ARM * MOTOR_ARM_SIGN_UP);
     }
 }
 
