@@ -10,6 +10,7 @@
 
 #include "Config.hpp"
 
+#include "ServoTINAH.h"
 #include "motor.h"
 #include <Arduino.h>
 
