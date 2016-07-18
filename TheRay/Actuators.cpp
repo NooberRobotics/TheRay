@@ -7,7 +7,7 @@
 
 #include "Actuators.hpp"
 
-void turnInPlace(int turnAngle) {
+void Actuators::turnInPlace(int turnAngle) {
     // positive angle -> cv/rigth turn
     motorClass motor = motorClass();
 
@@ -23,14 +23,14 @@ void turnInPlace(int turnAngle) {
     delay(turnAngle * TURN_IN_PLACE_DURATION + TURN_IN_PLACE_CONSTANT);
 }
 
-void drive(Actuators::Velocity velocity, int turn) {
+void Actuators::drive(Actuators::Velocity velocity, int turn) {
     motorClass motor = motorClass();
 
     motor.speed(MOTOR_LEFT, velocity + turn);
     motor.speed(MOTOR_RIGHT, velocity - turn);
 }
 
-void drive(Actuators::Velocity velocity, Actuators::Turn turn, bool reverse = false) {
+void Actuators::drive(Actuators::Velocity velocity, Actuators::Turn turn, bool reverse) {
     motorClass motor = motorClass();
 
     int rightSpeed = velocity - turn;
@@ -45,31 +45,31 @@ void drive(Actuators::Velocity velocity, Actuators::Turn turn, bool reverse = fa
     motor.speed(MOTOR_RIGHT, rightSpeed * MOTOR_RIGHT_SIGN_UP);
 }
 
-void raiseArm() {
+void Actuators::raiseArm() {
     motorClass motor = motorClass();
     while ( !TOUCH_SWITCH_ARM_UP ){
         motor.speed(MOTOR_ARM, VELOCITY_ARM * MOTOR_ARM_SIGN_UP);
     }
 }
 
-void lowerArm() {
+void Actuators::lowerArm() {
     motorClass motor = motorClass();
     while ( !TOUCH_SWITCH_ARM_DOWN ){
         motor.speed(MOTOR_ARM, -VELOCITY_ARM * MOTOR_ARM_SIGN_UP);
     }
 }
 
-void openClaw() {
+void Actuators::openClaw() {
     ServoTINAH RCServo0;
     RCServo0.write(SERVO_OPEN);
 }
 
-void closeClaw() {
+void Actuators::closeClaw() {
     ServoTINAH RCServo0;
     RCServo0.write(SERVO_CLOSED);
     
 }
-void stop(){
+void Actuators::stop(){
     motorClass motor = motorClass();
     motor.speed(MOTOR_LEFT, 0);
     motor.speed(MOTOR_RIGHT, 0);

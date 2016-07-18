@@ -44,10 +44,10 @@ void Robot::drive() {
             break;
     }
     
-    Tape::Directions intersection = Tape::intersection();
-    if (intersection.left == true || intersection.right == true) {
-        //we have intersection. handle!
-    }
+    //Tape::Directions intersection = Tape::intersection();
+//    if (intersection.left == true || intersection.right == true) {
+//        //we have intersection. handle!
+//    }
     
     Actuators::drive(Actuators::Normal, Tape::driveCorrection()); //TODO: change speed
     

@@ -84,34 +84,34 @@ public:
 Sensor sensors[] = { Sensor(Left), Sensor(MidLeft), Sensor(MidRight), Sensor(Right) };
 
 // Intersection detection call, returns structure containing whether left sensor, right sensor or either center sensor has been on tape within the INTERSECTION_TIME
-
-Tape::Directions Tape::intersection() {
-    
-    Tape::Directions directions = Directions();
-    
-    for (int i = 0; i<4; i++) {
-        
-        sensors[i].update();
-        
-        if (sensors[i].onTape) {
-            switch (sensors[i].position) {
-                case Left:
-                    directions.left = true;
-                    break;
-                case MidLeft:
-                    directions.centre = true;
-                    break;
-                case MidRight:
-                    directions.centre = true;
-                    break;
-                case Right:
-                    directions.right = true;
-                    break;
-            }
-        }
-    }
-    
-    return directions;
-}
+//
+//Tape::Directions Tape::intersection() {
+//    
+//    Tape::Directions directions = Directions();
+//    
+//    for (int i = 0; i<4; i++) {
+//        
+//        sensors[i].update();
+//        
+//        if (sensors[i].onTape) {
+//            switch (sensors[i].position) {
+//                case Left:
+//                    directions.left = true;
+//                    break;
+//                case MidLeft:
+//                    directions.centre = true;
+//                    break;
+//                case MidRight:
+//                    directions.centre = true;
+//                    break;
+//                case Right:
+//                    directions.right = true;
+//                    break;
+//            }
+//        }
+//    }
+//    
+//    return directions;
+//}
 
 
