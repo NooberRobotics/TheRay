@@ -10,7 +10,7 @@
 #define IR_hpp
 
 #include "Config.hpp"
-#include "Arduino.h"
+#include <Arduino.h>
 
 namespace IR {
     

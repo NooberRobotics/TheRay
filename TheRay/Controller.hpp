@@ -2,7 +2,6 @@
 //  Controller.hpp
 //  TheRay
 //
-//  Created by Morten Kals on 17/07/2016.
 //  Copyright © 2016 Noober. All rights reserved.
 //
 
@@ -25,7 +24,6 @@ class Controller {
     enum Turn {
         Left, Right, Straight
     };
-    
     
 public:
     

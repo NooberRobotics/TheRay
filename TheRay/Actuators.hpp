@@ -12,7 +12,6 @@
 
 #include "motor.h"
 #include <Arduino.h>
-#include "ServoTINAH.h"
 
 namespace Actuators {
     
