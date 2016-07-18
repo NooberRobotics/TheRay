@@ -14,18 +14,16 @@ IR::Result IR::check() {
     int right = analogRead(IR_RIGHT);
     
     if (left < THRESH_LOW_IR && right < THRESH_LOW_IR){
-        return IR::Result(None);
+        return IR::None;
     }
     
     if (right >= left){
-        if(right > THRESH_HIGH_IR) return IR::Result(StrongRight);
-        return IR::Result(WeakRight);
+        if(right > THRESH_HIGH_IR) { return IR::StrongRight; }
+        return IR::WeakRight;
+    } else {
+        if(left > THRESH_HIGH_IR) { return IR::StrongLeft; }
+        return IR::WeakLeft;
     }
-    else if(left > right){
-        if(left > THRESH_HIGH_IR) return IR::Result(StrongLeft);
-        return IR::Result(WeakLeft);
-    }
-
 }
 
 bool IR::frontDetected() {
