@@ -59,6 +59,7 @@ enum Position { Left = QRD_LEFT, MidLeft = QRD_MIDLEFT, MidRight = QRD_MIDRIGHT,
 
 class Sensor {
 public:
+    
     Sensor(Position position) {
         this->position = position;
     }

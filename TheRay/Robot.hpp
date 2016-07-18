@@ -16,13 +16,23 @@
 
 class Robot {
     
-    
-    
-    
 public:
+ 
+    bool pickUpPassenger(bool rightSide);
+    Status drive()
     
     
     
+    
+    
+};
+
+enum Status {
+    CollisionRight,
+    CollisionLeft,
+    IRRight,
+    IRLeft,
+    Intersection
     
     
 };
