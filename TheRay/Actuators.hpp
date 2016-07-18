@@ -14,8 +14,10 @@
 #include "motor.h"
 #include <Arduino.h>
 
-namespace Actuators {
-    
+class Actuators {
+   
+public:
+
     enum Velocity : int {
         Stop = 0,
         Slow = VELOCITY_SLOW,
@@ -33,7 +35,7 @@ namespace Actuators {
     
     void turnInPlace(int turnAngle);
     void drive(Velocity velocity, int turn);
-    void drive(Velocity velocity, bool turnRight, Turn turn, bool reverse = false);
+    void drive(Velocity velocity, Turn turn, bool reverse = false);
     void raiseArm();
     void lowerArm();
     void openClaw();

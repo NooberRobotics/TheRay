@@ -16,6 +16,5 @@ Collision::Result Collision::check() {
     if (left && right) return Collision::Both;
     else if (left) return Collision::Left;
     else if (right) return Collision::Right;
-    else if (back) return Collision::Back;
     else return Collision::None;
 }

@@ -11,14 +11,15 @@
 #include "Config.hpp"
 #include <Arduino.h>
 
-namespace Collision {
+class Collision {
     
+public:
+
     enum Result {
         None,
         Left,
         Right,
         Both,
-        Back
     };
     
     Result check();
