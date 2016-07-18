@@ -86,9 +86,12 @@ bool Robot::pickUpPassenger(bool rightSide) {
 
 void Robot::dropOffPassenger(bool rightSide) {
     
+    
 }
 
 void Robot::evade() {
     
-    
+    Actuators::drive(Actuators::Slow, Actuators::Straight, true);
+    delay(500);
+    Actuators::turnInPlace(180);
 }
