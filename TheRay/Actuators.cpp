@@ -69,10 +69,10 @@ void lowerArm() {
 
 void openClaw() {
     ServoTINAH RCServo0;
-    RCServo0.write(100);
+    RCServo0.write(SERVO_OPEN);
 }
 
 void closeClaw() {
-    RCServo0.write(SERVO_OPEN);
+    ServoTINAH RCServo0;
     RCServo0.write(SERVO_CLOSED);
 }
