@@ -30,19 +30,11 @@ void drive(Actuators::Velocity velocity, int turn) {
     motor.speed(MOTOR_RIGHT, velocity - turn);
 }
 
-void drive(Actuators::Velocity velocity, bool turnRight, Actuators::Turn turn, bool reverse = false) {
+void drive(Actuators::Velocity velocity, Actuators::Turn turn, bool reverse = false) {
     motorClass motor = motorClass();
 
-    int rightSpeed = velocity;
-    int leftSpeed = velocity;
-    
-    if (turnRight) {
-        rightSpeed = rightSpeed - turn;
-        leftSpeed = leftSpeed + turn;
-    } else {
-        rightSpeed = rightSpeed + turn;
-        leftSpeed = leftSpeed - turn;
-    }
+    int rightSpeed = velocity - turn;
+    int leftSpeed = velocity + turn;
     
     if (reverse) {
         rightSpeed = -rightSpeed;

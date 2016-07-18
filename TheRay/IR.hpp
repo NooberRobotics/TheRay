@@ -12,7 +12,9 @@
 #include "Config.hpp"
 #include <Arduino.h>
 
-namespace IR {
+class IR {
+    
+public:
     
     enum Result {
         None,

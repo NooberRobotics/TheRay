@@ -16,13 +16,15 @@
 
 class Robot {
     
-    
-    
+    Actuators actuators = Actuators();
+    Collision collision = Collision();
+    IR ir = IR();
+    Tape tape = Tape();
     
 public:
     
-    
-    
+    void drive();
+    void PickUpPassenger(bool rightSide);
     
     
 };
