@@ -32,6 +32,7 @@ namespace Tape {
     
     int driveCorrection();
     Directions intersection();
+    bool tapePresent();
 };
 
 
