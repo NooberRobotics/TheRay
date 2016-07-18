@@ -19,8 +19,9 @@ class Robot {
 public:
     
     void drive();
-    void PickUpPassenger(bool rightSide);
-    
+    bool pickUpPassenger(bool rightSide);
+    void dropOffPassenger(bool rightSide);
+    void evade();
 };
 
 enum Status {

@@ -50,41 +50,45 @@ void Robot::drive() {
     
 }
 
-void Robot::PickUpPassenger(bool rightSide) {
+bool Robot::pickUpPassenger(bool rightSide) {
     
     int turnAngle = rightSide ? 90 : -90;
-    
-    
     Actuators::turnInPlace(turnAngle);
     
     Actuators::openClaw();
     Actuators::lowerArm();
     
     int approachStartTime = millis();
-    Actuators::drive(Actuators::Slow, Actuators::Straight);
+    Actuators::Velocity velocity = Actuators::Slow;
+    Actuators::drive(velocity, Actuators::Straight);
     
-    while (Collision::check() != Collision::Both) {} // wait until both are tripped //TODO: change to allow for one tripping...
+    while (Collision::check() == Collision::None) {} // wait until both are tripped //TODO: change to allow for one tripping...
+    
     int approachTime = millis() - approachStartTime;
+   
     Actuators::stop();
     
     Actuators::closeClaw();
-    
-    //TODO: add delay to ensure claw is closed properly before arm lifts
     
     delay(SERVO_OPERATION_TIME);
     
     Actuators::raiseArm();
     
-    IR::check();
+    bool successful = !IR::frontDetected();
     
-    Actuators::drive(Actuators::Slow, Actuators::Straight, true);
+    Actuators::drive(velocity, Actuators::Straight, true);
     delay(approachTime);
+    
     Actuators::stop();
     
+    return successful;
+}
+
+void Robot::dropOffPassenger(bool rightSide) {
+    
+}
+
+void Robot::evade() {
     
     
-    // TODO: add delay until any QRD sensor reading
-    
-    // TODO: initiate tapefollow algorithm with appripriate direction as preffered
-        
 }
