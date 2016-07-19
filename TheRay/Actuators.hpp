@@ -30,7 +30,7 @@ namespace Actuators {
         HardLeft = -TURN_HARD
     };
     
-    void turnInPlace(int turnAngle);
+    void turnInPlace(int duration);
     void drive(Velocity velocity, int turn);
     void drive(Velocity velocity, Turn turn, bool reverse = false);
     void raiseArm();

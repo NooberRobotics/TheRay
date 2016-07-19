@@ -61,9 +61,9 @@ Status Robot::cruise() {
 }
 
 Status Robot::pickUpPassenger(bool rightSide) {
-    
-    int turnAngle = rightSide ? 90 : -90;
-    Actuators::turnInPlace(turnAngle);
+    int duration = TURN_FOR_PASSENGER_PICKUP_DURATION;
+    int turnDuration = rightSide ? duration : -duration;
+    Actuators::turnInPlace(turnDuration);
     
     Actuators::openClaw();
     Actuators::lowerArm();

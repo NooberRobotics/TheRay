@@ -9,7 +9,7 @@
 #include "Actuators.hpp"
 
 
-void Actuators::turnInPlace(int turnAngle) {
+void Actuators::turnInPlace(int duration) {
     
     Actuators::stop();
     delay(STOP_FOR_TURNING_DURATION);
@@ -22,11 +22,9 @@ void Actuators::turnInPlace(int turnAngle) {
         motor.speed(MOTOR_RIGHT, TURN_IN_PLACE_VELOCITY);
         motor.speed(MOTOR_LEFT, -TURN_IN_PLACE_VELOCITY);
     }
-
-    Serial.println(abs(turnAngle) * TURN_IN_PLACE_DURATION + TURN_IN_PLACE_CONSTANT);
     
     // Delay factor determined experimentally
-    delay( abs(turnAngle) * TURN_IN_PLACE_DURATION + TURN_IN_PLACE_CONSTANT);
+    delay( duration );
 }
 
 void Actuators::drive(Actuators::Velocity velocity, int turn) {

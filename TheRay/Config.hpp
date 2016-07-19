@@ -79,12 +79,12 @@
 #define TURN_HARD 15
 
 #define TURN_IN_PLACE_VELOCITY 100
-#define TURN_IN_PLACE_DURATION 2.5 //multiply by angle to get duration
-#define TURN_IN_PLACE_CONSTANT 0 // constnat added to product of angle and duration to accunt for delay in
+#define TURN_FOR_PASSENGER_PICKUP_DURATION 500;
 
 #define STOP_FOR_TURNING_DURATION 1000
 
 // CALIBRATION
+
 
 #define FINGER_MOTION_DURATION 500 // in milliseconds
 #define PICKUP_CALIBRATION_DISTANCE 0.01 //meters
