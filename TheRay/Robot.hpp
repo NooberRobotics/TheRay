@@ -14,6 +14,17 @@
 #include "Tape.hpp"
 #include <Arduino.h>
 
+enum Status {
+    Collided,
+    IRRight,
+    IRLeft,
+    Intersection,
+    PickupSuccessful,
+    PickupFailed,
+    DroppedOff
+};
+
+
 class Robot {
     
 public:
@@ -30,14 +41,5 @@ public:
     void evade();
 };
 
-enum Status {
-    Collided,
-    IRRight,
-    IRLeft,
-    Intersection,
-    PickupSuccessful,
-    PickupFailed,
-    DroppedOff
-};
 
 #endif /* Robot_hpp */

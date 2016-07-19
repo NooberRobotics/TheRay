@@ -15,7 +15,7 @@
 class Controller {
     
 public:
-    Controller();
+    
     
     Robot robot = Robot();
     void execution();
@@ -31,7 +31,7 @@ public:
         Left, Right, Straight
     };
     
-public:
+
     
     Controller() {
         execution();
