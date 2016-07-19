@@ -11,6 +11,9 @@
 
 void Actuators::turnInPlace(int turnAngle) {
     
+    Actuators::stop();
+    delay(STOP_FOR_TURNING_DURATION);
+    
     // positive angle -> cv/rigth turn
     if (turnAngle > 0) {
         motor.speed(MOTOR_RIGHT, -TURN_IN_PLACE_VELOCITY);
@@ -20,8 +23,10 @@ void Actuators::turnInPlace(int turnAngle) {
         motor.speed(MOTOR_LEFT, -TURN_IN_PLACE_VELOCITY);
     }
 
+    Serial.println(abs(turnAngle) * TURN_IN_PLACE_DURATION + TURN_IN_PLACE_CONSTANT);
+    
     // Delay factor determined experimentally
-    delay(turnAngle * TURN_IN_PLACE_DURATION + TURN_IN_PLACE_CONSTANT);
+    delay( abs(turnAngle) * TURN_IN_PLACE_DURATION + TURN_IN_PLACE_CONSTANT);
 }
 
 void Actuators::drive(Actuators::Velocity velocity, int turn) {
@@ -44,16 +49,15 @@ void Actuators::drive(Actuators::Velocity velocity, Actuators::Turn turn, bool r
 }
 
 void Actuators::raiseArm() {
-    while ( digitalRead(TOUCH_SWITCH_ARM_UP) ){
-        motor.speed(MOTOR_ARM, VELOCITY_ARM * MOTOR_ARM_SIGN_UP);
-    }
+    motor.speed(MOTOR_ARM, VELOCITY_ARM * MOTOR_ARM_SIGN_UP);
+    while (digitalRead(TOUCH_SWITCH_ARM_UP)){}
+    motor.speed(MOTOR_ARM, 0);
 }
 
 void Actuators::lowerArm() {
-    while ( digitalRead(TOUCH_SWITCH_ARM_DOWN)){
-        motor.speed(MOTOR_ARM, -VELOCITY_ARM * MOTOR_ARM_SIGN_UP);
-    }
-    
+    motor.speed(MOTOR_ARM, -VELOCITY_ARM * MOTOR_ARM_SIGN_UP);
+    while (digitalRead(TOUCH_SWITCH_ARM_DOWN)){}
+    motor.speed(MOTOR_ARM, 0);
 }
 
 void Actuators::openClaw() {

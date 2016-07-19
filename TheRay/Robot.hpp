@@ -18,6 +18,8 @@ class Robot {
     
 public:
     
+    Robot();
+    
     void drive();
     bool pickUpPassenger(bool rightSide);
     void dropOffPassenger(bool rightSide);

@@ -16,10 +16,11 @@ void setup() {
     Serial.begin(9600);
     
     RCServo0.write(70);
+    
+    Robot robot = Robot();
+    robot.drive();
 }
 
 void loop() {
 
-    Robot robot = Robot();
-    robot.drive();
 }

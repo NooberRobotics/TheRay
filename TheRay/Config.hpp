@@ -16,7 +16,7 @@
 
 #define THRESH_QRD 150
 #define THRESH_LOW_IR 5
-#define THRESH_HIGH_IR 30
+#define THRESH_HIGH_IR 70
 #define THRESH_FRONT_IR 30
 
 // QRD (ANALOG)
@@ -28,10 +28,10 @@
 
 // IR (ANALOG)
 
-#define IR_RIGHT 3
-#define IR_LEFT 0
-#define IR_MIDRIGHT 2
-#define IR_MIDLEFT 1
+#define IR_RIGHT 0
+#define IR_MIDRIGHT 1
+#define IR_MIDLEFT 2
+#define IR_LEFT 3
 
 // ULTRASONIC (DIGITAL)
 
@@ -54,21 +54,21 @@
 #define MOTOR_ARM 0
 
 // Positive for right is forward, negative for left is forward
-#define MOTOR_ARM_SIGN_UP 1
+#define MOTOR_ARM_SIGN_UP -1
 #define MOTOR_LEFT_SIGN_UP 1
 #define MOTOR_RIGHT_SIGN_UP 1
 
 // SERVO ANGLES
 
-#define SERVO_OPEN 100
-#define SERVO_CLOSED 10
+#define SERVO_OPEN 50
+#define SERVO_CLOSED 150
 #define SERVO_OPERATION_TIME 500 //millis
 
 // VELOCITIES
 
 #define METERS_PER_SECOND_MULTIPLIER 0.0001 // multiplier to velocities to obtain m/s
 
-#define VELOCITY_SLOW 100
+#define VELOCITY_SLOW 75
 #define VELOCITY_NORMAL 200
 #define VELOCITY_FAST 300
 
@@ -78,9 +78,11 @@
 #define TURN_SLIGHT 5
 #define TURN_HARD 15
 
-#define TURN_IN_PLACE_VELOCITY 200
-#define TURN_IN_PLACE_DURATION 4.5 //multiply by angle to get duration
+#define TURN_IN_PLACE_VELOCITY 100
+#define TURN_IN_PLACE_DURATION 2.5 //multiply by angle to get duration
 #define TURN_IN_PLACE_CONSTANT 0 // constnat added to product of angle and duration to accunt for delay in
+
+#define STOP_FOR_TURNING_DURATION 1000
 
 // CALIBRATION
 

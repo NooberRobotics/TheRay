@@ -7,6 +7,10 @@
 
 #include "Robot.hpp"
 
+Robot::Robot() {
+    Actuators::closeClaw();
+    Actuators::raiseArm();
+}
 
 void Robot::drive() {
     
@@ -53,7 +57,7 @@ void Robot::drive() {
 //    }
     
     Actuators::drive(Actuators::Normal, Tape::driveCorrection()); //TODO: change speed
-    
+    drive();
 }
 
 bool Robot::pickUpPassenger(bool rightSide) {
@@ -100,6 +104,6 @@ void Robot::evade() {
     
     Actuators::drive(Actuators::Slow, Actuators::Straight, true);
     delay(500);
-    Actuators::turnInPlace(170);
+    Actuators::turnInPlace(400);
     drive();
 }
