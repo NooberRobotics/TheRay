@@ -27,7 +27,6 @@ void Actuators::turnInPlace(bool rightTurn) {
         motor.speed(MOTOR_RIGHT, TURN_IN_PLACE_VELOCITY);
         motor.speed(MOTOR_LEFT, -TURN_IN_PLACE_VELOCITY);
     }
-   
 }
 
 void Actuators::drive(Actuators::Velocity velocity, int turn) {
@@ -49,15 +48,29 @@ void Actuators::drive(Actuators::Velocity velocity, Actuators::Turn turn, bool r
     motor.speed(MOTOR_RIGHT, rightSpeed * MOTOR_RIGHT_SIGN_UP);
 }
 
+
+bool armNotInPosition(int switchNumber) {
+    if (digitalRead(switchNumber)) {
+        
+        delay(1);
+        
+        if (digitalRead(switchNumber)) {
+            return true;
+        }
+    }
+    return false;
+}
+
+
 void Actuators::raiseArm() {
     motor.speed(MOTOR_ARM, VELOCITY_ARM * MOTOR_ARM_SIGN_UP);
-    while (digitalRead(TOUCH_SWITCH_ARM_UP)){}
+    while (armNotInPosition(TOUCH_SWITCH_ARM_UP)){}
     motor.speed(MOTOR_ARM, 0);
 }
 
 void Actuators::lowerArm() {
     motor.speed(MOTOR_ARM, -VELOCITY_ARM * MOTOR_ARM_SIGN_UP);
-    while (digitalRead(TOUCH_SWITCH_ARM_DOWN)){}
+    while (armNotInPosition(TOUCH_SWITCH_ARM_DOWN)){}
     motor.speed(MOTOR_ARM, 0);
 }
 

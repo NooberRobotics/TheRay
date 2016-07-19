@@ -42,28 +42,28 @@ Status Robot::cruise(Direction direction) {
     
     while (true) {
 
-//        switch (IR::check()) {
-//                
-//            case IR::None:
-//                driveVelocity = Actuators::Normal;
-//                break;
-//                
-//            case IR::WeakLeft:
-//                driveVelocity = Actuators::Slow;
-//                break;
-//                
-//            case IR::WeakRight:
-//                driveVelocity = Actuators::Slow;
-//                break;
-//                
-//            case IR::StrongLeft:
-//                return IRLeft;
-//                break;
-//                
-//            case IR::StrongRight:
-//                return IRRight;
-//                break;
-//        }
+        switch (IR::check()) {
+                
+            case IR::None:
+                driveVelocity = Actuators::Normal;
+                break;
+                
+            case IR::WeakLeft:
+                driveVelocity = Actuators::Slow;
+                break;
+                
+            case IR::WeakRight:
+                driveVelocity = Actuators::Slow;
+                break;
+                
+            case IR::StrongLeft:
+                return IRLeft;
+                break;
+                
+            case IR::StrongRight:
+                return IRRight;
+                break;
+        }
         
         if ( Tape::atIntersection() ) {
             Actuators::drive(driveVelocity, 0);
@@ -93,10 +93,14 @@ Status Robot::cruise(Direction direction) {
 }
 
 Status Robot::pickUpPassenger(bool rightSide) {
-    int duration = TURN_FOR_PASSENGER_PICKUP_DURATION;
-    int turnDuration = rightSide ? duration : -duration;
     
-    Actuators::turnInPlace(turnDuration, rightSide);
+    Actuators::drive(Actuators::Slow, Actuators::Straight);
+    delay(DRIVE_FORWARD_BEFORE_TURNING_WHEN_DETECTED_IR);
+
+    int duration = TURN_FOR_PASSENGER_PICKUP_DURATION;
+    
+    Actuators::turnInPlace(duration, rightSide);
+    Actuators::stop();
     
     Actuators::openClaw();
     Actuators::lowerArm();
@@ -123,12 +127,14 @@ Status Robot::pickUpPassenger(bool rightSide) {
     Actuators::drive(velocity, Actuators::Straight, true);
     delay(approachTime);
     
+    Actuators::turnInPlace(true);
+    while(Tape::tapePresentCentre()) {}
+    
     Actuators::stop();
     
-    if(successful){
-        return PickupSuccessful;
-    }
-    return PickupFailed;
+    delay(1000);
+    
+    return successful ? PickupSuccessful : PickupFailed;
 }
 
 Status Robot::dropOffPassenger(bool rightSide) {

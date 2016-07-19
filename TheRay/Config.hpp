@@ -9,7 +9,7 @@
 #define Config_hpp
 
 #define KP 38;
-#define KD 50;
+#define KD 60;
 
 
 // Thresholds
@@ -17,8 +17,8 @@
 #define THRESH_QRD 300
 
 #define THRESH_LOW_IR 5
-#define THRESH_HIGH_IR 70
-#define THRESH_FRONT_IR 30
+#define THRESH_HIGH_IR 75
+#define THRESH_FRONT_IR 50
 
 // QRD (ANALOG)
 
@@ -80,7 +80,8 @@
 #define TURN_HARD 15
 
 #define TURN_IN_PLACE_VELOCITY 100
-#define TURN_FOR_PASSENGER_PICKUP_DURATION 500
+#define TURN_FOR_PASSENGER_PICKUP_DURATION 950
+#define DRIVE_FORWARD_BEFORE_TURNING_WHEN_DETECTED_IR 400
 #define TURN_SLIGHTLY_DURATION 300
 
 #define TURN_90 450

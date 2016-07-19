@@ -8,8 +8,7 @@
 #include "IR.hpp"
 
 
-IR::Result IR::check() {
-    
+IR::Result irCheck() {
     int left = analogRead(IR_LEFT);
     int right = analogRead(IR_RIGHT);
     
@@ -24,6 +23,18 @@ IR::Result IR::check() {
         if(left > THRESH_HIGH_IR) { return IR::StrongLeft; }
         return IR::WeakLeft;
     }
+}
+
+
+IR::Result IR::check() {
+    IR::Result firstRead = irCheck();
+    delay(1);
+    IR::Result secondRead = irCheck();
+    
+    if (firstRead == secondRead) {
+        return firstRead;
+    }
+    return IR::check();
 }
 
 bool IR::frontDetected() {

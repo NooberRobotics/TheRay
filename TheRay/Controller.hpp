@@ -9,8 +9,11 @@
 #define Controller_hpp
 
 #include "Robot.hpp"
+
 #include <stdio.h>
 
+
+#include "phys253.h" //TODO:REMOVE after fuse of random nuvmer for detection determining!!!
 
 class Controller {
     
@@ -23,6 +26,8 @@ public:
         execution();
     }
 
+    bool hasDoll = false;
+    
     Robot robot;
     void execution();
     Direction getNextTurn(int lastNode, int currentNode, int nextNode);

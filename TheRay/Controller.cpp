@@ -40,6 +40,7 @@ Direction Controller::getNextTurn(int lastNode, int currentNode, int nextNode){
 }
 
 void Controller::execution() {
+    int randomNumber = analogRead(QRD_MIDRIGHT) % 3;
     
     switch(robot.cruise(nextTurnDirection)){
             
@@ -48,20 +49,22 @@ void Controller::execution() {
             nextTurnDirection = StraightAhead;
             break;
         case IRRight:
-            robot.pickUpPassenger(true);
-            nextTurnDirection = StraightAhead;
+            if (!hasDoll) {
+                robot.pickUpPassenger(true);
+                nextTurnDirection = StraightAhead;
+            }
             break;
         case IRLeft:
-            robot.pickUpPassenger(false);
-            nextTurnDirection = StraightAhead;
+            if (!hasDoll) {
+                robot.pickUpPassenger(false);
+                nextTurnDirection = StraightAhead;
+            }
             break;
         case Intersection:
             
-            int num = analogRead(QRD_MIDRIGHT) % 3;
-            
-            if (num == 0) {
+            if (randomNumber == 0) {
                 nextTurnDirection = Left;
-            } else if (num == 1) {
+            } else if (randomNumber == 1) {
                 nextTurnDirection = Right;
             } else {
                 nextTurnDirection = StraightAhead;
@@ -70,11 +73,14 @@ void Controller::execution() {
             break;
         case PickupSuccessful:
             nextTurnDirection = Left;
+            hasDoll = true;
             break;
         case PickupFailed:
             nextTurnDirection = Right;
+            hasDoll = false;
             break;
         case DroppedOff:
+            hasDoll = false;
             break;
     }
     
