@@ -8,5 +8,4 @@
 #include "Controller.hpp"
 
 void Controller::execution() {
-    robot.drive();
 }

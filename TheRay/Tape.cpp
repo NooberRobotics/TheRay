@@ -55,20 +55,14 @@ int Tape::driveCorrection() {
 
 // Intersection detection
 
-Intersection intersection() {
-    return (analogRead(QRD_LEFT) > THRESH_QRD) ||  (analogRead(QRD_RIGHT) > THRESH_QRD);
+bool detectedTape(int sensor) {
+    return (analogRead(sensor) > THRESH_QRD);
 }
 
+bool atIntersection() {
+    return detectedTape(QRD_LEFT) || detectedTape(QRD_RIGHT);
+}
 
 bool tapePresent() {
-    
+    return detectedTape(QRD_MIDLEFT) || detectedTape(QRD_MIDRIGHT) || atIntersection();
 }
-
-/*
-
- default returns none
- when first detecting something on left or right, return detecting
- after given delay, return what is found
- 
-*/
-

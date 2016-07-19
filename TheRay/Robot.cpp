@@ -57,7 +57,7 @@ void Robot::cruise() {
 //    }
     
     Actuators::drive(Actuators::Normal, Tape::driveCorrection()); //TODO: change speed
-    drive();
+    cruise();
 }
 
 bool Robot::pickUpPassenger(bool rightSide) {
@@ -105,5 +105,5 @@ void Robot::evade() {
     Actuators::drive(Actuators::Slow, Actuators::Straight, true);
     delay(500);
     Actuators::turnInPlace(400);
-    drive();
+    cruise();
 }
