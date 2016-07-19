@@ -13,8 +13,9 @@
 
 namespace Tape {
     
+    int driveCorrection(bool defaultTurnRight);
     int driveCorrection();
-    
+
     bool atIntersection();
     bool tapePresent();
 };
