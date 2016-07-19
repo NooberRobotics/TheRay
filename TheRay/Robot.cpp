@@ -7,33 +7,32 @@
 
 #include "Robot.hpp"
 
-Robot::Robot() {
-    Actuators::closeClaw();
-    Actuators::raiseArm();
-}
 
-void Robot::cruise() {
+
+Status Robot::cruise() {
     
+    while (true) {
     switch (IR::check()) {
         case IR::None:
-            Serial.print("none");
+            //Serial.print("none");
             break;
         case IR::WeakLeft:
-            Serial.print("weak left");
+            //Serial.print("weak left");
             break;
         case IR::WeakRight:
-            Serial.print("weak right");
-
+            //Serial.print("weak right");
             break;
+            
         case IR::StrongLeft:
-            Serial.print("strong left");
+            //Serial.print("strong left");
 
-            Robot::pickUpPassenger(false);
+            return Status::IRLeft;
             break;
+            
         case IR::StrongRight:
-            Serial.print("strong right");
+            //Serial.print("strong right");
 
-            Robot::pickUpPassenger(true);
+            return Status::IRRight;
             break;
     }
     
@@ -41,26 +40,27 @@ void Robot::cruise() {
         case Collision::None:
             break;
         case Collision::Both:
-            evade();
+            return Status::Collided;
             break;
         case Collision::Left:
-            evade();
+            return Status::Collided;
             break;
         case Collision::Right:
-            evade();
+            return Status::Collided;
             break;
+        }
+    
+        if(atIntersection){
+            return Status::Intersection;
+        }
+    
+        Actuators::drive(Actuators::Normal, Tape::driveCorrection()); //TODO: change speed
+        
     }
     
-    //Tape::Directions intersection = Tape::intersection();
-//    if (intersection.left == true || intersection.right == true) {
-//        //we have intersection. handle!
-//    }
-    
-    Actuators::drive(Actuators::Normal, Tape::driveCorrection()); //TODO: change speed
-    drive();
 }
 
-bool Robot::pickUpPassenger(bool rightSide) {
+Status Robot::pickUpPassenger(bool rightSide) {
     
     int turnAngle = rightSide ? 90 : -90;
     Actuators::turnInPlace(turnAngle);
@@ -92,10 +92,13 @@ bool Robot::pickUpPassenger(bool rightSide) {
     
     Actuators::stop();
     
-    return successful;
+    if(successful){
+        return Status::PickupSuccessful;
+    }
+    return Status::PickupFailed;
 }
 
-void Robot::dropOffPassenger(bool rightSide) {
+Status Robot::dropOffPassenger(bool rightSide) {
     
     
 }

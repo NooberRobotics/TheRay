@@ -14,6 +14,9 @@
 
 class Controller {
     
+public:
+    Controller();
+    
     Robot robot = Robot();
     void execution();
 

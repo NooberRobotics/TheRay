@@ -18,20 +18,26 @@ class Robot {
     
 public:
     
-    Robot();
+        
+    Robot() {
+        Actuators::closeClaw();
+        Actuators::raiseArm();
+    }
     
-    void cruise();
-    bool pickUpPassenger(bool rightSide);
-    void dropOffPassenger(bool rightSide);
+    Status cruise();
+    Status pickUpPassenger(bool rightSide);
+    Status dropOffPassenger(bool rightSide);
     void evade();
 };
 
 enum Status {
-    CollisionRight,
-    CollisionLeft,
+    Collided,
     IRRight,
     IRLeft,
-    Intersection
+    Intersection,
+    PickupSuccessful,
+    PickupFailed,
+    DroppedOff
 };
 
 #endif /* Robot_hpp */
