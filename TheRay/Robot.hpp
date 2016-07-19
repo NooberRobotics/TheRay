@@ -42,6 +42,8 @@ public:
         Actuators::raiseArm();
     }
     
+    Actuators::Velocity driveVelocity = Actuators::Normal;
+    
     Status cruise(Direction direction);
     Status pickUpPassenger(bool rightSide);
     Status dropOffPassenger(bool rightSide);

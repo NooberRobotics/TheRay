@@ -16,16 +16,18 @@ class Controller {
     
 public:
     
-    Controller(){
-        
+    Controller() {
         robot = Robot();
-        execution();
+        nextTurnDirection = StraightAhead;
         
+        execution();
     }
 
     Robot robot;
     void execution();
     Direction getNextTurn(int lastNode, int currentNode, int nextNode);
+    
+    Direction nextTurnDirection;
 
     enum State { FindingPassenger, PickingUp, FindingDropoff, DroppingOff };
     

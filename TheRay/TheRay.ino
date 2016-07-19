@@ -17,7 +17,7 @@ void setup() {
     
     RCServo0.write(70);
     
-Controller controller = Controller();
+    Controller controller = Controller();
 }
 
 void loop() {

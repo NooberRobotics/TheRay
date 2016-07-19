@@ -41,7 +41,7 @@ Direction Controller::getNextTurn(int lastNode, int currentNode, int nextNode){
 
 void Controller::execution() {
     
-    switch(robot.cruise(StraightAhead)){
+    switch(robot.cruise(nextTurnDirection)){
             
         case Collided:
             robot.evade();
@@ -53,18 +53,19 @@ void Controller::execution() {
             robot.pickUpPassenger(false);
             break;
         case Intersection:
+            nextTurnDirection = Right;
             break;
         case PickupSuccessful:
+            nextTurnDirection = Left;
             break;
         case PickupFailed:
+            nextTurnDirection = Right;
             break;
         case DroppedOff:
             break;
-            
     }
     
     execution();
-    
 }
 
 
