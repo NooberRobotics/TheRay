@@ -9,5 +9,4 @@
 
 
 void Controller::execution() {
-    robot.drive();
 }

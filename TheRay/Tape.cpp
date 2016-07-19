@@ -18,23 +18,33 @@ int q = 0;
 int m = 0;
 
 
+bool detectedTape(int sensor) {
+    return (analogRead(sensor) > THRESH_QRD);
+}
+
 // Tape-following code, return error term to robot
 
 int Tape::driveCorrection() {
+    return driveCorrection(true);
+}
+
+int Tape::driveCorrection(bool defaultTurnRight) {
     
-    int left = analogRead(QRD_MIDLEFT);
-    int right = analogRead(QRD_MIDRIGHT);
+    bool left = detectedTape(QRD_MIDLEFT);
+    bool right = detectedTape(QRD_MIDRIGHT);
     
-    if ((left < THRESH_QRD) && (right < THRESH_QRD)) { //both off
+    if (!left && !right) { // both off
         
         if (lastError > 0) error = 5;
-        if (lastError <= 0) error = -5;
+        else if (lastError < 0) error = -5;
         
-    } else { //path not lost
+        else if (defaultTurnRight) error = 5; //turn in preffered direction if both off and no last error-term
+        else error = -5;
         
-        if ((left > THRESH_QRD) && (right > THRESH_QRD)) error = 0;
-        else if ((left > THRESH_QRD) && (right < THRESH_QRD)) error = -1; // turn left
-        else if ((left < THRESH_QRD) && (right > THRESH_QRD)) error = +1; // turn right
+    } else { // tape found
+        if (left && right) error = 0;
+        else if (left && !right) error = -1; // turn left
+        else if (!left && right) error = +1; // turn right
     }
     
     if (error != lastError) {
@@ -55,20 +65,14 @@ int Tape::driveCorrection() {
 
 // Intersection detection
 
-Intersection intersection() {
-    return (analogRead(QRD_LEFT) > THRESH_QRD) ||  (analogRead(QRD_RIGHT) > THRESH_QRD);
+bool atIntersection() {
+    return detectedTape(QRD_LEFT) || detectedTape(QRD_RIGHT);
 }
-
 
 bool tapePresent() {
+    bool midLeft = detectedTape(QRD_MIDLEFT);
+    bool midRight = detectedTape(QRD_MIDRIGHT);
+    bool centre = atIntersection();
     
+    return detectedTape(QRD_MIDLEFT) || detectedTape(QRD_MIDRIGHT) || atIntersection();
 }
-
-/*
-
- default returns none
- when first detecting something on left or right, return detecting
- after given delay, return what is found
- 
-*/
-
