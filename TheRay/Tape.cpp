@@ -65,11 +65,11 @@ int Tape::driveCorrection(bool defaultTurnRight) {
 
 // Intersection detection
 
-bool atIntersection() {
+bool Tape::atIntersection() {
     return detectedTape(QRD_LEFT) || detectedTape(QRD_RIGHT);
 }
 
-bool tapePresent() {
+bool Tape::tapePresent() {
     bool midLeft = detectedTape(QRD_MIDLEFT);
     bool midRight = detectedTape(QRD_MIDRIGHT);
     bool centre = atIntersection();

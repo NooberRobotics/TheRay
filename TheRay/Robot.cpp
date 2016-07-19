@@ -26,13 +26,13 @@ Status Robot::cruise() {
         case IR::StrongLeft:
             //Serial.print("strong left");
 
-            return Status::IRLeft;
+            return IRLeft;
             break;
             
         case IR::StrongRight:
             //Serial.print("strong right");
 
-            return Status::IRRight;
+            return IRRight;
             break;
     }
     
@@ -40,18 +40,18 @@ Status Robot::cruise() {
         case Collision::None:
             break;
         case Collision::Both:
-            return Status::Collided;
+            return Collided;
             break;
         case Collision::Left:
-            return Status::Collided;
+            return Collided;
             break;
         case Collision::Right:
-            return Status::Collided;
+            return Collided;
             break;
         }
     
-        if(atIntersection){
-            return Status::Intersection;
+        if( Tape::atIntersection() ){
+            return Intersection;
         }
     
         Actuators::drive(Actuators::Normal, Tape::driveCorrection()); //TODO: change speed
@@ -93,9 +93,9 @@ Status Robot::pickUpPassenger(bool rightSide) {
     Actuators::stop();
     
     if(successful){
-        return Status::PickupSuccessful;
+        return PickupSuccessful;
     }
-    return Status::PickupFailed;
+    return PickupFailed;
 }
 
 Status Robot::dropOffPassenger(bool rightSide) {
