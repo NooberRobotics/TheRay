@@ -9,9 +9,50 @@
 
 
 
-Status Robot::cruise() {
+Status Robot::cruise(Direction direction) {
+    
+    
+    switch (direction) {
+        case Left:
+            Actuators::turnInPlace(TURN_SLIGHTLY_DURATION, false);
+            Actuators::turnInPlace(false);
+            while (!Tape::detectedTape(QRD_MIDLEFT)){
+                
+            }
+            
+            break;
+            
+        case Right:
+            Actuators::turnInPlace(TURN_SLIGHTLY_DURATION, true);
+            
+            Actuators::turnInPlace(true);
+            while (!Tape::detectedTape(QRD_MIDRIGHT)){
+                
+            }
+
+            break;
+            
+        case StraightAhead:
+            
+            break;
+            
+        case TurnAround:
+            
+            Actuators::turnInPlace(TURN_180, true);
+            
+            Actuators::turnInPlace(true);
+            while (!Tape::detectedTape(QRD_MIDLEFT)){
+                
+            }
+            
+            break;
+    }
+    
+    
+    Actuators::drive(Actuators::Normal, Tape::driveCorrection());
     
     while (true) {
+        
     switch (IR::check()) {
         case IR::None:
             //Serial.print("none");
@@ -63,7 +104,8 @@ Status Robot::cruise() {
 Status Robot::pickUpPassenger(bool rightSide) {
     int duration = TURN_FOR_PASSENGER_PICKUP_DURATION;
     int turnDuration = rightSide ? duration : -duration;
-    Actuators::turnInPlace(turnDuration);
+    
+    Actuators::turnInPlace(turnDuration, rightSide);
     
     Actuators::openClaw();
     Actuators::lowerArm();
@@ -103,10 +145,10 @@ Status Robot::dropOffPassenger(bool rightSide) {
     
 }
 
-void Robot::evade() {
+bool Robot::evade() {
     
     Actuators::drive(Actuators::Slow, Actuators::Straight, true);
     delay(500);
-    Actuators::turnInPlace(400);
-    cruise();
+    Actuators::turnInPlace(400, true);
+    return true;
 }

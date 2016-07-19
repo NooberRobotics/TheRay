@@ -17,10 +17,10 @@ void setup() {
     
     RCServo0.write(70);
     
-    Robot robot = Robot();
-    robot.cruise();
+Controller controller = Controller();
 }
 
 void loop() {
 
+    //shouldn't be here!;
 }

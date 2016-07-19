@@ -24,6 +24,13 @@ enum Status {
     DroppedOff
 };
 
+enum Direction {
+    Left,
+    Right,
+    TurnAround,
+    StraightAhead,
+};
+
 
 class Robot {
     
@@ -35,10 +42,10 @@ public:
         Actuators::raiseArm();
     }
     
-    Status cruise();
+    Status cruise(Direction direction);
     Status pickUpPassenger(bool rightSide);
     Status dropOffPassenger(bool rightSide);
-    void evade();
+    bool evade();
 };
 
 

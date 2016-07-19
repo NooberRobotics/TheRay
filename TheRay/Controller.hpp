@@ -16,9 +16,16 @@ class Controller {
     
 public:
     
-    
-    Robot robot = Robot();
+    Controller(){
+        
+        robot = Robot();
+        execution();
+        
+    }
+
+    Robot robot;
     void execution();
+    Direction getNextTurn(int lastNode, int currentNode, int nextNode);
 
     enum State { FindingPassenger, PickingUp, FindingDropoff, DroppingOff };
     
@@ -26,16 +33,16 @@ public:
     int nextNode;
     int targetNode;
     int goalNode;
+    int arrivalMap[21][4];
+    int departureMap[21][4];
     
-    enum Turn {
-        Left, Right, Straight
-    };
     
+//    enum Turn {
+//        Left, Right, Straight
+//    };
 
-    
-    Controller() {
-        execution();
-    }
 };
 
 #endif /* Controller_hpp */
+
+

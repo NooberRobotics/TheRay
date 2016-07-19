@@ -18,7 +18,7 @@ int q = 0;
 int m = 0;
 
 
-bool detectedTape(int sensor) {
+bool Tape::detectedTape(int sensor) {
     return (analogRead(sensor) > THRESH_QRD);
 }
 

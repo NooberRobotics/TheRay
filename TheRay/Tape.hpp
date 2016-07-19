@@ -18,6 +18,7 @@ namespace Tape {
 
     bool atIntersection();
     bool tapePresent();
+    bool detectedTape(int sensor);
 };
 
 
