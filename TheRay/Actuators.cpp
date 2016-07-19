@@ -9,13 +9,13 @@
 #include "Actuators.hpp"
 
 
-void Actuators::turnInPlace(int duration) {
+void Actuators::turnInPlace(int duration, bool rightTurn) {
     
     Actuators::stop();
     delay(STOP_FOR_TURNING_DURATION);
     
     // positive angle -> cv/rigth turn
-    if (turnAngle > 0) {
+    if (rightTurn) {
         motor.speed(MOTOR_RIGHT, -TURN_IN_PLACE_VELOCITY);
         motor.speed(MOTOR_LEFT, TURN_IN_PLACE_VELOCITY);
     } else {
