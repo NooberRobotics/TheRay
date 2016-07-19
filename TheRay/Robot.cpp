@@ -12,7 +12,7 @@ Robot::Robot() {
     Actuators::raiseArm();
 }
 
-void Robot::drive() {
+void Robot::cruise() {
     
     switch (IR::check()) {
         case IR::None:

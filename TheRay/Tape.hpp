@@ -12,26 +12,10 @@
 #include <Arduino.h>
 
 namespace Tape {
-       
-    
-    class Directions {
-    public:
-        
-        Directions();
-        
-        Directions(bool left, bool centre, bool right) {
-            this->left = left;
-            this->centre = centre;
-            this->right = right;
-        }
-        
-        bool left = false;
-        bool centre = false;
-        bool right = false;
-    };
     
     int driveCorrection();
-    //Directions intersection();
+    
+    bool atIntersection();
     bool tapePresent();
 };
 

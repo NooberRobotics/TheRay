@@ -18,7 +18,7 @@ void setup() {
     RCServo0.write(70);
     
     Robot robot = Robot();
-    robot.drive();
+    robot.cruise();
 }
 
 void loop() {

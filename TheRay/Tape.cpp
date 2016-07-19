@@ -53,65 +53,22 @@ int Tape::driveCorrection() {
     return con;
 }
 
-// Constructs for intersection detection
+// Intersection detection
 
-enum Position { Left = QRD_LEFT, MidLeft = QRD_MIDLEFT, MidRight = QRD_MIDRIGHT, Right = QRD_RIGHT};
+Intersection intersection() {
+    return (analogRead(QRD_LEFT) > THRESH_QRD) ||  (analogRead(QRD_RIGHT) > THRESH_QRD);
+}
 
-class Sensor {
-public:
+
+bool tapePresent() {
     
-    Sensor(Position position) {
-        this->position = position;
-    }
-    
-    void update() {
-        
-        if (analogRead(position) > THRESH_QRD) {
-            lastDetected = millis();
-            onTape = true;
-        } else if (INTERSECTION_TIME > (millis() - this->lastDetected)) {
-            onTape = true;
-        } else {
-            onTape = false;
-        }
-    }
-    
-    Position position;
-    int lastDetected;
-    bool onTape;
-};
+}
 
-Sensor sensors[] = { Sensor(Left), Sensor(MidLeft), Sensor(MidRight), Sensor(Right) };
+/*
 
-// Intersection detection call, returns structure containing whether left sensor, right sensor or either center sensor has been on tape within the INTERSECTION_TIME
-//
-//Tape::Directions Tape::intersection() {
-//    
-//    Tape::Directions directions = Directions();
-//    
-//    for (int i = 0; i<4; i++) {
-//        
-//        sensors[i].update();
-//        
-//        if (sensors[i].onTape) {
-//            switch (sensors[i].position) {
-//                case Left:
-//                    directions.left = true;
-//                    break;
-//                case MidLeft:
-//                    directions.centre = true;
-//                    break;
-//                case MidRight:
-//                    directions.centre = true;
-//                    break;
-//                case Right:
-//                    directions.right = true;
-//                    break;
-//            }
-//        }
-//    }
-//    
-//    return directions;
-//}
-
+ default returns none
+ when first detecting something on left or right, return detecting
+ after given delay, return what is found
+ 
+*/
 

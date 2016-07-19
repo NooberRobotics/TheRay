@@ -20,7 +20,7 @@ public:
     
     Robot();
     
-    void drive();
+    void cruise();
     bool pickUpPassenger(bool rightSide);
     void dropOffPassenger(bool rightSide);
     void evade();
