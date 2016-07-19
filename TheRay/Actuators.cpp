@@ -19,9 +19,6 @@ void Actuators::turnInPlace(int duration, bool rightTurn) {
 
 void Actuators::turnInPlace(bool rightTurn) {
     
-    Actuators::stop();
-    delay(STOP_FOR_TURNING_DURATION);
-    
     // positive angle -> cv/rigth turn
     if (rightTurn) {
         motor.speed(MOTOR_RIGHT, -TURN_IN_PLACE_VELOCITY);

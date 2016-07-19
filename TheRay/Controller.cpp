@@ -28,7 +28,7 @@ Direction Controller::getNextTurn(int lastNode, int currentNode, int nextNode){
     
     int turnAngle = 0;
     
-    if(turnAngle >= 135 || turnAngle <= -135){
+    if (turnAngle >= 135 || turnAngle <= -135){
         return TurnAround;
     }else if(turnAngle < -45){
         return Left;
@@ -45,15 +45,28 @@ void Controller::execution() {
             
         case Collided:
             robot.evade();
+            nextTurnDirection = StraightAhead;
             break;
         case IRRight:
             robot.pickUpPassenger(true);
+            nextTurnDirection = StraightAhead;
             break;
         case IRLeft:
             robot.pickUpPassenger(false);
+            nextTurnDirection = StraightAhead;
             break;
         case Intersection:
-            nextTurnDirection = Right;
+            
+            int num = analogRead(QRD_MIDRIGHT) % 3;
+            
+            if (num == 0) {
+                nextTurnDirection = Left;
+            } else if (num == 1) {
+                nextTurnDirection = Right;
+            } else {
+                nextTurnDirection = StraightAhead;
+            }
+            
             break;
         case PickupSuccessful:
             nextTurnDirection = Left;

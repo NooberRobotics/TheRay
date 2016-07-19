@@ -9,12 +9,13 @@
 #define Config_hpp
 
 #define KP 38;
-#define KD 47;
+#define KD 50;
 
 
 // Thresholds
 
-#define THRESH_QRD 150
+#define THRESH_QRD 300
+
 #define THRESH_LOW_IR 5
 #define THRESH_HIGH_IR 70
 #define THRESH_FRONT_IR 30
@@ -54,7 +55,7 @@
 #define MOTOR_ARM 0
 
 // Positive for right is forward, negative for left is forward
-#define MOTOR_ARM_SIGN_UP -1
+#define MOTOR_ARM_SIGN_UP 1
 #define MOTOR_LEFT_SIGN_UP 1
 #define MOTOR_RIGHT_SIGN_UP 1
 
@@ -84,6 +85,7 @@
 
 #define TURN_90 450
 #define TURN_180 1000
+#define TURN_OFF_TAPE_FACTOR 1000
 
 #define STOP_FOR_TURNING_DURATION 1000
 

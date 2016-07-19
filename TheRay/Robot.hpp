@@ -47,7 +47,7 @@ public:
     Status cruise(Direction direction);
     Status pickUpPassenger(bool rightSide);
     Status dropOffPassenger(bool rightSide);
-    bool evade();
+    void evade();
 };
 
 
