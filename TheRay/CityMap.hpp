@@ -6,6 +6,8 @@
 //  Copyright © 2016 Noober. All rights reserved.
 //
 
+#ifndef CityMap_hpp
+#define CityMap_hpp
 
 #include "Robot.hpp"
 #include "Controller.hpp"
@@ -27,11 +29,15 @@ public:
     }
     
     //returns array of directions to follow.
-    //Direction* getTurns(int lastNode, int lastGoalNode, Heading currentHeading);
+    Direction* getTurns(int lastGoalNode, int lastNode, int currentNode);
     
     //Direction directions[10] = {StraightAhead};
     
-private:
+    Direction getTurnDirection(int lastNode, int currentNode, int nextNode);
+    
+    int* travelPathToGoal(int currentNode, bool alternatePath = false); // returns array containing nodes in order
+    int* travelPathSearch(int currentNode);
+    
     
     int arrivalMap[21][4] = {
         {1,-1,-1,-1},
@@ -80,9 +86,7 @@ private:
         {18,-1,20,16},
         {19,-1,-1,17},
     };
-    
-    
-    
+
 };
 
-
+#endif
