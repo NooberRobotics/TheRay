@@ -7,47 +7,74 @@
 
 #include "IR.hpp"
 
-void serialPrint() {
-    Serial.print(analogRead(IR_LEFT));
-    Serial.print(" ");
-    Serial.print(analogRead(IR_MIDLEFT));
-    Serial.print(" ");
-    Serial.print(analogRead(IR_MIDRIGHT));
-    Serial.print(" ");
-    Serial.println(analogRead(IR_RIGHT));
-}
+enum Signal { None = 0, Weak = THRESH_LOW_IR, Strong = THRESH_HIGH_IR };
 
-IR::Result irCheck() {
-    int left = analogRead(IR_LEFT);
-    int right = analogRead(IR_RIGHT);
+Signal sensorReading(int sensor) {
     
-    if (left < THRESH_LOW_IR && right < THRESH_LOW_IR){
-        return IR::None;
-    }
+    int sensorReading = analogRead(sensor);
     
-    if (right >= left){
-        if(right > THRESH_HIGH_IR) { return IR::StrongRight; }
-        return IR::WeakRight;
+    if (sensorReading == 0) {
+        return None;
+    } else if (sensorReading > THRESH_LOW_IR) {
+        return Weak;
     } else {
-        if(left > THRESH_HIGH_IR) { return IR::StrongLeft; }
-        return IR::WeakLeft;
+        return Strong;
     }
-    serialPrint();
 }
 
+Signal filteredSensorReading(int sensor) {
+    
+    Signal firstReading = sensorReading(sensor);
+    
+    if (firstReading != Signal::None) {
+        delay(1);
+        
+        Signal secondReading = sensorReading(sensor);
+        
+        if (secondReading != Signal::None) {
+            delay(1);
+            
+            Signal thirdReading = sensorReading(sensor);
+            
+            if ( (firstReading + secondReading + thirdReading) >= (THRESH_HIGH_IR + 2*THRESH_LOW_IR) ) {
+                return Strong;
+            } else {
+                return Weak;
+            }
+        }
+    }
+}
 
 IR::Result IR::check() {
-    IR::Result firstRead = irCheck();
-    delay(1);
-    IR::Result secondRead = irCheck();
+    Signal right = filteredSensorReading(IR_RIGHT);
+    Signal left = filteredSensorReading(IR_LEFT);
     
-    if (firstRead == secondRead) {
-        return firstRead;
+    if (right > left) {
+        if (right == Signal::Weak) return IR::WeakRight;
+        if (right == Signal::Strong) return IR::StrongRight;
+    } else {
+        if (left == Signal::Weak) return IR::WeakLeft;
+        if (left == Signal::Strong) return IR::StrongLeft;
     }
-    return IR::check();
+    return None;
 }
 
 bool IR::frontDetected() {
-    return (analogRead(IR_MIDLEFT) > THRESH_FRONT_IR) || (analogRead(IR_MIDRIGHT) > THRESH_FRONT_IR);
+    
+    Signal midRight = filteredSensorReading(IR_MIDRIGHT);
+    Signal midLeft = filteredSensorReading(IR_MIDLEFT);
+
+    return (midRight == Signal::None) && (midLeft == Signal::None) ? false : true;
+
 }
 
+
+//void serialPrint() {
+//    Serial.print(analogRead(IR_LEFT));
+//    Serial.print(" ");
+//    Serial.print(analogRead(IR_MIDLEFT));
+//    Serial.print(" ");
+//    Serial.print(analogRead(IR_MIDRIGHT));
+//    Serial.print(" ");
+//    Serial.println(analogRead(IR_RIGHT));
+//}
