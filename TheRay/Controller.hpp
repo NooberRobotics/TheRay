@@ -28,6 +28,8 @@ public:
         
         robot = Robot();
         
+        navigator = Navigator();
+        
         nextTurnDirection = StraightAhead;
         
         execution();
@@ -37,6 +39,7 @@ public:
     
     Robot robot;
     CityMap cityMap;
+    Navigator navigator;
     void execution();
         
     Direction nextTurnDirection;
