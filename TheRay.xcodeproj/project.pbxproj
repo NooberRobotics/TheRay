@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		5AF753721D3F31C90003F198 /* CityMap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5AF753701D3F31C90003F198 /* CityMap.cpp */; };
+		E95C50EB1D3FECA5007450F9 /* Navigator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E95C50E91D3FECA5007450F9 /* Navigator.cpp */; };
 		E97810BC1D3C068C00F41F1E /* Controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E97810BA1D3C068C00F41F1E /* Controller.cpp */; };
 		E9FF0D321D3B4CE200C70CD3 /* Actuators.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E9FF0D281D3B4CE200C70CD3 /* Actuators.cpp */; };
 		E9FF0D331D3B4CE200C70CD3 /* Collision.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E9FF0D2A1D3B4CE200C70CD3 /* Collision.cpp */; };
@@ -35,6 +36,8 @@
 		5AF753771D3F36080003F198 /* ManageString.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = ManageString.ino; sourceTree = "<group>"; };
 		5AF753781D3F36080003F198 /* keywords.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = keywords.txt; sourceTree = "<group>"; };
 		5AF753791D3F36080003F198 /* QueueArray.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QueueArray.h; sourceTree = "<group>"; };
+		E95C50E91D3FECA5007450F9 /* Navigator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Navigator.cpp; sourceTree = "<group>"; };
+		E95C50EA1D3FECA5007450F9 /* Navigator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Navigator.hpp; sourceTree = "<group>"; };
 		E97810BA1D3C068C00F41F1E /* Controller.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Controller.cpp; sourceTree = "<group>"; };
 		E97810BB1D3C068C00F41F1E /* Controller.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Controller.hpp; sourceTree = "<group>"; };
 		E9FF0CF61D3B32F500C70CD3 /* TheRay */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = TheRay; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -100,6 +103,17 @@
 			path = ManageString;
 			sourceTree = "<group>";
 		};
+		E95C50EC1D3FED8C007450F9 /* Navigation */ = {
+			isa = PBXGroup;
+			children = (
+				E95C50E91D3FECA5007450F9 /* Navigator.cpp */,
+				E95C50EA1D3FECA5007450F9 /* Navigator.hpp */,
+				5AF753711D3F31C90003F198 /* CityMap.hpp */,
+				5AF753701D3F31C90003F198 /* CityMap.cpp */,
+			);
+			name = Navigation;
+			sourceTree = "<group>";
+		};
 		E9FF0CED1D3B32F500C70CD3 = {
 			isa = PBXGroup;
 			children = (
@@ -124,8 +138,7 @@
 				E9FF0D0E1D3B339B00C70CD3 /* Config.hpp */,
 				E97810BB1D3C068C00F41F1E /* Controller.hpp */,
 				E97810BA1D3C068C00F41F1E /* Controller.cpp */,
-				5AF753711D3F31C90003F198 /* CityMap.hpp */,
-				5AF753701D3F31C90003F198 /* CityMap.cpp */,
+				E95C50EC1D3FED8C007450F9 /* Navigation */,
 				E9FF0D0F1D3B3A5000C70CD3 /* Robot */,
 			);
 			path = TheRay;
@@ -223,6 +236,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E9FF0D351D3B4CE200C70CD3 /* Robot.cpp in Sources */,
+				E95C50EB1D3FECA5007450F9 /* Navigator.cpp in Sources */,
 				E97810BC1D3C068C00F41F1E /* Controller.cpp in Sources */,
 				E9FF0D331D3B4CE200C70CD3 /* Collision.cpp in Sources */,
 				E9FF0D341D3B4CE200C70CD3 /* IR.cpp in Sources */,

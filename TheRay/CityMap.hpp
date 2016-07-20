@@ -27,14 +27,7 @@ public:
     CityMap() {
         
     }
-    
-    //returns array of directions to follow.
-    Direction* getTurns(int lastGoalNode, int lastNode, int currentNode);
-    
-    //Direction directions[10] = {StraightAhead};
-    
-    Direction getTurnDirection(int lastNode, int currentNode, int nextNode);
-    
+        
     int* travelPathToGoal(int currentNode, bool alternatePath = false); // returns array containing nodes in order
     int* travelPathSearch(int currentNode);
     
