@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5AF753721D3F31C90003F198 /* CityMap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5AF753701D3F31C90003F198 /* CityMap.cpp */; };
 		E97810BC1D3C068C00F41F1E /* Controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E97810BA1D3C068C00F41F1E /* Controller.cpp */; };
 		E9FF0D321D3B4CE200C70CD3 /* Actuators.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E9FF0D281D3B4CE200C70CD3 /* Actuators.cpp */; };
 		E9FF0D331D3B4CE200C70CD3 /* Collision.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E9FF0D2A1D3B4CE200C70CD3 /* Collision.cpp */; };
@@ -28,6 +29,12 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		5AF753701D3F31C90003F198 /* CityMap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CityMap.cpp; sourceTree = "<group>"; };
+		5AF753711D3F31C90003F198 /* CityMap.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CityMap.hpp; sourceTree = "<group>"; };
+		5AF753741D3F36080003F198 /* COPYING */ = {isa = PBXFileReference; lastKnownFileType = text; path = COPYING; sourceTree = "<group>"; };
+		5AF753771D3F36080003F198 /* ManageString.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = ManageString.ino; sourceTree = "<group>"; };
+		5AF753781D3F36080003F198 /* keywords.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = keywords.txt; sourceTree = "<group>"; };
+		5AF753791D3F36080003F198 /* QueueArray.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QueueArray.h; sourceTree = "<group>"; };
 		E97810BA1D3C068C00F41F1E /* Controller.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Controller.cpp; sourceTree = "<group>"; };
 		E97810BB1D3C068C00F41F1E /* Controller.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Controller.hpp; sourceTree = "<group>"; };
 		E9FF0CF61D3B32F500C70CD3 /* TheRay */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = TheRay; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -66,6 +73,33 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5AF753731D3F36080003F198 /* QueueArray */ = {
+			isa = PBXGroup;
+			children = (
+				5AF753741D3F36080003F198 /* COPYING */,
+				5AF753751D3F36080003F198 /* Examples */,
+				5AF753781D3F36080003F198 /* keywords.txt */,
+				5AF753791D3F36080003F198 /* QueueArray.h */,
+			);
+			path = QueueArray;
+			sourceTree = "<group>";
+		};
+		5AF753751D3F36080003F198 /* Examples */ = {
+			isa = PBXGroup;
+			children = (
+				5AF753761D3F36080003F198 /* ManageString */,
+			);
+			path = Examples;
+			sourceTree = "<group>";
+		};
+		5AF753761D3F36080003F198 /* ManageString */ = {
+			isa = PBXGroup;
+			children = (
+				5AF753771D3F36080003F198 /* ManageString.ino */,
+			);
+			path = ManageString;
+			sourceTree = "<group>";
+		};
 		E9FF0CED1D3B32F500C70CD3 = {
 			isa = PBXGroup;
 			children = (
@@ -88,8 +122,10 @@
 			children = (
 				E9FF0D011D3B334B00C70CD3 /* TheRay.ino */,
 				E9FF0D0E1D3B339B00C70CD3 /* Config.hpp */,
-				E97810BA1D3C068C00F41F1E /* Controller.cpp */,
 				E97810BB1D3C068C00F41F1E /* Controller.hpp */,
+				E97810BA1D3C068C00F41F1E /* Controller.cpp */,
+				5AF753711D3F31C90003F198 /* CityMap.hpp */,
+				5AF753701D3F31C90003F198 /* CityMap.cpp */,
 				E9FF0D0F1D3B3A5000C70CD3 /* Robot */,
 			);
 			path = TheRay;
@@ -108,6 +144,7 @@
 				E9FF0D0B1D3B334B00C70CD3 /* readme.txt */,
 				E9FF0D0C1D3B334B00C70CD3 /* ServoTINAH.cpp */,
 				E9FF0D0D1D3B334B00C70CD3 /* ServoTINAH.h */,
+				5AF753731D3F36080003F198 /* QueueArray */,
 			);
 			path = TINAH_libraries;
 			sourceTree = "<group>";
@@ -190,6 +227,7 @@
 				E9FF0D331D3B4CE200C70CD3 /* Collision.cpp in Sources */,
 				E9FF0D341D3B4CE200C70CD3 /* IR.cpp in Sources */,
 				E9FF0D321D3B4CE200C70CD3 /* Actuators.cpp in Sources */,
+				5AF753721D3F31C90003F198 /* CityMap.cpp in Sources */,
 				E9FF0D361D3B4CE200C70CD3 /* Tape.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -8,19 +8,28 @@
 #ifndef Controller_hpp
 #define Controller_hpp
 
+#include "CityMap.hpp"
 #include "Robot.hpp"
+#include "QueueArray.h"
 
-#include <stdio.h>
+
 
 
 #include "phys253.h" //TODO:REMOVE after fuse of random nuvmer for detection determining!!!
+
 
 class Controller {
     
 public:
     
+    
+    
     Controller() {
+        
+        cityMap = CityMap();
+        
         robot = Robot();
+        
         nextTurnDirection = StraightAhead;
         
         execution();
@@ -29,19 +38,19 @@ public:
     bool hasDoll = false;
     
     Robot robot;
+    CityMap cityMap;
     void execution();
-    Direction getNextTurn(int lastNode, int currentNode, int nextNode);
-    
+        
     Direction nextTurnDirection;
 
     enum State { FindingPassenger, PickingUp, FindingDropoff, DroppingOff };
+    
     
     int previousNode;
     int nextNode;
     int targetNode;
     int goalNode;
-    int arrivalMap[21][4];
-    int departureMap[21][4];
+   
     
     
 //    enum Turn {
