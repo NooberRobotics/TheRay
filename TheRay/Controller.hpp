@@ -11,17 +11,11 @@
 #include "Robot.hpp"
 #include "Direction.hpp"
 #include "Navigator.hpp"
-//#include "QueueArray.h"
-
-
-
-
-#include "phys253.h" //TODO:REMOVE after fuse of random nuvmer for detection determining!!!
-
 
 class Controller {
     
     bool hasPassenger = false;
+    Direction turnDirection = StraightAhead;
     
 public:
     

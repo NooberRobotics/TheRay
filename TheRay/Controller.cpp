@@ -9,11 +9,10 @@
 
 void Controller::execution() {
     
-    Direction turnDirection = navigator.getTurn();
-    
     switch(robot.cruise(turnDirection)){
             
         case Collided:
+            turnDirection = StraightAhead;
             robot.evade();
             navigator.collisionOccurred();
             break;
@@ -23,6 +22,7 @@ void Controller::execution() {
             if (!hasPassenger) {
                 navigator.returnToDropoff(true);
                 robot.pickUpPassenger(true, false);
+                turnDirection = StraightAhead;
             }
             break;
             
@@ -31,27 +31,31 @@ void Controller::execution() {
             if (!hasPassenger) {
                 navigator.returnToDropoff(false);
                 robot.pickUpPassenger(false, true);
+                turnDirection = StraightAhead;
             }
             break;
             
             
         case Intersection:
-            
+            turnDirection = navigator.getTurn();
             break;
             
             
         case PickupSuccessful:
             hasPassenger = true;
+            turnDirection = StraightAhead;
             break;
             
             
         case PickupFailed:
             hasPassenger = false;
+            turnDirection = StraightAhead;
             break;
             
             
         case DroppedOff:
             hasPassenger = false;
+            turnDirection = StraightAhead;
             break;
     }
 }
