@@ -48,8 +48,6 @@ public:
     int nextNode;
     int targetNode;
     int goalNode;
-   
-    
     
 //    enum Turn {
 //        Left, Right, Straight
