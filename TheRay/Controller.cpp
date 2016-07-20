@@ -22,7 +22,7 @@ void Controller::execution() {
         case IRRight:
             if (!hasPassenger) {
                 navigator.returnToDropoff(true);
-                robot.pickUpPassenger(true, navigator.getTurn());
+                robot.pickUpPassenger(true, false);
             }
             break;
             
@@ -30,7 +30,7 @@ void Controller::execution() {
         case IRLeft:
             if (!hasPassenger) {
                 navigator.returnToDropoff(false);
-                robot.pickUpPassenger(false, navigator.getTurn());
+                robot.pickUpPassenger(false, true);
             }
             break;
             
@@ -41,13 +41,11 @@ void Controller::execution() {
             
             
         case PickupSuccessful:
-            nextTurnDirection = Left;
             hasPassenger = true;
             break;
             
             
         case PickupFailed:
-            nextTurnDirection = Right;
             hasPassenger = false;
             break;
             

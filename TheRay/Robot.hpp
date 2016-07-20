@@ -8,6 +8,7 @@
 #ifndef Robot_hpp
 #define Robot_hpp
 
+#include "Direction.hpp"
 #include "Actuators.hpp"
 #include "Collision.hpp"
 #include "IR.hpp"
@@ -37,7 +38,7 @@ public:
     Actuators::Velocity driveVelocity = Actuators::Normal;
     
     Status cruise(Direction direction);
-    Status pickUpPassenger(bool rightSide);
+    Status pickUpPassenger(bool rightSideBefore, bool turnRightAfter);
     Status dropOffPassenger(bool rightSide);
     void evade();
 };

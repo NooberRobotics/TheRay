@@ -10,35 +10,36 @@
 
 
 Direction Navigator::getTurn() {
-    return turns.pop();
+    
+    lastNode = currentNode;
+    currentNode = nextNode;
+    
+    if (returningToDropoff) {
+        nextNode = CityMap::getNextNodeToGoal(currentNode, primaryPath);
+    } else {
+        nextNodeIndex = CityMap::getNextNodeIndex(nextNodeIndex);
+        nextNode = CityMap::getNextNodeToSearch(nextNodeIndex, primaryPath);
+    }
+    
+    return CityMap::getTurnDirection(lastNode, currentNode, nextNode);
 }
 
-void Navigator::collisionOccured() {
-    int temp = lastNode;
-    
-    lastNode =  currentNode;
+void Navigator::collisionOccurred() {
+    int temp = nextNode;
+    nextNode =  currentNode;
     currentNode = temp;
     
-    Navigator::recalculatePath();
-    
+    primaryPath = !primaryPath;
 }
 
-void Navigator::returnToDropoff(bool turnRightForPickup){
+void Navigator::returnToDropoff(bool turnRightForPickup) {
+    primaryPath = true;
+    returningToDropoff = true;
     
+    //TODO: determine first
 }
 
 void Navigator::searchForPassenger() {
-    
-}
-
-void Navigator::recalculatePath() {
-    if (returningToDropoff) {
-        
-        
-        
-    } else {
-        
-        
-        
-    }
+    primaryPath = true;
+    returningToDropoff = false;
 }

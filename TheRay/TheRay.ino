@@ -12,14 +12,15 @@ ServoTINAH RCServo0;
 ServoTINAH RCServo1;
 ServoTINAH RCServo2;
 
+Controller controller;
+
 void setup() {
     #include <phys253setup.txt>
     Serial.begin(9600);
     
     RCServo0.write(70);
     
-    Controller controller = Controller();
-    
+    controller = Controller();
 }
 
 void loop() {

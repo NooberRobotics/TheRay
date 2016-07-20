@@ -17,27 +17,43 @@ class Navigator {
     
     int lastNode;
     int currentNode;
-    int* path;
-    int pathIndex;
+    int nextNode;
     
-    QueueArray<Direction> turns;
+    int nextNodeIndex; 
+    
+//    QueueArray<Direction> turns;
     
     bool returningToDropoff = false;
     
+    bool primaryPath; // TODO: determine which path we start at
+    
 public:
+    
+    Navigator(bool firstIntersectionOnRightSide) {
+        
+        if (firstIntersectionOnRightSide) {
+            
+            currentNode = 18;
+            nextNode = 19;
+            
+            primaryPath = false;
+            
+        } else {
+            
+            currentNode = 0;
+            nextNode = 1;
+            
+            primaryPath = true;
+            
+        }
+    }
     
     Direction getTurn(); // only called at intersections
     
-    void collisionOccured();
+    void collisionOccurred();
     
     void returnToDropoff(bool turnRightForPickup); //first turn stages must be direction reqiered after pickup
     void searchForPassenger();
-    
-    
-    
-    void recalculatePath() {
-
-    
 };
 
 
