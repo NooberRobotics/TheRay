@@ -20,16 +20,18 @@ Collision::Result checkSensors() {
 }
 
 Collision::Result Collision::check() {
-    Collision::Result firstCheck = checkSensors();
     
-    if (firstCheck == Collision::None) {
-        return firstCheck;
-    } else {
-        Collision::Result secondCheck = checkSensors();
-        if (secondCheck != Collision::None) {
-            return secondCheck;
-        }
+    if (checkSensors() == Collision::None) {
+        return Collision::None;
     }
-    return Collision::None;
     
+    delay(1);
+    
+    if (checkSensors() == Collision::None) {
+        return Collision::None;
+    }
+    
+    delay(1);
+    
+    return checkSensors();
 }
