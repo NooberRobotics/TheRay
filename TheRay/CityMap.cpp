@@ -20,28 +20,6 @@ Direction* CityMap::getTurns(int lastGoalNode, int lastNode, int currentNode) {
     
 }
 
-
-Direction CityMap::getTurnDirection(int lastNode, int currentNode, int nextNode){
-    int arriving = -1;
-    int departing = -1;
-    
-    for (int heading = 0; heading < 4; index++){
-        if(this->arrivalMap[currentNode][heading] == lastNode){
-            arriving = heading;
-        }
-        if(this->departureMap[currentNode][heading] == nextNode){
-            departing = heading;
-        }
-    }
-    
-    int directionNumber = ((departing - arriving) + 4) % 4;
-    
-    if (directionNumber == 0) return StraightAhead;
-    if (directionNumber == 1) return Right;
-    if (directionNumber == 2) return TurnAround;
-    if (directionNumber == 3) return Left;
-}
-
 //Returns a pointer to an array containing the possible nodes to go to.
 //Array is the same length as the number of possible nodes
 //The controller should use this like this:

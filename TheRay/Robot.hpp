@@ -24,14 +24,6 @@ enum Status {
     DroppedOff
 };
 
-enum Direction {
-    Left,
-    Right,
-    TurnAround,
-    StraightAhead,
-};
-
-
 class Robot {
     
 public:

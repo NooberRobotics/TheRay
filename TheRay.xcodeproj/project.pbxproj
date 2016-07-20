@@ -38,6 +38,7 @@
 		5AF753791D3F36080003F198 /* QueueArray.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QueueArray.h; sourceTree = "<group>"; };
 		E95C50E91D3FECA5007450F9 /* Navigator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Navigator.cpp; sourceTree = "<group>"; };
 		E95C50EA1D3FECA5007450F9 /* Navigator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Navigator.hpp; sourceTree = "<group>"; };
+		E95C50EE1D3FF59F007450F9 /* Direction.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Direction.hpp; path = TheRay/Direction.hpp; sourceTree = "<group>"; };
 		E97810BA1D3C068C00F41F1E /* Controller.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Controller.cpp; sourceTree = "<group>"; };
 		E97810BB1D3C068C00F41F1E /* Controller.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Controller.hpp; sourceTree = "<group>"; };
 		E9FF0CF61D3B32F500C70CD3 /* TheRay */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = TheRay; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -106,8 +107,8 @@
 		E95C50EC1D3FED8C007450F9 /* Navigation */ = {
 			isa = PBXGroup;
 			children = (
-				E95C50E91D3FECA5007450F9 /* Navigator.cpp */,
 				E95C50EA1D3FECA5007450F9 /* Navigator.hpp */,
+				E95C50E91D3FECA5007450F9 /* Navigator.cpp */,
 				5AF753711D3F31C90003F198 /* CityMap.hpp */,
 				5AF753701D3F31C90003F198 /* CityMap.cpp */,
 			);
@@ -118,6 +119,7 @@
 			isa = PBXGroup;
 			children = (
 				E9FF0D001D3B334B00C70CD3 /* TheRay */,
+				E95C50EE1D3FF59F007450F9 /* Direction.hpp */,
 				E9FF0D021D3B334B00C70CD3 /* TINAH_libraries */,
 				E9FF0CF71D3B32F500C70CD3 /* Products */,
 			);
@@ -165,16 +167,16 @@
 		E9FF0D0F1D3B3A5000C70CD3 /* Robot */ = {
 			isa = PBXGroup;
 			children = (
-				E9FF0D2E1D3B4CE200C70CD3 /* Robot.cpp */,
 				E9FF0D2F1D3B4CE200C70CD3 /* Robot.hpp */,
-				E9FF0D281D3B4CE200C70CD3 /* Actuators.cpp */,
+				E9FF0D2E1D3B4CE200C70CD3 /* Robot.cpp */,
 				E9FF0D291D3B4CE200C70CD3 /* Actuators.hpp */,
-				E9FF0D2A1D3B4CE200C70CD3 /* Collision.cpp */,
+				E9FF0D281D3B4CE200C70CD3 /* Actuators.cpp */,
 				E9FF0D2B1D3B4CE200C70CD3 /* Collision.hpp */,
-				E9FF0D2C1D3B4CE200C70CD3 /* IR.cpp */,
+				E9FF0D2A1D3B4CE200C70CD3 /* Collision.cpp */,
 				E9FF0D2D1D3B4CE200C70CD3 /* IR.hpp */,
-				E9FF0D301D3B4CE200C70CD3 /* Tape.cpp */,
+				E9FF0D2C1D3B4CE200C70CD3 /* IR.cpp */,
 				E9FF0D311D3B4CE200C70CD3 /* Tape.hpp */,
+				E9FF0D301D3B4CE200C70CD3 /* Tape.cpp */,
 			);
 			name = Robot;
 			sourceTree = "<group>";

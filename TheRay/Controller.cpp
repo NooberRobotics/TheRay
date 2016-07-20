@@ -8,63 +8,53 @@
 #include "Controller.hpp"
 
 void Controller::execution() {
-    int randomNumber = analogRead(QRD_MIDRIGHT) % 3;
     
-    switch(robot.cruise(nextTurnDirection)){
+    Direction turnDirection = navigator.getTurn();
+    
+    switch(robot.cruise(turnDirection)){
             
         case Collided:
-            
             robot.evade();
             navigator.collisionOccurred();
-            nextTurnDirection = navigator.getTurn();
             break;
             
             
         case IRRight:
-            if (!hasDoll) {
-                robot.pickUpPassenger(true);
-                nextTurnDirection = StraightAhead;
+            if (!hasPassenger) {
+                navigator.returnToDropoff(true);
+                robot.pickUpPassenger(true, navigator.getTurn());
             }
             break;
-            
             
             
         case IRLeft:
-            if (!hasDoll) {
-                robot.pickUpPassenger(false);
-                nextTurnDirection = navigator.getTurnAfterPickup(false);
+            if (!hasPassenger) {
+                navigator.returnToDropoff(false);
+                robot.pickUpPassenger(false, navigator.getTurn());
             }
             break;
-            
             
             
         case Intersection:
             
-            nextTurnDirection = navigator.getTurn();
-            
             break;
-            
             
             
         case PickupSuccessful:
             nextTurnDirection = Left;
-            hasDoll = true;
+            hasPassenger = true;
             break;
-            
             
             
         case PickupFailed:
             nextTurnDirection = Right;
-            hasDoll = false;
+            hasPassenger = false;
             break;
-            
             
             
         case DroppedOff:
-            hasDoll = false;
+            hasPassenger = false;
             break;
     }
-    
-    execution();
 }
 

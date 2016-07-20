@@ -8,8 +8,9 @@
 #ifndef Controller_hpp
 #define Controller_hpp
 
-#include "CityMap.hpp"
 #include "Robot.hpp"
+#include "Direction.hpp"
+#include "Navigator.hpp"
 //#include "QueueArray.h"
 
 
@@ -20,42 +21,14 @@
 
 class Controller {
     
+    bool hasPassenger = false;
+    
 public:
     
-    Controller() {
-        
-        cityMap = CityMap();
-        
-        robot = Robot();
-        
-        navigator = Navigator();
-        
-        nextTurnDirection = StraightAhead;
-        
-        execution();
-    }
+    Robot robot = Robot();
+    Navigator navigator = Navigator();
 
-    bool hasDoll = false;
-    
-    Robot robot;
-    CityMap cityMap;
-    Navigator navigator;
     void execution();
-        
-    Direction nextTurnDirection;
-
-    enum State { FindingPassenger, PickingUp, FindingDropoff, DroppingOff };
-    
-    
-    int previousNode;
-    int nextNode;
-    int targetNode;
-    int goalNode;
-    
-//    enum Turn {
-//        Left, Right, Straight
-//    };
-
 };
 
 #endif /* Controller_hpp */

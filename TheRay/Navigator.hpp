@@ -9,8 +9,9 @@
 #ifndef Navigator_hpp
 #define Navigator_hpp
 
-#include <stdio.h>
-#include "Controller.hpp"
+#include "Direction.hpp"
+#include "CityMap.hpp"
+#include "QueueArray.h"
 
 class Navigator {
     
@@ -19,19 +20,23 @@ class Navigator {
     int* path;
     int pathIndex;
     
-    Direction* turns
+    QueueArray<Direction> turns;
     
     bool returningToDropoff = false;
-
+    
 public:
     
     Direction getTurn(); // only called at intersections
-    Direction getTurnAfterPickup(bool rightTurnToPickup);
     
     void collisionOccured();
     
-    void returnToDropoff();
+    void returnToDropoff(bool turnRightForPickup); //first turn stages must be direction reqiered after pickup
     void searchForPassenger();
+    
+    
+    
+    void recalculatePath() {
+
     
 };
 

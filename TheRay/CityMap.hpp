@@ -9,30 +9,21 @@
 #ifndef CityMap_hpp
 #define CityMap_hpp
 
-#include "Robot.hpp"
-#include "Controller.hpp"
+#include "Direction.hpp"
 
-
-
-class CityMap {
+namespace CityMap {
     
     enum Heading {
-        North = 0,
-        East = 1,
-        South = 2,
-        West = 3
+        North = 1,
+        East = 2,
+        South = 3,
+        West = 4
     };
     
-public:
-    CityMap() {
-        
-    }
-        
     int* travelPathToGoal(int currentNode, bool alternatePath = false); // returns array containing nodes in order
     int* travelPathSearch(int currentNode);
     
-    
-    int arrivalMap[21][4] = {
+    const int arrivalMap[21][4] = {
         {1,-1,-1,-1},
         {2,-1,0,6},
         {-1,-1,1,7},
@@ -56,7 +47,7 @@ public:
         {-1,17,19,-1},
     };
     
-    int departureMap[21][4] = {
+    const int departureMap[21][4] = {
         {-1,-1,1,-1},
         {0,6,2,-1},
         {1,7,-1,-1},

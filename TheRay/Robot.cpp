@@ -82,14 +82,14 @@ Status Robot::cruise(Direction direction) {
     }
 }
 
-Status Robot::pickUpPassenger(bool rightSide) {
+Status Robot::pickUpPassenger(bool turnRightBefore, bool turnRightAfter) {
     
     Actuators::drive(Actuators::Slow, Actuators::Straight);
     delay(DRIVE_FORWARD_BEFORE_TURNING_WHEN_DETECTED_IR);
 
     int duration = TURN_FOR_PASSENGER_PICKUP_DURATION;
     
-    Actuators::turnInPlace(duration, rightSide);
+    Actuators::turnInPlace(duration, turnRightBefore);
     Actuators::stop();
     
     Actuators::openClaw();
@@ -117,7 +117,7 @@ Status Robot::pickUpPassenger(bool rightSide) {
     Actuators::drive(velocity, Actuators::Straight, true);
     delay(approachTime);
     
-    Actuators::turnInPlace(true);
+    Actuators::turnInPlace(turnRightAfter);
     while(!Tape::tapePresentCentre()) {}
 
     Actuators::stop();
