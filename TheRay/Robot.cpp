@@ -68,7 +68,7 @@ Status Robot::cruise(Direction direction) {
         if ( Tape::atIntersection() ) {
             Actuators::drive(driveVelocity, 0);
             
-            delay(200);
+            delay(INTERSECTION_DETECTED_DRIVE_DELAY);
             return Intersection;
         }
         
@@ -128,11 +128,7 @@ Status Robot::pickUpPassenger(bool rightSide) {
     delay(approachTime);
     
     Actuators::turnInPlace(true);
-    while(Tape::tapePresentCentre()) {}
-    
-    Actuators::stop();
-    
-    delay(1000);
+    while(!Tape::tapePresentCentre()) {}
     
     return successful ? PickupSuccessful : PickupFailed;
 }

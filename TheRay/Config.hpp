@@ -16,9 +16,53 @@
 
 #define THRESH_QRD 300
 
-#define THRESH_LOW_IR 5
-#define THRESH_HIGH_IR 75
+#define THRESH_LOW_IR 2
+#define THRESH_HIGH_IR 80
 #define THRESH_FRONT_IR 50
+
+
+// VELOCITIES
+
+#define METERS_PER_SECOND_MULTIPLIER 0.0001 // multiplier to velocities to obtain m/s
+
+#define VELOCITY_SLOW 75
+#define VELOCITY_NORMAL 200
+#define VELOCITY_FAST 300
+
+#define VELOCITY_ARM 100
+#define VELOCITY_PICKUP 100 //when checking IR signal
+
+#define TURN_SLIGHT 5
+#define TURN_HARD 15
+
+#define TURN_IN_PLACE_VELOCITY 100
+#define TURN_FOR_PASSENGER_PICKUP_DURATION 870
+#define DRIVE_FORWARD_BEFORE_TURNING_WHEN_DETECTED_IR 480
+#define TURN_SLIGHTLY_DURATION 300
+
+#define TURN_90 450
+#define TURN_180 1000
+#define TURN_OFF_TAPE_FACTOR 1000
+
+#define STOP_FOR_TURNING_DURATION 1000
+
+// CALIBRATION
+
+#define INTERSECTION_DETECTED_DRIVE_DELAY 200
+
+#define REVERSE_TIME_EVADE 500
+
+#define FINGER_MOTION_DURATION 500 // in milliseconds
+#define PICKUP_CALIBRATION_DISTANCE 0.01 //meters
+
+#define INTERSECTION_TIME 500 // in milliseconds, duration for intersection sensing to be remembered and passed as active when queried to account for intersections with skewed angles
+
+
+// SERVO ANGLES
+
+#define SERVO_OPEN 50
+#define SERVO_CLOSED 150
+#define SERVO_OPERATION_TIME 500 //millis
 
 // QRD (ANALOG)
 
@@ -58,46 +102,6 @@
 #define MOTOR_ARM_SIGN_UP 1
 #define MOTOR_LEFT_SIGN_UP 1
 #define MOTOR_RIGHT_SIGN_UP 1
-
-// SERVO ANGLES
-
-#define SERVO_OPEN 50
-#define SERVO_CLOSED 150
-#define SERVO_OPERATION_TIME 500 //millis
-
-// VELOCITIES
-
-#define METERS_PER_SECOND_MULTIPLIER 0.0001 // multiplier to velocities to obtain m/s
-
-#define VELOCITY_SLOW 75
-#define VELOCITY_NORMAL 200
-#define VELOCITY_FAST 300
-
-#define VELOCITY_ARM 100
-#define VELOCITY_PICKUP 100 //when checking IR signal
-
-#define TURN_SLIGHT 5
-#define TURN_HARD 15
-
-#define TURN_IN_PLACE_VELOCITY 100
-#define TURN_FOR_PASSENGER_PICKUP_DURATION 950
-#define DRIVE_FORWARD_BEFORE_TURNING_WHEN_DETECTED_IR 400
-#define TURN_SLIGHTLY_DURATION 300
-
-#define TURN_90 450
-#define TURN_180 1000
-#define TURN_OFF_TAPE_FACTOR 1000
-
-#define STOP_FOR_TURNING_DURATION 1000
-
-// CALIBRATION
-
-#define REVERSE_TIME_EVADE 500
-
-#define FINGER_MOTION_DURATION 500 // in milliseconds
-#define PICKUP_CALIBRATION_DISTANCE 0.01 //meters
-
-#define INTERSECTION_TIME 500 // in milliseconds, duration for intersection sensing to be remembered and passed as active when queried to account for intersections with skewed angles
 
 
 #endif

@@ -7,6 +7,15 @@
 
 #include "IR.hpp"
 
+void serialPrint() {
+    Serial.print(analogRead(IR_LEFT));
+    Serial.print(" ");
+    Serial.print(analogRead(IR_MIDLEFT));
+    Serial.print(" ");
+    Serial.print(analogRead(IR_MIDRIGHT));
+    Serial.print(" ");
+    Serial.println(analogRead(IR_RIGHT));
+}
 
 IR::Result irCheck() {
     int left = analogRead(IR_LEFT);
@@ -23,6 +32,7 @@ IR::Result irCheck() {
         if(left > THRESH_HIGH_IR) { return IR::StrongLeft; }
         return IR::WeakLeft;
     }
+    serialPrint();
 }
 
 
@@ -40,3 +50,4 @@ IR::Result IR::check() {
 bool IR::frontDetected() {
     return (analogRead(IR_MIDLEFT) > THRESH_FRONT_IR) || (analogRead(IR_MIDRIGHT) > THRESH_FRONT_IR);
 }
+
