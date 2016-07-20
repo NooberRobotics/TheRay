@@ -38,6 +38,7 @@ namespace Actuators {
     void lowerArm();
     void openClaw();
     void closeClaw();
+    
     void stop();
 
 };

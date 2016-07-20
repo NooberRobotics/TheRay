@@ -7,14 +7,14 @@
 
 #include "IR.hpp"
 
-enum Signal { None = 0, Weak = THRESH_LOW_IR, Strong = THRESH_HIGH_IR };
+enum Signal { No = 0, Weak = THRESH_LOW_IR, Strong = THRESH_HIGH_IR };
 
 Signal sensorReading(int sensor) {
     
     int sensorReading = analogRead(sensor);
     
     if (sensorReading == 0) {
-        return None;
+        return No;
     } else if (sensorReading > THRESH_LOW_IR) {
         return Weak;
     } else {
@@ -26,12 +26,12 @@ Signal filteredSensorReading(int sensor) {
     
     Signal firstReading = sensorReading(sensor);
     
-    if (firstReading != Signal::None) {
+    if (firstReading != No) {
         delay(1);
         
         Signal secondReading = sensorReading(sensor);
         
-        if (secondReading != Signal::None) {
+        if (secondReading != No) {
             delay(1);
             
             Signal thirdReading = sensorReading(sensor);
@@ -50,11 +50,11 @@ IR::Result IR::check() {
     Signal left = filteredSensorReading(IR_LEFT);
     
     if (right > left) {
-        if (right == Signal::Weak) return IR::WeakRight;
-        if (right == Signal::Strong) return IR::StrongRight;
+        if (right == Weak) return IR::WeakRight;
+        if (right == Strong) return IR::StrongRight;
     } else {
-        if (left == Signal::Weak) return IR::WeakLeft;
-        if (left == Signal::Strong) return IR::StrongLeft;
+        if (left == Weak) return IR::WeakLeft;
+        if (left == Strong) return IR::StrongLeft;
     }
     return None;
 }
@@ -64,7 +64,7 @@ bool IR::frontDetected() {
     Signal midRight = filteredSensorReading(IR_MIDRIGHT);
     Signal midLeft = filteredSensorReading(IR_MIDLEFT);
 
-    return (midRight == Signal::None) && (midLeft == Signal::None) ? false : true;
+    return (midRight == No) && (midLeft == No) ? false : true;
 
 }
 
