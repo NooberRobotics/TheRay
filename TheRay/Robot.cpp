@@ -56,7 +56,7 @@ Status Robot::cruise(Direction direction) {
                 break;
         }
         
-        Tape::Intersection intersection = Tape::atIntersection();
+        Tape::IntersectionType intersection = Tape::atIntersection();
         
         if ( intersection != Tape::None ) {
             lastIntersection = intersection;

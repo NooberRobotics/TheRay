@@ -28,7 +28,7 @@ class Robot {
     
 public:
         
-    Tape::Intersection lastIntersection = Tape::None;
+    Tape::IntersectionType lastIntersection = Tape::None;
     
     Robot() {
         Actuators::closeClaw();

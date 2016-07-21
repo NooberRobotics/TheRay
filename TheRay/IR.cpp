@@ -7,43 +7,38 @@
 
 #include "IR.hpp"
 
-int readingsRight[IR_AVERAGING_SAMPLE_SIZE] = {0};
-int readingsLeft[IR_AVERAGING_SAMPLE_SIZE] = {0};
+int irReadingsRight[4] = {0};
+int irReadingsLeft[4] = {0};
 
-int currentIndex = 0;
+int irCurrentIndex = 0;
+
+int irRight;
+int irLeft;
 
 IR::Result IR::check() {
     
-    currentIndex = (currentIndex + 1) % IR_AVERAGING_SAMPLE_SIZE;
+    irCurrentIndex = (irCurrentIndex + 1) % 4;
     
-    readingsRight[currentIndex] = analogRead(IR_RIGHT);
-    readingsLeft[currentIndex] = analogRead(IR_LEFT);
+    irReadingsRight[irCurrentIndex] = analogRead(IR_RIGHT);
+    irReadingsLeft[irCurrentIndex] = analogRead(IR_LEFT);
     
-    int right = 0;
-    int left = 0;
-
-    for (int i = 0; i<IR_AVERAGING_SAMPLE_SIZE; i++) {
-        right += readingsRight[i];
-        left += readingsLeft[i];
-    }
-    
-    right = right / IR_AVERAGING_SAMPLE_SIZE;
-    left = left / IR_AVERAGING_SAMPLE_SIZE;
+    irRight = (irReadingsRight[0] + irReadingsRight[1] + irReadingsRight[2] + irReadingsRight[3])/4;
+    irLeft = (irReadingsLeft[0] + irReadingsLeft[1] + irReadingsLeft[2] + irReadingsLeft[3])/4;
     
 //    Serial.print("Right: ");
-//    Serial.print(right);
+//    Serial.print(irRight);
 //    Serial.print("Left: ");
-//    Serial.println(left);
+//    Serial.println(irLeft);
     
-    if (left < THRESH_LOW_IR && right < THRESH_LOW_IR){
+    if (irLeft < THRESH_LOW_IR && irRight < THRESH_LOW_IR){
         return IR::None;
     }
     
-    if (right >= left){
-        if(right > THRESH_HIGH_IR) { return IR::StrongRight; }
+    if (irRight >= irLeft){
+        if(irRight > THRESH_HIGH_IR) { return IR::StrongRight; }
         return IR::WeakRight;
     } else {
-        if(left > THRESH_HIGH_IR) { return IR::StrongLeft; }
+        if(irLeft > THRESH_HIGH_IR) { return IR::StrongLeft; }
         return IR::WeakLeft;
     }
 }

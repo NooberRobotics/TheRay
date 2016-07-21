@@ -13,6 +13,7 @@
 #define KP 12;
 #define KD 5;
 
+#define TAPE_AVERAGING_SAMPLE_SIZE 3
 
 
 // IR

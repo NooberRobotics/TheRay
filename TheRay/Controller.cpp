@@ -52,12 +52,10 @@ void Controller::execution() {
             turnDirection = navigator.getTurn();
             
             if (navigator.dropOffNow) {
-                Serial.println("Dropping off");
                 robot.dropOffPassenger(turnDirection, navigator.dropOffTurnRight);
                 turnDirection = StraightAhead;
                 hasPassenger = false;
                 navigator.passengerDroppedOff();
-                
             }
             
             break;
