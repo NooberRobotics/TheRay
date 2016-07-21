@@ -21,7 +21,7 @@ void Controller::execution() {
         case IRRight:
             if (!hasPassenger) {
                 navigator.returnToDropoff(true);
-                robot.pickUpPassenger(true, false);
+                robot.pickUpPassenger(true, false); //true, true?
                 turnDirection = StraightAhead;
                 hasPassenger = true;
             }
@@ -31,7 +31,7 @@ void Controller::execution() {
         case IRLeft:
             if (!hasPassenger) {
                 navigator.returnToDropoff(false);
-                robot.pickUpPassenger(false, true);
+                robot.pickUpPassenger(false, true); // false, false?
                 turnDirection = StraightAhead;
                 hasPassenger = true;
             }
@@ -39,6 +39,16 @@ void Controller::execution() {
             
             
         case Intersection:
+            
+            if (navigatorNotInitialized) {
+                if (robot.lastIntersection == Tape::Right) {
+                    navigator.calibrateTrackPosition(true);
+                } else if (robot.lastIntersection == Tape::Left) {
+                    navigator.calibrateTrackPosition(false);
+                }
+                navigatorNotInitialized = false;
+            }
+            
             turnDirection = navigator.getTurn();
             
             if (navigator.dropOffNow) {

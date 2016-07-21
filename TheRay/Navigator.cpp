@@ -9,11 +9,24 @@
 #include "Navigator.hpp"
 #include <Arduino.h>
 
+void Navigator::calibrateTrackPosition(bool firstIntersectionRightSide) {
+    
+    if (firstIntersectionRightSide) {
+        currentNode = 18;
+        nextNode = 19;
+        primaryPath = false;
+    }
+    
+    if (returningToDropoff) {
+        primaryPath = true;
+    }
+}
+
+
 Direction Navigator::getTurn() {
     
     lastNode = currentNode;
     currentNode = nextNode;
-    
     
     Direction turn;
     
@@ -23,7 +36,6 @@ Direction Navigator::getTurn() {
     if (returningToDropoff) {
         
         nextNode = CityMap::getNextNodeToGoal(currentNode, primaryPath);
-        
 
         turn = CityMap::getTurnDirection(lastNode, currentNode, nextNode);
         

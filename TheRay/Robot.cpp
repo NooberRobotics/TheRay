@@ -56,12 +56,14 @@ Status Robot::cruise(Direction direction) {
                 break;
         }
         
+        Tape::Intersection intersection = Tape::atIntersection();
         
-        
-        if ( Tape::atIntersection() ) {
-            Actuators::drive(driveVelocity, 0);
+        if ( intersection != Tape::None ) {
+            lastIntersection = intersection;
             
+            Actuators::drive(driveVelocity, 0);
             delay(INTERSECTION_DETECTED_DRIVE_DELAY);
+            
             return Intersection;
         }
         

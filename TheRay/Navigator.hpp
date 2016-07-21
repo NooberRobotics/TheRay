@@ -27,26 +27,19 @@ class Navigator {
     bool primaryPath; // TODO: determine which path we start at
     
 public:
+   
+    void calibrateTrackPosition(bool firstIntersectionRightSide);
     
     bool dropOffNow = false;
     bool dropOffTurnRight;
     
-    Navigator(bool firstIntersectionOnRightSide) {
-        
-        if (firstIntersectionOnRightSide) {
-            
-            currentNode = 18;
-            nextNode = 19;
-
-            primaryPath = false;
-            
-        } else {
-            
+    Navigator() {
+                // default to primary path
             currentNode = 0;
             nextNode = 1;
             
             primaryPath = true;
-        }
+//        }
     }
     
     Direction getTurn(); // only called at intersections

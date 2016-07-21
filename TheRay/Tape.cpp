@@ -65,17 +65,17 @@ int Tape::driveCorrection(bool defaultTurnRight) {
 
 // Intersection detection
 
-bool Tape::atIntersection() {
-    if (tapePresentSides()) {
-        if (tapePresentSides()) {
-            return true;
-        }
+Tape::Intersection Tape::atIntersection() {
+    if (tapePresentSides() != Tape::None) {
+        return tapePresentSides();
     }
-    return false;
+    return Tape::None;
 }
 
-bool Tape::tapePresentSides() {
-    return detectedTape(QRD_LEFT) || detectedTape(QRD_RIGHT);
+Tape::Intersection Tape::tapePresentSides() {
+    if (detectedTape(QRD_RIGHT)) return Tape::Right;
+    if (detectedTape(QRD_LEFT)) return Tape::Left;
+    return Tape::None;
 }
 
 bool Tape::tapePresentCentre() {
@@ -83,6 +83,6 @@ bool Tape::tapePresentCentre() {
 }
 
 bool Tape::tapePresent() {
-    return detectedTape(QRD_MIDLEFT) || detectedTape(QRD_MIDRIGHT) || atIntersection();
+    return detectedTape(QRD_MIDLEFT) || detectedTape(QRD_MIDRIGHT) ||  detectedTape(QRD_LEFT) || detectedTape(QRD_RIGHT);
 }
 

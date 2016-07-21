@@ -13,13 +13,17 @@
 
 namespace Tape {
     
+    enum Intersection { None, Right, Left };
+    
     int driveCorrection(bool defaultTurnRight);
     int driveCorrection();
 
-    bool atIntersection();
+    Intersection atIntersection();
+    
+    Intersection tapePresentSides();
     bool tapePresent();
-    bool tapePresentSides();
     bool tapePresentCentre();
+    
     bool detectedTape(int sensor);
 };
 

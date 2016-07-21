@@ -27,8 +27,9 @@ enum Status {
 class Robot {
     
 public:
-    
         
+    Tape::Intersection lastIntersection = Tape::None;
+    
     Robot() {
         Actuators::closeClaw();
         Actuators::raiseArm();

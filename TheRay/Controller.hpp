@@ -16,11 +16,12 @@ class Controller {
     
     bool hasPassenger = false;
     Direction turnDirection = StraightAhead;
+    bool navigatorNotInitialized = true;
     
 public:
     
     Robot robot = Robot();
-    Navigator navigator = Navigator(true);
+    Navigator navigator = Navigator();
 
     void execution();
 };
