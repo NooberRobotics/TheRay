@@ -17,28 +17,15 @@ void Controller::execution() {
             navigator.collisionOccurred();
             break;
             
-            
         case IRRight:
-            if (!hasPassenger) {
-                navigator.returnToDropoff(true);
-                robot.pickUpPassenger(true, false); //true, true?
-                hasPassenger = true;
-            }
+            if (!hasPassenger) initializePickup(true);
             turnDirection = StraightAhead;
-
             break;
-            
             
         case IRLeft:
-            if (!hasPassenger) {
-                navigator.returnToDropoff(false);
-                robot.pickUpPassenger(false, true); // false, false?
-                hasPassenger = true;
-            }
+            if (!hasPassenger) initializePickup(false);
             turnDirection = StraightAhead;
-
             break;
-            
             
         case Intersection:
             
@@ -53,6 +40,7 @@ void Controller::execution() {
             }
             
             turnDirection = navigator.getTurn();
+            if (navigator.dropOffNow) initializeDropoff();
             
             if (navigator.dropOffNow) {
                 robot.dropOffPassenger(turnDirection, navigator.dropOffTurnRight);
@@ -73,7 +61,28 @@ void Controller::execution() {
         case PickupFailed:
             turnDirection = StraightAhead;
             break;
-            
     }
+}
+
+void Controller::initializeNavigator() {
+    if (robot.lastIntersection == Tape::Right) {
+        navigator.calibrateTrackPosition(true);
+    } else if (robot.lastIntersection == Tape::Left) {
+        navigator.calibrateTrackPosition(false);
+    }
+    navigatorNotInitialized = false;
+}
+
+void Controller::initializePickup(bool rightSidePickup) {
+    navigator.returnToDropoff(false);
+    robot.pickUpPassenger(rightSidePickup, !rightSidePickup); // false, false?
+    hasPassenger = true;
+}
+
+void Controller::initializeDropoff() {
+    robot.dropOffPassenger(turnDirection, navigator.dropOffTurnRight);
+    turnDirection = StraightAhead;
+    hasPassenger = false;
+    navigator.passengerDroppedOff();
 }
 

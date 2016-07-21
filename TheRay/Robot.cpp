@@ -92,7 +92,7 @@ Status Robot::cruise(Direction direction) {
     }
 }
 
-Status Robot::pickUpPassenger(bool turnRightBefore, bool turnRightAfter) {
+void pickUpPassenger(bool turnRightBefore, bool turnRightAfter) {
     
     Actuators::drive(Actuators::Slow, Actuators::Straight);
     delay(DRIVE_FORWARD_BEFORE_TURNING_WHEN_DETECTED_IR);
@@ -131,11 +131,9 @@ Status Robot::pickUpPassenger(bool turnRightBefore, bool turnRightAfter) {
     while(!Tape::tapePresentCentre()) {}
 
     Actuators::stop();
-
-    return successful ? PickupSuccessful : PickupFailed;
 }
 
-Status Robot::dropOffPassenger(Direction turn, bool rightSideDropOff) {
+void Robot::dropOffPassenger(Direction turn, bool rightSideDropOff) {
     
     switch (turn) {
             
