@@ -24,6 +24,9 @@ enum Status {
 
 class Robot {
     
+    void turnOntoTape(Direction direction);
+    Actuators::Velocity driveVelocity = Actuators::Normal;
+
 public:
         
     Tape::Intersection lastIntersection = Tape::None;
@@ -33,13 +36,10 @@ public:
         Actuators::raiseArm();
     }
     
-    Actuators::Velocity driveVelocity = Actuators::Normal;
-    
     Status cruise(Direction direction);
     void pickUpPassenger(bool rightSideBefore, bool turnRightAfter);
     void dropOffPassenger(Direction turn, bool rightSideDropOff);
     void evade();
-    void stop(int duration);
 };
 
 

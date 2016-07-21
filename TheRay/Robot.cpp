@@ -10,26 +10,7 @@
 
 Status Robot::cruise(Direction direction) {
     
-    switch (direction) {
-            
-        case StraightAhead:
-            break;
-            
-        case Left:
-            Actuators::turnInPlace(TURN_SLIGHTLY_DURATION, false);
-            while (!Tape::tapePresentCentre()) {}
-            break;
-            
-        case Right:
-            Actuators::turnInPlace(TURN_SLIGHTLY_DURATION, true);
-            while (!Tape::tapePresentCentre()) {}
-            break;
-            
-        case TurnAround:
-            Actuators::turnInPlace(TURN_180, true);
-            while (!Tape::tapePresentCentre()) {}
-            break;
-    }
+    turnOntoTape(direction);
     
     while (true) {
 
@@ -92,6 +73,31 @@ Status Robot::cruise(Direction direction) {
     }
 }
 
+
+void turnOntoTape(Direction direction) {
+    
+    switch (direction) {
+            
+        case StraightAhead:
+            break;
+            
+        case Left:
+            Actuators::turnInPlace(TURN_OFF_TAPE_DURATION, false);
+            while (!Tape::tapePresentCentre()) {}
+            break;
+            
+        case Right:
+            Actuators::turnInPlace(TURN_OFF_TAPE_DURATION, true);
+            while (!Tape::tapePresentCentre()) {}
+            break;
+            
+        case TurnAround:
+            Actuators::turnInPlace(TURN_180, true);
+            while (!Tape::tapePresentCentre()) {}
+            break;
+    }
+}
+
 void pickUpPassenger(bool turnRightBefore, bool turnRightAfter) {
     
     Actuators::drive(Actuators::Slow, Actuators::Straight);
@@ -133,31 +139,11 @@ void pickUpPassenger(bool turnRightBefore, bool turnRightAfter) {
     Actuators::stop();
 }
 
-void Robot::dropOffPassenger(Direction turn, bool rightSideDropOff) {
+void Robot::dropOffPassenger(Direction direction, bool rightSideDropOff) {
     
-    switch (turn) {
-            
-        case StraightAhead:
-            break;
-            
-        case Left:
-            Actuators::turnInPlace(TURN_SLIGHTLY_DURATION, false);
-            while (!Tape::tapePresentCentre()) {}
-            break;
-            
-        case Right:
-            Actuators::turnInPlace(TURN_SLIGHTLY_DURATION, true);
-            while (!Tape::tapePresentCentre()) {}
-            break;
-            
-        case TurnAround:
-            Actuators::turnInPlace(TURN_180, true);
-            while (!Tape::tapePresentCentre()) {}
-            break;
-    }
+    turnOntoTape(direction);
     
     int time = millis();
-    
     while( (millis() - time) < DROP_OFF_APPROACH_TIME ){
         Actuators::drive(Actuators::Fast, Tape::driveCorrection());
     }
@@ -196,10 +182,3 @@ void Robot::evade() {
     while (!Tape::tapePresentCentre()) {}
     
 }
-
-void Robot::stop(int duration) {
-    Actuators::stop();
-    delay(duration);
-    
-}
-
