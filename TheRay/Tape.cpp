@@ -7,6 +7,9 @@
 
 #include "Tape.hpp"
 
+Tape::IntersectionType firstIntersectionDirection = Tape::None;
+
+
 int error = 0;
 int lastError = 0;
 int recentError = 0;
@@ -66,7 +69,21 @@ int Tape::driveCorrection(bool defaultTurnRight) {
 
 // Intersection detection
 bool Tape::atIntersection() {
-    return detectedTape(QRD_LEFT) || detectedTape(QRD_RIGHT);
+    
+    if (firstIntersectionDirection == Tape::None) {
+        
+        if (detectedTape(QRD_LEFT)) {
+            firstIntersectionDirection = Tape::Left;
+            return true;
+        } else if (detectedTape(QRD_RIGHT)) {
+            firstIntersectionDirection = Tape::Right;
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    return detectedTape(QRD_RIGHT) || detectedTape(QRD_RIGHT);
 }
 
 Tape::IntersectionType Tape::tapePresentSide() {
@@ -82,4 +99,9 @@ bool Tape::tapePresentCentre() {
 bool Tape::tapePresent() {
     return detectedTape(QRD_MIDLEFT) || detectedTape(QRD_MIDRIGHT) ||  detectedTape(QRD_LEFT) || detectedTape(QRD_RIGHT);
 }
+
+Tape::IntersectionType Tape::firstIntersectionDirectionStored() {
+    return firstIntersectionDirection;
+}
+
 

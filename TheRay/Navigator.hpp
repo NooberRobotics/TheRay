@@ -16,31 +16,24 @@
 class Navigator {
     
     int lastNode;
-    int currentNode;
-    int nextNode;
+    int currentNode = 0;
+    int nextNode = 1;
     
     int nextNodeIndex = 1;
     
     
     bool returningToDropoff = false;
     
-    bool primaryPath; // TODO: determine which path we start at
+    bool primaryPath = true; // TODO: determine which path we start at
     
 public:
    
-    void calibrateTrackPosition(bool firstIntersectionRightSide);
+    void changeStartingPositionToRightTurnFirst();
     
     bool dropOffNow = false;
     bool dropOffTurnRight;
     
-    Navigator() {
-                // default to primary path
-            currentNode = 0;
-            nextNode = 1;
-            
-            primaryPath = true;
-//        }
-    }
+ 
     
     Direction getTurn(); // only called at intersections
     

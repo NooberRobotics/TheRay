@@ -11,15 +11,15 @@
 // Tape
 #define THRESH_QRD 300
 
-#define KP 12;
+#define KP 14;
 #define KD 5;
 
 
 // IR
 #define THRESH_LOW_IR 4
-#define THRESH_HIGH_IR 30
+#define THRESH_HIGH_IR 50
 
-#define THRESH_FRONT_IR 50
+#define THRESH_FRONT_IR 65
 
 #define IR_AVERAGING_SAMPLE_SIZE 3
 

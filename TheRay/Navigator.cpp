@@ -9,17 +9,10 @@
 #include "Navigator.hpp"
 #include <Arduino.h>
 
-void Navigator::calibrateTrackPosition(bool firstIntersectionRightSide) {
-    
-    if (firstIntersectionRightSide) {
-        currentNode = 18;
-        nextNode = 19;
-        primaryPath = false;
-    }
-    
-    if (returningToDropoff) {
-        primaryPath = true;
-    }
+void Navigator::changeStartingPositionToRightTurnFirst() {
+    currentNode = 18;
+    nextNode = 19;
+    primaryPath = false;
 }
 
 

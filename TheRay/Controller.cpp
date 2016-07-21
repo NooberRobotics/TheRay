@@ -39,11 +39,11 @@ void Controller::execution() {
 }
 
 void Controller::initializeNavigator() {
-    if (robot.lastIntersection == Tape::Right) {
-        navigator.calibrateTrackPosition(true);
-    } else if (robot.lastIntersection == Tape::Left) {
-        navigator.calibrateTrackPosition(false);
+    
+    if (Tape::firstIntersectionDirectionStored() == Tape::Right) {
+        navigator.changeStartingPositionToRightTurnFirst();
     }
+
     navigatorNotInitialized = false;
 }
 

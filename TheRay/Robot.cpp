@@ -56,6 +56,8 @@ Status Robot::cruise(Direction direction) {
         if (Tape::atIntersection()) {
             Actuators::drive(driveVelocity, Actuators::Straight);
             delay(INTERSECTION_DETECTED_DRIVE_DELAY);
+            Actuators::stop();
+            delay(300);
             return Intersection;
         }
 
@@ -86,10 +88,6 @@ void Robot::turnOntoTape(Direction direction) {
             while (!Tape::tapePresentCentre()) {}
             break;
     }
-}
-
-void handleIntersection(Tape::IntersectionType intersection) {
-    
 }
 
 void Robot::pickUpPassenger(bool turnRightBefore, bool turnRightAfter) {
