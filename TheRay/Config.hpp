@@ -57,7 +57,7 @@
 #define TURN_SLIGHT 5
 #define TURN_HARD 15
 
-#define TURN_SLIGHTLY_DURATION 300
+#define TURN_OFF_TAPE_DURATION 300
 
 #define TURN_90 400
 #define TURN_180 900

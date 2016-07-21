@@ -34,13 +34,6 @@ void Controller::execution() {
             turnDirection = navigator.getTurn();
             if (navigator.dropOffNow) initializeDropoff();
             
-            if (navigator.dropOffNow) {
-                robot.dropOffPassenger(turnDirection, navigator.dropOffTurnRight);
-                turnDirection = StraightAhead;
-                hasPassenger = false;
-                navigator.passengerDroppedOff();
-            }
-            
             break;
     }
 }
@@ -56,7 +49,7 @@ void Controller::initializeNavigator() {
 
 void Controller::initializePickup(bool rightSidePickup) {
     navigator.returnToDropoff(false);
-    robot.pickUpPassenger(rightSidePickup, !rightSidePickup); // false, false?
+    robot.pickUpPassenger(rightSidePickup, !rightSidePickup);
     hasPassenger = true;
 }
 
@@ -66,4 +59,3 @@ void Controller::initializeDropoff() {
     hasPassenger = false;
     navigator.passengerDroppedOff();
 }
-
