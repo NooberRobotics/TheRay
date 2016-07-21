@@ -16,11 +16,11 @@
 //SHOULD BE ABLE TO CALL THE TURNING ALGORITM FROM THIS.
 
 
-int CityMap::getNextNodeToGoal(int currentNodeIndex, bool primaryPath) {
+int CityMap::getNextNodeToGoal(int currentNode, bool primaryPath) {
     if (primaryPath) {
-        return CityMap::primaryDropOffPath[currentNodeIndex][0];
+        return CityMap::primaryDropOffPath[currentNode][0];
     } else {
-        return CityMap::secondaryDropOffPath[currentNodeIndex][0];
+        return CityMap::secondaryDropOffPath[currentNode][0];
     }
 }
 
@@ -62,11 +62,11 @@ Direction CityMap::getTurnDirection(int lastNode, int currentNode, int nextNode)
 
 int CityMap::updateNodeIndex(int nextNode, bool primaryPath){
     if (primaryPath){
-        for (int i = 0; i < 38; i++){
+        for (int i = 0; i < 39; i++){
             if (nextNode == CityMap::primaryTraversalPath[i]) return i;
         }
     } else {
-        for (int i = 0; i < 38; i++){
+        for (int i = 0; i < 39; i++){
             if (nextNode == CityMap::secondaryTraversalPath[i]) return i;
         }
     }
