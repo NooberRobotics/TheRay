@@ -66,10 +66,7 @@ int Tape::driveCorrection(bool defaultTurnRight) {
 // Intersection detection
 
 Tape::Intersection Tape::atIntersection() {
-    if (tapePresentSides() != Tape::None) {
-        return tapePresentSides();
-    }
-    return Tape::None;
+    return tapePresentSides();
 }
 
 Tape::Intersection Tape::tapePresentSides() {

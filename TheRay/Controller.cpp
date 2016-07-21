@@ -22,9 +22,10 @@ void Controller::execution() {
             if (!hasPassenger) {
                 navigator.returnToDropoff(true);
                 robot.pickUpPassenger(true, false); //true, true?
-                turnDirection = StraightAhead;
                 hasPassenger = true;
             }
+            turnDirection = StraightAhead;
+
             break;
             
             
@@ -32,9 +33,10 @@ void Controller::execution() {
             if (!hasPassenger) {
                 navigator.returnToDropoff(false);
                 robot.pickUpPassenger(false, true); // false, false?
-                turnDirection = StraightAhead;
                 hasPassenger = true;
             }
+            turnDirection = StraightAhead;
+
             break;
             
             
@@ -57,7 +59,6 @@ void Controller::execution() {
                 turnDirection = StraightAhead;
                 hasPassenger = false;
                 navigator.passengerDroppedOff();
-                
             }
             
             break;

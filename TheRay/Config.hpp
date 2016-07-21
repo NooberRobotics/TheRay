@@ -9,72 +9,62 @@
 #define Config_hpp
 
 // Tape
+#define THRESH_QRD 300
 
 #define KP 12;
 #define KD 5;
 
 
-
 // IR
-
-#define THRESH_LOW_IR 5
-#define THRESH_HIGH_IR 80
+#define THRESH_LOW_IR 4
+#define THRESH_HIGH_IR 60
 
 #define THRESH_FRONT_IR 50
 
+#define IR_AVERAGING_SAMPLE_SIZE 3
 
 
-// Delays
+// Robot operations
+
+// Collision
+#define REVERSE_TIME_EVADE 500
+
+// Intersection
+#define INTERSECTION_DETECTED_DRIVE_DELAY 225
+
+// Pickup
+#define TURN_FOR_PASSENGER_PICKUP_DURATION 870
+#define DRIVE_FORWARD_BEFORE_TURNING_WHEN_DETECTED_IR 480
 
 
+// Dropoff
+#define DROP_OFF_APPROACH_TIME 2000
+#define TURN_FOR_PASSENGER_DROPOFF_DURATION 870
+#define DROP_OFF_PASSENGER_DRIVE_OFF_TRACK_DELAY 400
+#define OPEN_FINGERS_FOR_PASSENGER_DROP_OFF_DURATION 400
 
-// Thresholds
 
-#define THRESH_QRD 300
-
-
-
-#define IR_AVERAGING_SAMPLE_SIZE 4
-
-// VELOCITIES
-
-#define METERS_PER_SECOND_MULTIPLIER 0.0001 // multiplier to velocities to obtain m/s
+// Velocities
+#define TURN_IN_PLACE_VELOCITY 100
 
 #define VELOCITY_SLOW 75
 #define VELOCITY_NORMAL 200
 #define VELOCITY_FAST 255
 
 #define VELOCITY_ARM 100
-#define VELOCITY_PICKUP 100 //when checking IR signal
 
+// Turns
 #define TURN_SLIGHT 5
 #define TURN_HARD 15
 
-#define TURN_IN_PLACE_VELOCITY 100
-#define TURN_FOR_PASSENGER_PICKUP_DURATION 870
-#define TURN_FOR_PASSENGER_DROPOFF_DURATION 870
-#define DRIVE_FORWARD_BEFORE_TURNING_WHEN_DETECTED_IR 480
 #define TURN_SLIGHTLY_DURATION 300
 
 #define TURN_90 400
 #define TURN_180 900
 #define TURN_OFF_TAPE_FACTOR 900
 
-#define STOP_FOR_TURNING_DURATION 1000
 
-#define OPEN_FINGERS_FOR_PASSENGER_DROP_OFF_DURATION 400
-
-// CALIBRATION
-
-#define INTERSECTION_DETECTED_DRIVE_DELAY 250
-#define DROP_OFF_PASSENGER_DRIVE_OFF_TRACK_DELAY 400
-#define REVERSE_TIME_EVADE 500
-
-#define FINGER_MOTION_DURATION 500 // in milliseconds
-#define PICKUP_CALIBRATION_DISTANCE 0.01 //meters
-
-#define INTERSECTION_TIME 500 // in milliseconds, duration for intersection sensing to be remembered and passed as active when queried to account for intersections with skewed angles
-#define DROP_OFF_APPROACH_TIME 2000
+// Pin connectors
 
 // SERVO ANGLES
 

@@ -48,10 +48,12 @@ Status Robot::cruise(Direction direction) {
                 break;
                 
             case IR::StrongLeft:
+                Actuators::stop();
                 return IRLeft;
                 break;
                 
             case IR::StrongRight:
+                Actuators::stop();
                 return IRRight;
                 break;
         }
@@ -71,12 +73,15 @@ Status Robot::cruise(Direction direction) {
             case Collision::None:
                 break;
             case Collision::Both:
+                Actuators::stop();
                 return Collided;
                 break;
             case Collision::Left:
+                Actuators::stop();
                 return Collided;
                 break;
             case Collision::Right:
+                Actuators::stop();
                 return Collided;
                 break;
         }
