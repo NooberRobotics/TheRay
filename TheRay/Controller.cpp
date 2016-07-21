@@ -29,15 +29,7 @@ void Controller::execution() {
             
         case Intersection:
             
-            if (navigatorNotInitialized) {
-                if (robot.lastIntersection == Tape::Right) {
-                    navigator.calibrateTrackPosition(true);
-                } else if (robot.lastIntersection == Tape::Left) {
-                    navigator.calibrateTrackPosition(false);
-                }
-                
-                navigatorNotInitialized = false;
-            }
+            if (navigatorNotInitialized) initializeNavigator();
             
             turnDirection = navigator.getTurn();
             if (navigator.dropOffNow) initializeDropoff();
@@ -49,17 +41,6 @@ void Controller::execution() {
                 navigator.passengerDroppedOff();
             }
             
-            break;
-            
-            
-        case PickupSuccessful:
-            hasPassenger = true;
-            turnDirection = StraightAhead;
-            break;
-            
-            
-        case PickupFailed:
-            turnDirection = StraightAhead;
             break;
     }
 }
