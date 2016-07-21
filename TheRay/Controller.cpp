@@ -48,13 +48,13 @@ void Controller::execution() {
                 } else if (robot.lastIntersection == Tape::Left) {
                     navigator.calibrateTrackPosition(false);
                 }
+                
                 navigatorNotInitialized = false;
             }
             
             turnDirection = navigator.getTurn();
             
             if (navigator.dropOffNow) {
-                Serial.println("Dropping off");
                 robot.dropOffPassenger(turnDirection, navigator.dropOffTurnRight);
                 turnDirection = StraightAhead;
                 hasPassenger = false;

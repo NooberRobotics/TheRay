@@ -33,7 +33,7 @@ Status Robot::cruise(Direction direction) {
     
     while (true) {
 
-        switch (IR::check()) {
+        switch (IR::check()) { //IR Check
                 
             case IR::None:
                 driveVelocity = Actuators::Normal;
@@ -60,7 +60,7 @@ Status Robot::cruise(Direction direction) {
         
         Tape::Intersection intersection = Tape::atIntersection();
         
-        if ( intersection != Tape::None ) {
+        if ( intersection != Tape::None ) { //at an intersection
             lastIntersection = intersection;
             
             Actuators::drive(driveVelocity, Actuators::Straight);
@@ -71,7 +71,7 @@ Status Robot::cruise(Direction direction) {
             return Intersection;
         }
         
-        switch (Collision::check()) {
+        switch (Collision::check()) { //Collision check
             case Collision::None:
                 break;
             case Collision::Both:
@@ -194,7 +194,7 @@ void Robot::evade() {
     Actuators::drive(Actuators::Slow, Actuators::Straight, true);
     delay(REVERSE_TIME_EVADE);
     
-    Actuators::turnInPlace(TURN_OFF_TAPE_FACTOR, true);
+    Actuators::turnInPlace(TURN_180, true);
     while (!Tape::tapePresentCentre()) {}
     
 }
