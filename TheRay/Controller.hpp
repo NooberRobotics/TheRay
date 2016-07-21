@@ -20,7 +20,7 @@ class Controller {
 public:
     
     Robot robot = Robot();
-    Navigator navigator = Navigator(false);
+    Navigator navigator = Navigator(true);
 
     void execution();
 };

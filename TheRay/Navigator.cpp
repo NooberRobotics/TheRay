@@ -16,6 +16,7 @@ Direction Navigator::getTurn() {
     lastNode = currentNode;
     currentNode = nextNode;
     
+    
     Direction turn;
     
     Serial.print("Current Node: ");
@@ -58,16 +59,14 @@ Direction Navigator::getTurn() {
         }
     }
     
-//    Serial.print("Last Node: ");
-//    Serial.print(lastNode);
-//    Serial.print(" Current Node: ");
-//    Serial.print(currentNode);
-//    Serial.print(" Next Node: ");
-//    Serial.print(nextNode);
-//    Serial.print(" Turn: ");
-//    
-    
-//    Serial.println(turn);
+    Serial.print("Last Node: ");
+    Serial.print(lastNode);
+    Serial.print(" Current Node: ");
+    Serial.print(currentNode);
+    Serial.print(" Next Node: ");
+    Serial.print(nextNode);
+    Serial.print(" Turn: ");
+    Serial.println(turn);
     
     return turn;
 }
