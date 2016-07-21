@@ -17,7 +17,7 @@
 
 // IR
 #define THRESH_LOW_IR 4
-#define THRESH_HIGH_IR 60
+#define THRESH_HIGH_IR 30
 
 #define THRESH_FRONT_IR 50
 
