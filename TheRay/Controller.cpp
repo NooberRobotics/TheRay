@@ -23,6 +23,7 @@ void Controller::execution() {
                 navigator.returnToDropoff(true);
                 robot.pickUpPassenger(true, false);
                 turnDirection = StraightAhead;
+                hasPassenger = true;
             }
             break;
             
@@ -32,6 +33,7 @@ void Controller::execution() {
                 navigator.returnToDropoff(false);
                 robot.pickUpPassenger(false, true);
                 turnDirection = StraightAhead;
+                hasPassenger = true;
             }
             break;
             
@@ -40,9 +42,9 @@ void Controller::execution() {
             turnDirection = navigator.getTurn();
             
             if (navigator.dropOffNow) {
+                Serial.println("Dropping off");
                 robot.dropOffPassenger(turnDirection, navigator.dropOffTurnRight);
                 turnDirection = StraightAhead;
-                hasPassenger = false;
             }
             
             break;

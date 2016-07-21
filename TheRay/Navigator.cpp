@@ -17,30 +17,28 @@ Direction Navigator::getTurn() {
     currentNode = nextNode;
     
     Direction turn;
-
+    
+    Serial.print("Current Node: ");
+    Serial.println(currentNode);
     
     if (returningToDropoff) {
         
         nextNode = CityMap::getNextNodeToGoal(currentNode, primaryPath);
         
+
         turn = CityMap::getTurnDirection(lastNode, currentNode, nextNode);
         
-        if (currentNode == 11){
-            
+        if(currentNode == 7){
             dropOffNow = true;
-            
-            if(currentNode == 7){
-                dropOffTurnRight = true;
-                nextNode = 17;
-                lastNode = 7;
-            } else if(currentNode == 17){
-                dropOffTurnRight = false;
-                nextNode = 7;
-                lastNode = 17;
-            }
-            currentNode = 11;
+            dropOffTurnRight = true;
+            nextNode = 17;
+            lastNode = 7;
+        } else if(currentNode == 17){
+            dropOffNow = true;
+            dropOffTurnRight = false;
+            nextNode = 7;
+            lastNode = 17;
         }
-
         
     } else {
         nextNodeIndex = CityMap::getNextNodeIndex(nextNodeIndex);

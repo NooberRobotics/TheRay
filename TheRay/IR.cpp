@@ -9,72 +9,31 @@
 
 enum Signal { No = 0, Weak = THRESH_LOW_IR, Strong = THRESH_HIGH_IR };
 
-Signal sensorReading(int sensor) {
-    
-    int sensorReading = analogRead(sensor);
-    
-    if (sensorReading == 0) {
-        return No;
-    } else if (sensorReading > THRESH_LOW_IR) {
-        return Weak;
-    } else {
-        return Strong;
-    }
-}
-
-Signal filteredSensorReading(int sensor) {
-    
-    Signal firstReading = sensorReading(sensor);
-    
-    if (firstReading != No) {
-        delay(1);
-        
-        Signal secondReading = sensorReading(sensor);
-        
-        if (secondReading != No) {
-            delay(1);
-            
-            Signal thirdReading = sensorReading(sensor);
-            
-            if ( (firstReading + secondReading + thirdReading) >= (THRESH_HIGH_IR + 2*THRESH_LOW_IR) ) {
-                return Strong;
-            } else {
-                return Weak;
-            }
-        }
-    }
-}
-
 IR::Result IR::check() {
-    Signal right = filteredSensorReading(IR_RIGHT);
-    Signal left = filteredSensorReading(IR_LEFT);
     
-    if (right > left) {
-        if (right == Weak) return IR::WeakRight;
-        if (right == Strong) return IR::StrongRight;
-    } else {
-        if (left == Weak) return IR::WeakLeft;
-        if (left == Strong) return IR::StrongLeft;
+    int left = analogRead(IR_LEFT);
+    int right = analogRead(IR_RIGHT);
+    
+//    Serial.print("Right: ");
+//    Serial.print(right);
+//    Serial.print("Left: ");
+//    Serial.println(left);
+    
+    if (left < THRESH_LOW_IR && right < THRESH_LOW_IR){
+        return IR::None;
     }
-    return None;
+    
+    if (right >= left){
+        if(right > THRESH_HIGH_IR) { return IR::StrongRight; }
+        return IR::WeakRight;
+    } else {
+        if(left > THRESH_HIGH_IR) { return IR::StrongLeft; }
+        return IR::WeakLeft;
+    }
 }
 
 bool IR::frontDetected() {
-    
-    Signal midRight = filteredSensorReading(IR_MIDRIGHT);
-    Signal midLeft = filteredSensorReading(IR_MIDLEFT);
-
-    return (midRight == No) && (midLeft == No) ? false : true;
-
+    return (analogRead(IR_MIDLEFT) > THRESH_FRONT_IR) || (analogRead(IR_MIDRIGHT) > THRESH_FRONT_IR);
 }
 
 
-//void serialPrint() {
-//    Serial.print(analogRead(IR_LEFT));
-//    Serial.print(" ");
-//    Serial.print(analogRead(IR_MIDLEFT));
-//    Serial.print(" ");
-//    Serial.print(analogRead(IR_MIDRIGHT));
-//    Serial.print(" ");
-//    Serial.println(analogRead(IR_RIGHT));
-//}

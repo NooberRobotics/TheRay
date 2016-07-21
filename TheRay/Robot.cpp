@@ -56,6 +56,8 @@ Status Robot::cruise(Direction direction) {
                 break;
         }
         
+        
+        
         if ( Tape::atIntersection() ) {
             Actuators::drive(driveVelocity, 0);
             
@@ -78,7 +80,6 @@ Status Robot::cruise(Direction direction) {
         }
         
         Actuators::drive(driveVelocity, Tape::driveCorrection());
-        
     }
 }
 
