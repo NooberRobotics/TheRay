@@ -57,20 +57,7 @@ Status Robot::cruise(Direction direction) {
                 return IRRight;
                 break;
         }
-        
-        Tape::Intersection intersection = Tape::atIntersection();
-        
-        if ( intersection != Tape::None ) { //at an intersection
-            lastIntersection = intersection;
-            
-            Actuators::drive(driveVelocity, Actuators::Straight);
-            delay(INTERSECTION_DETECTED_DRIVE_DELAY);
-            
-            Actuators::stop();
-            
-            return Intersection;
-        }
-        
+
         switch (Collision::check()) { //Collision check
             case Collision::None:
                 break;
@@ -86,6 +73,19 @@ Status Robot::cruise(Direction direction) {
                 Actuators::stop();
                 return Collided;
                 break;
+        }
+        
+        Tape::Intersection intersection = Tape::atIntersection();
+        
+        if ( intersection != Tape::None ) { //at an intersection
+            lastIntersection = intersection;
+            
+            Actuators::drive(driveVelocity, Actuators::Straight);
+            delay(INTERSECTION_DETECTED_DRIVE_DELAY);
+            
+            Actuators::stop();
+            
+            return Intersection;
         }
         
         Actuators::drive(driveVelocity, Tape::driveCorrection());
