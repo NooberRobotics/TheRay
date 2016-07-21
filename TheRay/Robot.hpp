@@ -20,8 +20,6 @@ enum Status {
     IRRight,
     IRLeft,
     Intersection,
-    PickupSuccessful,
-    PickupFailed,
 };
 
 class Robot {
@@ -38,8 +36,8 @@ public:
     Actuators::Velocity driveVelocity = Actuators::Normal;
     
     Status cruise(Direction direction);
-    Status pickUpPassenger(bool rightSideBefore, bool turnRightAfter);
-    Status dropOffPassenger(Direction turn, bool rightSideDropOff);
+    void pickUpPassenger(bool rightSideBefore, bool turnRightAfter);
+    void dropOffPassenger(Direction turn, bool rightSideDropOff);
     void evade();
     void stop(int duration);
 };

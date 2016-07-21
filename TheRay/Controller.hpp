@@ -18,6 +18,11 @@ class Controller {
     Direction turnDirection = StraightAhead;
     bool navigatorNotInitialized = true;
     
+    
+    void initializeNavigator();
+    void initializePickup(bool rightSidePickup);
+    void initializeDropoff();
+
 public:
     
     Robot robot = Robot();
