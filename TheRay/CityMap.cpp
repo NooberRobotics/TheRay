@@ -59,3 +59,16 @@ Direction CityMap::getTurnDirection(int lastNode, int currentNode, int nextNode)
     if (directionNumber == 3) return Left;
     return StraightAhead; // Error state
 }
+
+int CityMap::updateNodeIndex(int nextNode, bool primaryPath){
+    if (primaryPath){
+        for (int i = 0; i < 38; i++){
+            if (nextNode == CityMap::primaryTraversalPath[i]) return i;
+        }
+    } else {
+        for (int i = 0; i < 38; i++){
+            if (nextNode == CityMap::secondaryTraversalPath[i]) return i;
+        }
+    }
+    return -1;
+}

@@ -22,7 +22,6 @@ enum Status {
     Intersection,
     PickupSuccessful,
     PickupFailed,
-    DroppedOff
 };
 
 class Robot {
@@ -39,7 +38,7 @@ public:
     
     Status cruise(Direction direction);
     Status pickUpPassenger(bool rightSideBefore, bool turnRightAfter);
-    Status dropOffPassenger(bool rightSide);
+    Status dropOffPassenger(Direction turn, bool rightSideDropOff);
     void evade();
     void stop(int duration);
 };

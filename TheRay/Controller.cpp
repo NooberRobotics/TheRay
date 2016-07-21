@@ -38,6 +38,13 @@ void Controller::execution() {
             
         case Intersection:
             turnDirection = navigator.getTurn();
+            
+            if (navigator.dropOffNow) {
+                robot.dropOffPassenger(turnDirection, navigator.dropOffTurnRight);
+                turnDirection = StraightAhead;
+                hasPassenger = false;
+            }
+            
             break;
             
             
@@ -52,11 +59,6 @@ void Controller::execution() {
             turnDirection = StraightAhead;
             break;
             
-            
-        case DroppedOff:
-            hasPassenger = false;
-            turnDirection = StraightAhead;
-            break;
     }
 }
 

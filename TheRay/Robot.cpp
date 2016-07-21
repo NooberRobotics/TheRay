@@ -33,28 +33,28 @@ Status Robot::cruise(Direction direction) {
     
     while (true) {
 
-//        switch (IR::check()) {
-//                
-//            case IR::None:
-//                driveVelocity = Actuators::Normal;
-//                break;
-//                
-//            case IR::WeakLeft:
-//                driveVelocity = Actuators::Slow;
-//                break;
-//                
-//            case IR::WeakRight:
-//                driveVelocity = Actuators::Slow;
-//                break;
-//                
-//            case IR::StrongLeft:
-//                return IRLeft;
-//                break;
-//                
-//            case IR::StrongRight:
-//                return IRRight;
-//                break;
-//        }
+        switch (IR::check()) {
+                
+            case IR::None:
+                driveVelocity = Actuators::Normal;
+                break;
+                
+            case IR::WeakLeft:
+                driveVelocity = Actuators::Slow;
+                break;
+                
+            case IR::WeakRight:
+                driveVelocity = Actuators::Slow;
+                break;
+                
+            case IR::StrongLeft:
+                return IRLeft;
+                break;
+                
+            case IR::StrongRight:
+                return IRRight;
+                break;
+        }
         
         if ( Tape::atIntersection() ) {
             Actuators::drive(driveVelocity, 0);
@@ -125,12 +125,39 @@ Status Robot::pickUpPassenger(bool turnRightBefore, bool turnRightAfter) {
     return successful ? PickupSuccessful : PickupFailed;
 }
 
-Status Robot::dropOffPassenger(bool rightSide) {
+Status Robot::dropOffPassenger(Direction turn, bool rightSideDropOff) {
     
-    Actuators::turnInPlace(TURN_FOR_PASSENGER_DROPOFF_DURATION, rightSide);
+    switch (turn) {
+            
+        case StraightAhead:
+            break;
+            
+        case Left:
+            Actuators::turnInPlace(TURN_SLIGHTLY_DURATION, false);
+            while (!Tape::tapePresentCentre()) {}
+            break;
+            
+        case Right:
+            Actuators::turnInPlace(TURN_SLIGHTLY_DURATION, true);
+            while (!Tape::tapePresentCentre()) {}
+            break;
+            
+        case TurnAround:
+            Actuators::turnInPlace(TURN_180, true);
+            while (!Tape::tapePresentCentre()) {}
+            break;
+    }
+    
+    int time = millis();
+    
+    while( (millis() - time) < DROP_OFF_APPROACH_TIME ){
+        Actuators::drive(Actuators::Fast, Tape::driveCorrection());
+    }
+    
+    Actuators::turnInPlace(TURN_FOR_PASSENGER_DROPOFF_DURATION, rightSideDropOff);
     
     Actuators::drive(Actuators::Slow, Actuators::Straight);
-    delay(DROPP_OFF_PASSENGER_DRIVE_OFF_TRACK_DELAY);
+    delay(DROP_OFF_PASSENGER_DRIVE_OFF_TRACK_DELAY);
     
     Actuators::stop();
     
@@ -141,9 +168,13 @@ Status Robot::dropOffPassenger(bool rightSide) {
     
     Actuators::drive(Actuators::Slow, Actuators::Straight, true);
     
-    delay(DROPP_OFF_PASSENGER_DRIVE_OFF_TRACK_DELAY);
+    delay(DROP_OFF_PASSENGER_DRIVE_OFF_TRACK_DELAY);
     
     Actuators::stop();
+    
+    Actuators::turnInPlace(!rightSideDropOff);
+    while(!Tape::tapePresentCentre()){}
+    
 }
 
 void Robot::evade() {

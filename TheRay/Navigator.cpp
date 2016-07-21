@@ -11,14 +11,53 @@
 
 Direction Navigator::getTurn() {
     
+    
+    
     lastNode = currentNode;
     currentNode = nextNode;
     
+    Direction turn;
+
+    
     if (returningToDropoff) {
+        
         nextNode = CityMap::getNextNodeToGoal(currentNode, primaryPath);
+        
+        turn = CityMap::getTurnDirection(lastNode, currentNode, nextNode);
+        
+        if (currentNode == 11){
+            
+            dropOffNow = true;
+            
+            if(currentNode == 7){
+                dropOffTurnRight = true;
+                nextNode = 17;
+                lastNode = 7;
+            } else if(currentNode == 17){
+                dropOffTurnRight = false;
+                nextNode = 7;
+                lastNode = 17;
+            }
+            currentNode = 11;
+        }
+
+        
     } else {
         nextNodeIndex = CityMap::getNextNodeIndex(nextNodeIndex);
         nextNode = CityMap::getNextNodeToSearch(nextNodeIndex, primaryPath);
+        
+        turn = CityMap::getTurnDirection(lastNode, currentNode, nextNode);
+        
+        if(nextNode == 11){
+            if(currentNode == 7){
+                nextNode = 17;
+                lastNode = 7;
+            } else if(currentNode == 17){
+                nextNode = 7;
+                lastNode = 17;
+            }
+            currentNode = 11;
+        }
     }
     
 //    Serial.print("Last Node: ");
@@ -30,7 +69,6 @@ Direction Navigator::getTurn() {
 //    Serial.print(" Turn: ");
 //    
     
-    Direction turn = CityMap::getTurnDirection(lastNode, currentNode, nextNode);
 //    Serial.println(turn);
     
     return turn;
@@ -44,15 +82,16 @@ void Navigator::collisionOccurred() {
         if (nextNode == CityMap::collisionNodes[i]) expected = true;
     }
     
+    int temp = nextNode;
+    nextNode =  currentNode;
+    currentNode = temp;
+    
     if (expected) {
         nextNodeIndex = CityMap::getNextNodeIndex(nextNodeIndex);
     } else {
         primaryPath = !primaryPath;
+        nextNodeIndex = CityMap::updateNodeIndex(nextNode, primaryPath);
     }
-    
-    int temp = nextNode;
-    nextNode =  currentNode;
-    currentNode = temp;
 }
 
 void Navigator::returnToDropoff(bool turnRightForPickup) {
@@ -62,7 +101,11 @@ void Navigator::returnToDropoff(bool turnRightForPickup) {
     //TODO: determine first
 }
 
-void Navigator::searchForPassenger() {
-    primaryPath = true;
+
+void Navigator::passengerDroppedOff(){
+    
+    CityMap::updateNodeIndex(currentNode, nextNode == 7);
+    dropOffNow = false;
     returningToDropoff = false;
+    
 }

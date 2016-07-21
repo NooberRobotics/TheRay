@@ -11,7 +11,7 @@
 
 #include "Direction.hpp"
 #include "CityMap.hpp"
-#include "QueueArray.h"
+
 
 class Navigator {
     
@@ -21,13 +21,15 @@ class Navigator {
     
     int nextNodeIndex = 1;
     
-//    QueueArray<Direction> turns;
     
     bool returningToDropoff = false;
     
     bool primaryPath; // TODO: determine which path we start at
     
 public:
+    
+    bool dropOffNow = false;
+    bool dropOffTurnRight;
     
     Navigator(bool firstIntersectionOnRightSide) {
         
@@ -52,7 +54,7 @@ public:
     void collisionOccurred();
     
     void returnToDropoff(bool turnRightForPickup); //first turn stages must be direction reqiered after pickup
-    void searchForPassenger();
+    void passengerDroppedOff();
 };
 
 

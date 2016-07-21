@@ -24,7 +24,7 @@ namespace CityMap {
     int getNextNodeIndex(int currentNodeIndex);
     
     int getNextNodeToGoal(int currentNode, bool primaryPath);
-    
+    int updateNodeIndex(int nextNode, bool primaryPath);
     
     Direction getTurnDirection(int lastNode, int currentNode, int nextNode);
 
