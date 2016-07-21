@@ -33,28 +33,28 @@ Status Robot::cruise(Direction direction) {
     
     while (true) {
 
-//        switch (IR::check()) {
-//                
-//            case IR::None:
-//                driveVelocity = Actuators::Normal;
-//                break;
-//                
-//            case IR::WeakLeft:
-//                driveVelocity = Actuators::Slow;
-//                break;
-//                
-//            case IR::WeakRight:
-//                driveVelocity = Actuators::Slow;
-//                break;
-//                
-//            case IR::StrongLeft:
-//                return IRLeft;
-//                break;
-//                
-//            case IR::StrongRight:
-//                return IRRight;
-//                break;
-//        }
+        switch (IR::check()) {
+                
+            case IR::None:
+                driveVelocity = Actuators::Normal;
+                break;
+                
+            case IR::WeakLeft:
+                driveVelocity = Actuators::Slow;
+                break;
+                
+            case IR::WeakRight:
+                driveVelocity = Actuators::Slow;
+                break;
+                
+            case IR::StrongLeft:
+                return IRLeft;
+                break;
+                
+            case IR::StrongRight:
+                return IRRight;
+                break;
+        }
         
         
         

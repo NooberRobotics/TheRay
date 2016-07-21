@@ -9,7 +9,7 @@
 #define Config_hpp
 
 #define KP 12;
-#define KD 0;
+#define KD 5;
 
 
 // Thresholds
@@ -17,7 +17,8 @@
 #define THRESH_QRD 300
 
 #define THRESH_LOW_IR 5
-#define THRESH_HIGH_IR 70
+#define THRESH_HIGH_IR 80
+
 #define THRESH_FRONT_IR 50
 
 
