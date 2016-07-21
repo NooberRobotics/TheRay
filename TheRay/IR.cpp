@@ -7,17 +7,30 @@
 
 #include "IR.hpp"
 
-enum Signal { No = 0, Weak = THRESH_LOW_IR, Strong = THRESH_HIGH_IR };
+int readingsRight[IR_AVERAGING_SAMPLE_SIZE];
+int readingsLeft[IR_AVERAGING_SAMPLE_SIZE];
+
+int currentIndex = 0;
 
 IR::Result IR::check() {
     
-    int left = analogRead(IR_LEFT);
-    int right = analogRead(IR_RIGHT);
+    currentIndex = (currentIndex + 1) % IR_AVERAGING_SAMPLE_SIZE;
     
-//    Serial.print("Right: ");
-//    Serial.print(right);
-//    Serial.print("Left: ");
-//    Serial.println(left);
+    readingsRight[currentIndex] = analogRead(IR_RIGHT);
+    readingsLeft[currentIndex] = analogRead(IR_LEFT);
+    
+    int right = 0;
+    int left = 0;
+
+    for (int i = 0; i<IR_AVERAGING_SAMPLE_SIZE; i++) {
+        right += readingsRight[i];
+        left += readingsLeft[i];
+    }
+    
+    Serial.print("Right: ");
+    Serial.print(right);
+    Serial.print("Left: ");
+    Serial.println(left);
     
     if (left < THRESH_LOW_IR && right < THRESH_LOW_IR){
         return IR::None;
@@ -32,8 +45,8 @@ IR::Result IR::check() {
     }
 }
 
-bool IR::frontDetected() {
-    return (analogRead(IR_MIDLEFT) > THRESH_FRONT_IR) || (analogRead(IR_MIDRIGHT) > THRESH_FRONT_IR);
-}
-
+//bool IR::frontDetected() {
+//    return (analogRead(IR_MIDLEFT) > THRESH_FRONT_IR) || (analogRead(IR_MIDRIGHT) > THRESH_FRONT_IR);
+//}
+//
 
