@@ -41,6 +41,7 @@ public:
     Status pickUpPassenger(bool rightSideBefore, bool turnRightAfter);
     Status dropOffPassenger(bool rightSide);
     void evade();
+    void stop(int duration);
 };
 
 

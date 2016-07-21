@@ -7,7 +7,7 @@
 //
 
 #include "Navigator.hpp"
-
+#include <Arduino.h>
 
 Direction Navigator::getTurn() {
     
@@ -21,15 +21,38 @@ Direction Navigator::getTurn() {
         nextNode = CityMap::getNextNodeToSearch(nextNodeIndex, primaryPath);
     }
     
-    return CityMap::getTurnDirection(lastNode, currentNode, nextNode);
+//    Serial.print("Last Node: ");
+//    Serial.print(lastNode);
+//    Serial.print(" Current Node: ");
+//    Serial.print(currentNode);
+//    Serial.print(" Next Node: ");
+//    Serial.print(nextNode);
+//    Serial.print(" Turn: ");
+//    
+    
+    Direction turn = CityMap::getTurnDirection(lastNode, currentNode, nextNode);
+//    Serial.println(turn);
+    
+    return turn;
 }
 
 void Navigator::collisionOccurred() {
+        
+    bool expected = false;
+    
+    for (int i = 0; i<7; i++) {
+        if (nextNode == CityMap::collisionNodes[i]) expected = true;
+    }
+    
+    if (expected) {
+        nextNodeIndex = CityMap::getNextNodeIndex(nextNodeIndex);
+    } else {
+        primaryPath = !primaryPath;
+    }
+    
     int temp = nextNode;
     nextNode =  currentNode;
     currentNode = temp;
-    
-    primaryPath = !primaryPath;
 }
 
 void Navigator::returnToDropoff(bool turnRightForPickup) {

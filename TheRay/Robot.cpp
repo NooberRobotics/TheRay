@@ -155,3 +155,10 @@ void Robot::evade() {
     while (!Tape::tapePresentCentre()) {}
     
 }
+
+void Robot::stop(int duration) {
+    Actuators::stop();
+    delay(duration);
+    
+}
+

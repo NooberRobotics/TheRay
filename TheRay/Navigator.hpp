@@ -19,7 +19,7 @@ class Navigator {
     int currentNode;
     int nextNode;
     
-    int nextNodeIndex; 
+    int nextNodeIndex = 1;
     
 //    QueueArray<Direction> turns;
     
@@ -35,7 +35,7 @@ public:
             
             currentNode = 18;
             nextNode = 19;
-            
+
             primaryPath = false;
             
         } else {
@@ -44,7 +44,6 @@ public:
             nextNode = 1;
             
             primaryPath = true;
-            
         }
     }
     
