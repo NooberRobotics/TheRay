@@ -13,14 +13,14 @@
 
 namespace Tape {
     
-    enum Intersection { None, Right, Left };
+    enum IntersectionType { None, Right, Left };
     
     int driveCorrection(bool defaultTurnRight);
     int driveCorrection();
 
-    Intersection atIntersection();
+    bool atIntersection();
     
-    Intersection tapePresentSides();
+    IntersectionType tapePresentSide();
     bool tapePresent();
     bool tapePresentCentre();
     

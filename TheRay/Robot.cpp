@@ -43,38 +43,28 @@ Status Robot::cruise(Direction direction) {
             case Collision::None:
                 break;
             case Collision::Both:
-                Actuators::stop();
                 return Collided;
                 break;
             case Collision::Left:
-                Actuators::stop();
                 return Collided;
                 break;
             case Collision::Right:
-                Actuators::stop();
                 return Collided;
                 break;
         }
         
-        Tape::Intersection intersection = Tape::atIntersection();
-        
-        if ( intersection != Tape::None ) { //at an intersection
-            lastIntersection = intersection;
-            
+        if (Tape::atIntersection()) {
             Actuators::drive(driveVelocity, Actuators::Straight);
             delay(INTERSECTION_DETECTED_DRIVE_DELAY);
-            
-            Actuators::stop();
-            
             return Intersection;
         }
-        
+
         Actuators::drive(driveVelocity, Tape::driveCorrection());
     }
 }
 
 
-void turnOntoTape(Direction direction) {
+void Robot::turnOntoTape(Direction direction) {
     
     switch (direction) {
             
@@ -98,7 +88,11 @@ void turnOntoTape(Direction direction) {
     }
 }
 
-void pickUpPassenger(bool turnRightBefore, bool turnRightAfter) {
+void handleIntersection(Tape::IntersectionType intersection) {
+    
+}
+
+void Robot::pickUpPassenger(bool turnRightBefore, bool turnRightAfter) {
     
     Actuators::drive(Actuators::Slow, Actuators::Straight);
     delay(DRIVE_FORWARD_BEFORE_TURNING_WHEN_DETECTED_IR);
