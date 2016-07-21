@@ -11,8 +11,6 @@
 
 Direction Navigator::getTurn() {
     
-    
-    
     lastNode = currentNode;
     currentNode = nextNode;
     
@@ -28,17 +26,18 @@ Direction Navigator::getTurn() {
 
         turn = CityMap::getTurnDirection(lastNode, currentNode, nextNode);
         
-        if(currentNode == 7){
+        if(currentNode == 7) {
             dropOffNow = true;
             dropOffTurnRight = true;
             nextNode = 17;
             lastNode = 7;
-        } else if(currentNode == 17){
+        } else if (currentNode == 17){
             dropOffNow = true;
             dropOffTurnRight = false;
             nextNode = 7;
             lastNode = 17;
         }
+        currentNode = 11;
         
     } else {
         nextNodeIndex = CityMap::getNextNodeIndex(nextNodeIndex);
@@ -47,10 +46,12 @@ Direction Navigator::getTurn() {
         turn = CityMap::getTurnDirection(lastNode, currentNode, nextNode);
         
         if(nextNode == 11){
-            if(currentNode == 7){
+            if(currentNode == 7) {
+                nextNodeIndex = CityMap::getNextNodeIndex(nextNodeIndex);
                 nextNode = 17;
                 lastNode = 7;
-            } else if(currentNode == 17){
+            } else if(currentNode == 17) {
+                nextNodeIndex = CityMap::getNextNodeIndex(nextNodeIndex);
                 nextNode = 7;
                 lastNode = 17;
             }
