@@ -45,6 +45,9 @@ void Controller::execution() {
                 Serial.println("Dropping off");
                 robot.dropOffPassenger(turnDirection, navigator.dropOffTurnRight);
                 turnDirection = StraightAhead;
+                hasPassenger = false;
+                navigator.passengerDroppedOff();
+                
             }
             
             break;
@@ -57,7 +60,6 @@ void Controller::execution() {
             
             
         case PickupFailed:
-            hasPassenger = false;
             turnDirection = StraightAhead;
             break;
             

@@ -113,7 +113,7 @@ Status Robot::pickUpPassenger(bool turnRightBefore, bool turnRightAfter) {
     
     Actuators::raiseArm();
     
-    bool successful = !IR::frontDetected();
+    bool successful = true; //!IR::frontDetected();
     
     Actuators::drive(velocity, Actuators::Straight, true);
     delay(approachTime);
@@ -173,9 +173,11 @@ Status Robot::dropOffPassenger(Direction turn, bool rightSideDropOff) {
     
     Actuators::stop();
     
+    Actuators::closeClaw();
+    Actuators::raiseArm();
+    
     Actuators::turnInPlace(!rightSideDropOff);
     while(!Tape::tapePresentCentre()){}
-    
 }
 
 void Robot::evade() {

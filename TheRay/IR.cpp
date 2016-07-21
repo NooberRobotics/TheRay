@@ -7,8 +7,8 @@
 
 #include "IR.hpp"
 
-int readingsRight[IR_AVERAGING_SAMPLE_SIZE];
-int readingsLeft[IR_AVERAGING_SAMPLE_SIZE];
+int readingsRight[IR_AVERAGING_SAMPLE_SIZE] = {0};
+int readingsLeft[IR_AVERAGING_SAMPLE_SIZE] = {0};
 
 int currentIndex = 0;
 
@@ -27,10 +27,13 @@ IR::Result IR::check() {
         left += readingsLeft[i];
     }
     
-    Serial.print("Right: ");
-    Serial.print(right);
-    Serial.print("Left: ");
-    Serial.println(left);
+    right = right / IR_AVERAGING_SAMPLE_SIZE;
+    left = left / IR_AVERAGING_SAMPLE_SIZE;
+    
+//    Serial.print("Right: ");
+//    Serial.print(right);
+//    Serial.print("Left: ");
+//    Serial.println(left);
     
     if (left < THRESH_LOW_IR && right < THRESH_LOW_IR){
         return IR::None;
@@ -48,5 +51,5 @@ IR::Result IR::check() {
 //bool IR::frontDetected() {
 //    return (analogRead(IR_MIDLEFT) > THRESH_FRONT_IR) || (analogRead(IR_MIDRIGHT) > THRESH_FRONT_IR);
 //}
-//
+
 

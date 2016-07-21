@@ -27,18 +27,19 @@ Direction Navigator::getTurn() {
 
         turn = CityMap::getTurnDirection(lastNode, currentNode, nextNode);
         
-        if(currentNode == 7) {
+        if (nextNode == 11) {
+            if(currentNode == 7) {
+                dropOffTurnRight = true;
+                nextNode = 17;
+                lastNode = 7;
+            } else if (currentNode == 17){
+                dropOffTurnRight = false;
+                nextNode = 7;
+                lastNode = 17;
+            }
             dropOffNow = true;
-            dropOffTurnRight = true;
-            nextNode = 17;
-            lastNode = 7;
-        } else if (currentNode == 17){
-            dropOffNow = true;
-            dropOffTurnRight = false;
-            nextNode = 7;
-            lastNode = 17;
+            currentNode = 11;
         }
-        currentNode = 11;
         
     } else {
         nextNodeIndex = CityMap::getNextNodeIndex(nextNodeIndex);
@@ -99,11 +100,9 @@ void Navigator::returnToDropoff(bool turnRightForPickup) {
     //TODO: determine first
 }
 
-
 void Navigator::passengerDroppedOff(){
     
     CityMap::updateNodeIndex(currentNode, nextNode == 7);
     dropOffNow = false;
     returningToDropoff = false;
-    
 }
