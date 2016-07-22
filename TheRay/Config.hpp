@@ -17,11 +17,11 @@
 
 // IR
 #define THRESH_LOW_IR 2
-#define THRESH_HIGH_IR 40
+#define THRESH_HIGH_IR 50
 
 #define THRESH_FRONT_IR 65
 
-#define IR_AVERAGING_SAMPLE_SIZE 2
+#define IR_AVERAGING_SAMPLE_SIZE 3
 
 
 // Robot operations
