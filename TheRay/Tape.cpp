@@ -37,7 +37,7 @@ int Tape::driveCorrection() {
     if (!left && !right) { // both off
         
         if (lastError > 0) error = 5;
-        else if (lastError < 0) error = -5;
+        else if (lastError <= 0) error = -5;
     
         
     } else { // tape found
