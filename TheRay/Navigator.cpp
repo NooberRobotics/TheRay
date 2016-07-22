@@ -107,7 +107,7 @@ void Navigator::returnToDropoff(bool turnRightForPickup) {
 
 void Navigator::passengerDroppedOff(){
     
-    CityMap::updateNodeIndex(currentNode, nextNode == 7);
+    nextNodeIndex = CityMap::updateNodeIndex(currentNode, nextNode == 7);
     dropOffNow = false;
     returningToDropoff = false;
 }

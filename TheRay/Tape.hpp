@@ -16,7 +16,6 @@ namespace Tape {
     enum IntersectionType { None, Right, Left };
     IntersectionType firstIntersectionDirectionStored();
 
-    int driveCorrection(bool defaultTurnRight);
     int driveCorrection();
 
     bool atIntersection();

@@ -27,11 +27,9 @@ bool Tape::detectedTape(int sensor) {
 
 // Tape-following code, return error term to robot
 
-int Tape::driveCorrection() {
-    return driveCorrection(true);
-}
 
-int Tape::driveCorrection(bool defaultTurnRight) {
+
+int Tape::driveCorrection() {
     
     bool left = detectedTape(QRD_MIDLEFT);
     bool right = detectedTape(QRD_MIDRIGHT);
@@ -40,9 +38,7 @@ int Tape::driveCorrection(bool defaultTurnRight) {
         
         if (lastError > 0) error = 5;
         else if (lastError < 0) error = -5;
-        
-        else if (defaultTurnRight) error = 5; //turn in preffered direction if both off and no last error-term
-        else error = -5;
+    
         
     } else { // tape found
         if (left && right) error = 0;
@@ -83,7 +79,7 @@ bool Tape::atIntersection() {
         }
     }
     
-    return detectedTape(QRD_RIGHT) || detectedTape(QRD_RIGHT);
+    return detectedTape(QRD_RIGHT) || detectedTape(QRD_LEFT);
 }
 
 Tape::IntersectionType Tape::tapePresentSide() {

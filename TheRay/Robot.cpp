@@ -56,8 +56,8 @@ Status Robot::cruise(Direction direction) {
         if (Tape::atIntersection()) {
             Actuators::drive(driveVelocity, Actuators::Straight);
             delay(INTERSECTION_DETECTED_DRIVE_DELAY);
-            Actuators::stop();
-            delay(300);
+//            Actuators::stop();
+//            delay(300);
             return Intersection;
         }
 
