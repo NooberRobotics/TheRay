@@ -16,11 +16,11 @@
 //SHOULD BE ABLE TO CALL THE TURNING ALGORITM FROM THIS.
 
 
-int CityMap::getNextNodeToGoal(int currentNode, bool primaryPath) {
+int CityMap::getNextNodeToGoal(int startNodeIndex, int nextNodeIndex, bool primaryPath) {
     if (primaryPath) {
-        return CityMap::primaryDropOffPath[currentNode][0];
+        return CityMap::primaryDropOffPath[startNodeIndex][nextNodeIndex];
     } else {
-        return CityMap::secondaryDropOffPath[currentNode][0];
+        return CityMap::secondaryDropOffPath[startNodeIndex][nextNodeIndex];
     }
 }
 

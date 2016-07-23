@@ -28,7 +28,8 @@ Direction Navigator::getTurn() {
     
     if (returningToDropoff) {
         
-        nextNode = CityMap::getNextNodeToGoal(currentNode, primaryPath);
+        nextNodeIndex++;
+        nextNode = CityMap::getNextNodeToGoal(startNodeIndex, nextNodeIndex, primaryPath);
 
         turn = CityMap::getTurnDirection(lastNode, currentNode, nextNode);
         
@@ -90,11 +91,21 @@ void Navigator::collisionOccurred() {
     nextNode =  currentNode;
     currentNode = temp;
     
-    if (expected) {
-        nextNodeIndex = CityMap::getNextNodeIndex(nextNodeIndex);
+    if (returningToDropoff) {
+        if (!expected) {
+            primaryPath = !primaryPath;
+        }
+        
+        startNodeIndex = currentNode;
+        nextNodeIndex = 0;
+        
     } else {
-        primaryPath = !primaryPath;
-        nextNodeIndex = CityMap::updateNodeIndex(nextNode, primaryPath);
+        if (expected) {
+            nextNodeIndex = CityMap::getNextNodeIndex(nextNodeIndex);
+        } else {
+            primaryPath = !primaryPath;
+            nextNodeIndex = CityMap::updateNodeIndex(nextNode, primaryPath);
+        }
     }
 }
 
@@ -102,7 +113,9 @@ void Navigator::returnToDropoff(bool turnRightForPickup) {
     primaryPath = true;
     returningToDropoff = true;
     
-    //TODO: determine first
+    // Setting up for handeling of secondary path
+    startNodeIndex = currentNode;
+    nextNodeIndex = 0;
 }
 
 void Navigator::passengerDroppedOff(){

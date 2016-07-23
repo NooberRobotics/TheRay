@@ -19,8 +19,9 @@ class Navigator {
     int currentNode = 0;
     int nextNode = 1;
     
-    int nextNodeIndex = 1;
+    int startNodeIndex;
     
+    int nextNodeIndex = 1;
     
     bool returningToDropoff = false;
     
