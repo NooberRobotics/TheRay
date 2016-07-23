@@ -135,7 +135,7 @@ void Robot::dropOffPassenger(Direction direction, bool rightSideDropOff) {
     
     turnOntoTape(direction);
     
-    int time = millis();
+    unsigned long time = millis();
     while( (millis() - time) < DROP_OFF_APPROACH_TIME ){
         Actuators::drive(Actuators::Fast, Tape::driveCorrection());
     }
