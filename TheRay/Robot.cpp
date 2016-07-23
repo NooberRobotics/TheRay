@@ -103,14 +103,14 @@ void Robot::pickUpPassenger(bool turnRightBefore, bool turnRightAfter) {
     Actuators::openClaw();
     Actuators::lowerArm();
     
-    int approachStartTime = millis();
+    unsigned long approachStartTime = millis();
     Actuators::Velocity velocity = Actuators::Slow;
     
     Actuators::drive(velocity, Actuators::Straight);
     
     while (Collision::check() == Collision::None) {} // wait until both are tripped //TODO: change to allow for one tripping...
     
-    int approachTime = millis() - approachStartTime;
+    unsigned long approachTime = millis() - approachStartTime;
    
     Actuators::stop();
     
