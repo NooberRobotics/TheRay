@@ -56,19 +56,9 @@ Status Robot::cruise(Direction direction) {
                 return IRRight;
                 break;
         }
-
-        switch (Collision::check()) { //Collision check
-            case Collision::None:
-                break;
-            case Collision::Both:
-                return Collided;
-                break;
-            case Collision::Left:
-                return Collided;
-                break;
-            case Collision::Right:
-                return Collided;
-                break;
+        
+        if (Collision::occured()) {
+            return Collided;
         }
         
         if (Tape::atIntersection()) {
@@ -124,7 +114,7 @@ void Robot::pickUpPassenger(bool turnRightBefore, bool turnRightAfter) {
     
     Actuators::drive(velocity, Actuators::Straight);
     
-    while (Collision::check() == Collision::None) {} // wait until both are tripped //TODO: change to allow for one tripping...
+    while (Collision::occured()) {} // wait until both are tripped //TODO: change to allow for one tripping...
     
     unsigned long approachTime = millis() - approachStartTime;
    

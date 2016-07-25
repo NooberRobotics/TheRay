@@ -40,7 +40,7 @@ void Controller::execution() {
 
 void Controller::initializeNavigator() {
     
-    if (Tape::firstIntersectionDirectionStored() == Tape::Right) {
+    if (Tape::tapePresentOnSide() == Tape::Right) {
         navigator.changeStartingPositionToRightTurnFirst();
     }
 

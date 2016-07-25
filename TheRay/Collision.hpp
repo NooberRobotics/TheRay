@@ -13,14 +13,15 @@
 
 namespace Collision {
     
-    enum Result {
-        None,
-        Left,
-        Right,
-        Both,
-    };
+//    enum Result {
+//        None,
+//        Left,
+//        Right,
+//        Both,
+//    };
     
-    Result check();
+    void update();
+    bool occured();
 };
 
 
