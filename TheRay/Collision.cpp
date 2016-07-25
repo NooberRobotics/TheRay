@@ -7,31 +7,22 @@
 
 #include "Collision.hpp"
 
+bool leftSwitches[NUMBER_OF_SWITCH_CHECKS] = {false};
+bool rightSwitches[NUMBER_OF_SWITCH_CHECKS] = {false};
+int currentSwitchIndex = 0;
 
-Collision::Result checkSensors() {
-    bool left = digitalRead(TOUCH_SWITCH_LEFT);
-    bool right = digitalRead(TOUCH_SWITCH_RIGHT);
-    bool back = digitalRead(TOUCH_SWITCH_BACK);
-    
-    if (!left && !right) return Collision::Both;
-    else if (!left) return Collision::Left;
-    else if (!right) return Collision::Right;
-    else return Collision::None;
+void Collision::update() {
+    currentSwitchIndex = (currentSwitchIndex + 1) % NUMBER_OF_SWITCH_CHECKS;
+    leftSwitches[currentSwitchIndex] = digitalRead(TOUCH_SWITCH_LEFT);
+    rightSwitches[currentSwitchIndex] = digitalRead(TOUCH_SWITCH_RIGHT);
 }
 
-Collision::Result Collision::check() {
+bool Collision::occured() {
+    bool collision = true;
     
-    if (checkSensors() == Collision::None) {
-        return Collision::None;
+    for (int i=0; i<NUMBER_OF_SWITCH_CHECKS; i++) {
+        if (!rightSwitches[i] && !leftSwitches[i]) collision = false;
     }
     
-    delay(1);
-    
-    if (checkSensors() == Collision::None) {
-        return Collision::None;
-    }
-    
-    delay(1);
-    
-    return checkSensors();
+    return collision;
 }

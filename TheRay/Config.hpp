@@ -29,6 +29,8 @@
 // Collision
 #define REVERSE_TIME_EVADE 500
 
+#define NUMBER_OF_SWITCH_CHECKS 3
+
 // Intersection
 #define INTERSECTION_DETECTED_DRIVE_DELAY 235
 
@@ -70,8 +72,8 @@
 
 // SERVO ANGLES
 
-#define SERVO_OPEN 50
-#define SERVO_CLOSED 150
+#define SERVO_OPEN 5
+#define SERVO_CLOSED 70
 #define SERVO_OPERATION_TIME 500 //millis
 
 // QRD (ANALOG)
