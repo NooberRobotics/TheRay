@@ -24,7 +24,7 @@ bool onRight = false;
 
 
 // Tape-following code, return error term to robot
-int Tape::driveCorrection() {
+int Tape::driveCorrection(bool defaultTurnRight) {
     
     bool left = onMidLeft;
     bool right = onMidRight;
@@ -32,7 +32,11 @@ int Tape::driveCorrection() {
     if (!left && !right) { // both off
         
         if (lastError > 0) error = 5;
-        else if (lastError <= 0) error = -5;
+        else if (lastError < 0) error = -5;
+        
+        else {
+            
+        }
     
         
     } else { // tape found
