@@ -7,9 +7,6 @@
 
 #include "Tape.hpp"
 
-Tape::IntersectionType firstIntersectionDirection = Tape::None;
-
-
 int error = 0;
 int lastError = 0;
 int recentError = 0;
@@ -26,12 +23,7 @@ bool onMidRight = false;
 bool onRight = false;
 
 
-
-
 // Tape-following code, return error term to robot
-
-
-
 int Tape::driveCorrection() {
     
     bool left = onMidLeft;
@@ -67,40 +59,28 @@ int Tape::driveCorrection() {
 
 
 // Intersection detection
-bool Tape::atIntersection() {
-    
-    if (firstIntersectionDirection == Tape::None) {
-        
-        if (onLeft) {
-            firstIntersectionDirection = Tape::Left;
-            return true;
-        } else if (onRight) {
-            firstIntersectionDirection = Tape::Right;
-            return true;
-        } else {
-            return false;
-        }
-    }
-    
-    return onRight || onLeft;
-}
 
-Tape::IntersectionType Tape::tapePresentSide() {
-    if (onRight) return Tape::Right;
-    if (onLeft) return Tape::Left;
-    return Tape::None;
+bool Tape::atIntersection() {
+    if (tapePresentCentre()) tapePresentSides();
+    return false;
 }
 
 bool Tape::tapePresentCentre() {
     return onMidLeft || onMidRight;
 }
 
+bool Tape::tapePresentSides() {
+    return onLeft || onRight;
+}
+
 bool Tape::tapePresent() {
     return onMidLeft || onMidRight ||  onLeft || onRight;
 }
 
-Tape::IntersectionType Tape::firstIntersectionDirectionStored() {
-    return firstIntersectionDirection;
+Tape::IntersectionType Tape::tapePresentOnSide() {
+    if (onRight) return Tape::Right;
+    if (onLeft) return Tape::Left;
+    return Tape::None;
 }
 
 bool Tape::detectedTape(int sensor) {

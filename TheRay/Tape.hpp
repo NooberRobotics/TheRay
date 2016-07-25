@@ -20,11 +20,12 @@ namespace Tape {
 
     bool atIntersection();
     
-    IntersectionType tapePresentSide();
-    
     bool tapePresent();
     bool tapePresentCentre();
+    bool tapePresentSides();
     
+    IntersectionType tapePresentOnSide();
+
     bool detectedTape(int sensor);
     void update();
 };
