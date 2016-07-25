@@ -20,10 +20,13 @@ int kd = KD;
 int q = 0;
 int m = 0;
 
+bool onLeft = false;
+bool onMidLeft = false;
+bool onMidRight = false;
+bool onRight = false;
 
-bool Tape::detectedTape(int sensor) {
-    return (analogRead(sensor) > THRESH_QRD);
-}
+
+
 
 // Tape-following code, return error term to robot
 
@@ -31,8 +34,8 @@ bool Tape::detectedTape(int sensor) {
 
 int Tape::driveCorrection() {
     
-    bool left = detectedTape(QRD_MIDLEFT);
-    bool right = detectedTape(QRD_MIDRIGHT);
+    bool left = onMidLeft;
+    bool right = onMidRight;
     
     if (!left && !right) { // both off
         
@@ -68,10 +71,10 @@ bool Tape::atIntersection() {
     
     if (firstIntersectionDirection == Tape::None) {
         
-        if (detectedTape(QRD_LEFT)) {
+        if (onLeft) {
             firstIntersectionDirection = Tape::Left;
             return true;
-        } else if (detectedTape(QRD_RIGHT)) {
+        } else if (onRight) {
             firstIntersectionDirection = Tape::Right;
             return true;
         } else {
@@ -79,25 +82,36 @@ bool Tape::atIntersection() {
         }
     }
     
-    return detectedTape(QRD_RIGHT) || detectedTape(QRD_LEFT);
+    return onRight || onLeft;
 }
 
 Tape::IntersectionType Tape::tapePresentSide() {
-    if (detectedTape(QRD_RIGHT)) return Tape::Right;
-    if (detectedTape(QRD_LEFT)) return Tape::Left;
+    if (onRight) return Tape::Right;
+    if (onLeft) return Tape::Left;
     return Tape::None;
 }
 
 bool Tape::tapePresentCentre() {
-    return detectedTape(QRD_MIDLEFT) || detectedTape(QRD_MIDRIGHT);
+    return onMidLeft || onMidRight;
 }
 
 bool Tape::tapePresent() {
-    return detectedTape(QRD_MIDLEFT) || detectedTape(QRD_MIDRIGHT) ||  detectedTape(QRD_LEFT) || detectedTape(QRD_RIGHT);
+    return onMidLeft || onMidRight ||  onLeft || onRight;
 }
 
 Tape::IntersectionType Tape::firstIntersectionDirectionStored() {
     return firstIntersectionDirection;
+}
+
+bool Tape::detectedTape(int sensor) {
+    return (analogRead(sensor) > THRESH_QRD);
+}
+
+void Tape::update(){
+    onLeft = detectedTape(QRD_LEFT);
+    onMidLeft = detectedTape(QRD_MIDLEFT);
+    onMidRight = detectedTape(QRD_MIDRIGHT);
+    onRight = detectedTape(QRD_RIGHT);
 }
 
 

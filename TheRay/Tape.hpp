@@ -26,6 +26,7 @@ namespace Tape {
     bool tapePresentCentre();
     
     bool detectedTape(int sensor);
+    void update();
 };
 
 
