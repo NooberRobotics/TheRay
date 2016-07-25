@@ -6,7 +6,7 @@
 //
 
 #include "Robot.hpp"
-
+//unsigned long timeSinceIntersection = 0;
 
 Status Robot::cruise(Direction direction) {
     
@@ -73,8 +73,7 @@ Status Robot::cruise(Direction direction) {
         
         if (Tape::atIntersection()) {
             
-//            Actuators::stop();
-//            delay(300);
+            //timeOfLastIntersection = millis();
             return Intersection;
         }
 
