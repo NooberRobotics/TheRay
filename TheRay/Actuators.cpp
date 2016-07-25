@@ -14,7 +14,7 @@ void Actuators::turnInPlace(int duration, bool rightTurn) {
     Actuators::turnInPlace(rightTurn);
     
     // Delay factor determined experimentally
-    delay( duration );
+    delay( duration);
 }
 
 void Actuators::turnInPlace(bool rightTurn) {
@@ -27,6 +27,17 @@ void Actuators::turnInPlace(bool rightTurn) {
         motor.speed(MOTOR_RIGHT, TURN_IN_PLACE_VELOCITY);
         motor.speed(MOTOR_LEFT, -TURN_IN_PLACE_VELOCITY);
     }
+}
+
+void Actuators::turnIntersection(bool rightTurn){
+    if (rightTurn) {
+        motor.speed(MOTOR_RIGHT, 0);
+        motor.speed(MOTOR_LEFT, INTERSECTION_TURN_VELOCITY);
+    } else {
+        motor.speed(MOTOR_RIGHT, INTERSECTION_TURN_VELOCITY);
+        motor.speed(MOTOR_LEFT, 0);
+    }
+    delay(INTERSECTION_TURN_DELAY);
 }
 
 void Actuators::drive(Actuators::Velocity velocity, int turn) {

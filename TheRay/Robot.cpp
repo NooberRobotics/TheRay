@@ -10,7 +10,21 @@
 
 Status Robot::cruise(Direction direction) {
     
-    turnOntoTape(direction);
+    switch (direction) {
+        case StraightAhead:
+            break;
+        case Left:
+            Actuators::turnIntersection(false);
+            while (!Tape::tapePresentCentre()) {}
+            break;
+        case Right:
+            Actuators::turnIntersection(true);
+            while (!Tape::tapePresentCentre()) {}
+            break;
+        case TurnAround:
+            turnOntoTape(direction);
+            break;
+    }
     
     
     while (true) {
@@ -59,8 +73,6 @@ Status Robot::cruise(Direction direction) {
         
         if (Tape::atIntersection()) {
             
-            Actuators::drive(driveVelocity, Actuators::Straight);
-            delay(INTERSECTION_DETECTED_DRIVE_DELAY);
 //            Actuators::stop();
 //            delay(300);
             return Intersection;

@@ -32,6 +32,7 @@ namespace Actuators {
     
     void turnInPlace(int duration, bool rightTurn);
     void turnInPlace(bool rightTurn);
+    void turnIntersection (bool rightTurn);
     
     void drive(Velocity velocity, int turn);
     void drive(Velocity velocity, Turn turn, bool reverse = false);
