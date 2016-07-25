@@ -22,7 +22,7 @@ namespace IR {
     };
   
     Result check();
-    bool frontDetected();
+
     void update();
 };
 

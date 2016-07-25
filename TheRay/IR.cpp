@@ -12,12 +12,17 @@ int readingsLeft[IR_AVERAGING_SAMPLE_SIZE] = {0};
 
 int currentIndex = 0;
 
+int right = 0;
+int left = 0;
+int midLeft = 0;
+int midRight = 0;
+
 IR::Result IR::check() {
     
     currentIndex = (currentIndex + 1) % IR_AVERAGING_SAMPLE_SIZE;
     
-    readingsRight[currentIndex] = analogRead(IR_RIGHT);
-    readingsLeft[currentIndex] = analogRead(IR_LEFT);
+    readingsRight[currentIndex] = right;
+    readingsLeft[currentIndex] = left;
     
     int right = 0;
     int left = 0;
@@ -48,8 +53,11 @@ IR::Result IR::check() {
     }
 }
 
-//bool IR::frontDetected() {
-//    return (analogRead(IR_MIDLEFT) > THRESH_FRONT_IR) || (analogRead(IR_MIDRIGHT) > THRESH_FRONT_IR);
-//}
+void IR::update(){
+    right = analogRead(IR_RIGHT);
+    left = analogRead(IR_LEFT);
+    midLeft = analogRead(IR_MIDLEFT);
+    midRight = analogRead(IR_MIDRIGHT);
+}
 
 
