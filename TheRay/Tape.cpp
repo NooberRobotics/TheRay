@@ -61,7 +61,7 @@ int Tape::driveCorrection() {
 // Intersection detection
 
 bool Tape::atIntersection() {
-    if (tapePresentCentre()) tapePresentSides();
+    if (tapePresentCentre()) return tapePresentSides();
     return false;
 }
 
