@@ -15,11 +15,13 @@ Status Robot::cruise(Direction direction) {
             break;
         case Left:
             Actuators::turnIntersection(false);
-            while (!Tape::tapePresentCentre()) {}
+            Tape::update();
+            while (!Tape::tapePresentCentre()) {Tape::update();}
             break;
         case Right:
             Actuators::turnIntersection(true);
-            while (!Tape::tapePresentCentre()) {}
+            Tape::update();
+            while (!Tape::tapePresentCentre()) {Tape::update();}
             break;
         case TurnAround:
             turnOntoTape(direction);
