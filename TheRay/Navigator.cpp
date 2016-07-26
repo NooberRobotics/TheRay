@@ -34,9 +34,7 @@ Direction Navigator::getTurn() {
             currentNode = nextNode;
             nextNode = CityMap::getLeftmostTurnNode(lastNode, currentNode);
         }
-        
     }
-    
     
     timeOfIntersection = millis();
     
