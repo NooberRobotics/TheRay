@@ -72,3 +72,30 @@ int CityMap::updateNodeIndex(int nextNode, bool primaryPath){
     }
     return -1;
 }
+
+int CityMap::getLeftmostTurnNode(int lastNode, int currentNode) {
+    
+    int arriving = -1;
+    int departing = -1;
+    
+    for (int heading = 0; heading < 4; heading++){
+        if (CityMap::arrivalMap[currentNode][heading] == lastNode) {
+            arriving = heading;
+        }
+    }
+    
+    for (int heading = 0; heading < 4; heading++) {
+
+        int bestDirectionNumber = -1;
+
+        int testDepartingNode = CityMap::departureMap[currentNode][heading];
+        int directionNumber = ((testDepartingNode - arriving) + 4) % 4;
+        
+        if (bestDirectionNumber < directionNumber) {
+            bestDirectionNumber = directionNumber;
+            departing = testDepartingNode;
+        }
+    }
+    
+    return departureMap[currentNode][departing];
+}

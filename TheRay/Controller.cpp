@@ -48,8 +48,8 @@ void Controller::initializeNavigator() {
 }
 
 void Controller::initializePickup(bool rightSidePickup) {
-    navigator.returnToDropoff(false);
-    robot.pickUpPassenger(rightSidePickup, !rightSidePickup);
+    bool turnRightAfterPickup = navigator.returnToDropoff(false);
+    robot.pickUpPassenger(rightSidePickup, turnRightAfterPickup);
     hasPassenger = true;
 }
 

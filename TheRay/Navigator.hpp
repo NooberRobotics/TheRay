@@ -34,13 +34,11 @@ public:
     bool dropOffNow = false;
     bool dropOffTurnRight;
     
- 
-    
     Direction getTurn(); // only called at intersections
     
     void collisionOccurred();
     
-    void returnToDropoff(bool turnRightForPickup); //first turn stages must be direction reqiered after pickup
+    bool returnToDropoff(bool turnRightForPickup); //first turn stages must be direction reqiered after pickup
     void passengerDroppedOff();
 };
 
