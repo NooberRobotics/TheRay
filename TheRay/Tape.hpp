@@ -19,8 +19,12 @@ namespace Tape {
     int driveCorrection(bool defaultTurnRight = true);
 
     bool atIntersection();
+    bool atIntersectionWithUpdate();
     
     bool tapePresent();
+    bool tapePresentRight();
+    bool tapePresentLeft();
+
     bool tapePresentCentre();
     bool tapePresentCentreWithUpdate();
     bool tapePresentSides();

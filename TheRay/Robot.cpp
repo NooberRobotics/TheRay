@@ -7,7 +7,7 @@
 
 #include "Robot.hpp"
 
-
+unsigned long lastIntersectionTime = millis();
 
 Status Robot::cruise(Direction direction) {
     
@@ -15,10 +15,18 @@ Status Robot::cruise(Direction direction) {
         case StraightAhead:
             break;
         case Left:
+            while (!Tape::tapePresentLeft()) {
+                Tape::update();
+                Actuators::drive(Actuators::Fast, Tape::driveCorrection());
+            }
             Actuators::turnIntersection(false);
             while (!Tape::tapePresentCentreWithUpdate()) {}
             break;
         case Right:
+            while (!Tape::tapePresentRight()) {
+                Tape::update();
+                Actuators::drive(Actuators::Fast, Tape::driveCorrection());
+            }
             Actuators::turnIntersection(true);
             while (!Tape::tapePresentCentreWithUpdate()) {}
             break;
@@ -33,8 +41,6 @@ Status Robot::cruise(Direction direction) {
         Collision::update();
         Tape::update();
         IR::update();
-        
-        
         
         switch (IR::check()) { //IR Check
                 
@@ -61,13 +67,9 @@ Status Robot::cruise(Direction direction) {
                 break;
         }
         
-        if (Collision::occured()) {
-            
-            return Collided;
-        }
-        
-        if (Tape::atIntersection()) {
-  
+        if (Collision::occured()) return Collided;
+        if (Tape::atIntersection() && (millis() - lastIntersectionTime) > TIME_FREE_OF_INTERSECTION) {
+            lastIntersectionTime = millis();
             return Intersection;
         }
 
@@ -114,11 +116,11 @@ void Robot::pickUpPassenger(bool turnRightBefore, bool turnRightAfter) {
     Actuators::lowerArm();
     
     unsigned long approachStartTime = millis();
-    Actuators::Velocity velocity = Actuators::Slow;
+    Actuators::Velocity velocity = Actuators::Normal;
     
     Actuators::drive(velocity, Actuators::Straight);
     
-    while (Collision::occuredWithUpdate()) {} // wait until both are tripped //TODO: change to allow for one tripping...
+    while (!Collision::occuredWithUpdate()) {} // wait until both are tripped
     
     unsigned long approachTime = millis() - approachStartTime;
    
@@ -182,6 +184,6 @@ void Robot::evade() {
     Actuators::drive(Actuators::Slow, Actuators::Straight, true);
     delay(REVERSE_TIME_EVADE);
     
-    Actuators::turnInPlace(TURN_180, true);
+    Actuators::turnInPlace(TURN_180, false);
     while (!Tape::tapePresentCentreWithUpdate()) {}
 }

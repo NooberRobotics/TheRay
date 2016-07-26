@@ -35,6 +35,13 @@ void Navigator::checkAndHandleColissionOnTape() {
             lastNode = currentNode;
             currentNode = nextNode;
             nextNode = CityMap::getLeftmostTurnNode(lastNode, currentNode);
+            
+            if (returningToDropoff) {
+                startNodeIndex = currentNode;
+                nextNodeIndex = 0;
+            } else {
+                nextNodeIndex = CityMap::updateNodeIndex(nextNode, primaryPath);
+            }
         }
     }
 }
@@ -145,24 +152,25 @@ bool Navigator::returnToDropoff(bool turnRightForPickup) {
     
     // Setting up for handling of dropoff path
     
-    // Determine next turn-direction and reverse travel drection to avoid turning arround at next node ir required
-    Direction nextTurn = CityMap::getTurnDirection(lastNode, currentNode, nextNode);
+    // Determine next turn-direction and reverse travel drection to avoid turning arround at next node if required
+    
+    int testNextNode = CityMap::getNextNodeToGoal(nextNode, 0, primaryPath);
+    
+    Direction nextTurn = CityMap::getTurnDirection(currentNode, nextNode, testNextNode);
     
     if (nextTurn == TurnAround) {
         int tempNode = currentNode;
         currentNode = nextNode;
         nextNode = tempNode;
         
-        if (turnRightForPickup) turnRightAfterPickup = false;
-        else turnRightAfterPickup = true;
+        turnRightAfterPickup = turnRightForPickup;
     } else {
-        if (turnRightForPickup) turnRightAfterPickup = true;
-        else turnRightAfterPickup = false;
+        turnRightAfterPickup = !turnRightForPickup;
     }
     
     startNodeIndex = currentNode;
     nextNodeIndex = 0;
-    
+
     return turnRightAfterPickup;
 }
 

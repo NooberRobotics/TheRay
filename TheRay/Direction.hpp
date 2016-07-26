@@ -10,10 +10,10 @@
 #define Direction_hpp
 
 enum Direction {
-    Left,
+    StraightAhead,
     Right,
     TurnAround,
-    StraightAhead,
+    Left
 };
 
 

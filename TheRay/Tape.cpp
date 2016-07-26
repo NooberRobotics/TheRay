@@ -64,8 +64,13 @@ int Tape::driveCorrection(bool defaultTurnRight) {
 // Intersection detection
 
 bool Tape::atIntersection() {
-    if (tapePresentCentre()) return tapePresentSides();
+    if (abs(error) < 10) return tapePresentSides();
     return false;
+}
+
+bool Tape::atIntersectionWithUpdate() {
+    Tape::update();
+    return atIntersection();
 }
 
 bool Tape::tapePresentCentre() {
@@ -85,6 +90,15 @@ bool Tape::tapePresentSides() {
 
 bool Tape::tapePresent() {
     return onMidLeft || onMidRight ||  onLeft || onRight;
+}
+
+
+bool Tape::tapePresentRight() {
+    return onRight;
+}
+
+bool Tape::tapePresentLeft() {
+    return onLeft;
 }
 
 Tape::IntersectionType Tape::tapePresentOnSide() {

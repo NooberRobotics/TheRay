@@ -19,11 +19,13 @@ void Controller::execution() {
             
         case IRRight:
             if (!hasPassenger) initializePickup(true);
+            else //tell navigator doll was detected
             turnDirection = StraightAhead;
             break;
             
         case IRLeft:
             if (!hasPassenger) initializePickup(false);
+            else // tell navigator doll was detected
             turnDirection = StraightAhead;
             break;
             
@@ -49,7 +51,7 @@ void Controller::initializeNavigator() {
 }
 
 void Controller::initializePickup(bool rightSidePickup) {
-    bool turnRightAfterPickup = navigator.returnToDropoff(false);
+    bool turnRightAfterPickup = navigator.returnToDropoff(rightSidePickup);
     robot.pickUpPassenger(rightSidePickup, turnRightAfterPickup);
     hasPassenger = true;
 }
