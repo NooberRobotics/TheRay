@@ -12,20 +12,21 @@
 unsigned long timeOfIntersection = millis();
 unsigned long timeOfCollision = millis();
 
+bool collisionsHaveOccured = false;
 
 void Navigator::changeStartingPositionToRightTurnFirst() {
     currentNode = 18;
     nextNode = 19;
     primaryPath = false;
+    
 }
 
 
 Direction Navigator::getTurn() {
     
-    
     Direction turn;
     
-    if( timeOfCollision - timeOfIntersection < TIME_FREE_OF_INTERSECTION){
+    if( collisionsHaveOccured && timeOfCollision - timeOfIntersection < TIME_FREE_OF_INTERSECTION){
         
         if( (millis() - timeOfCollision) > (timeOfCollision - timeOfIntersection)){ //add safety factor?
             //we got to another intersection, so must've taken the most immediate left turn at the previous intersection
@@ -39,7 +40,6 @@ Direction Navigator::getTurn() {
     
     lastNode = currentNode;
     currentNode = nextNode;
-    
     
     
     Serial.print("Current Node: ");
@@ -99,7 +99,8 @@ Direction Navigator::getTurn() {
 }
 
 void Navigator::collisionOccurred() {
-        
+    collisionsHaveOccured = true;
+    
     bool expected = false;
 
     for (int i = 0; i<7; i++) {
