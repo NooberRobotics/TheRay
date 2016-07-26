@@ -15,13 +15,11 @@ Status Robot::cruise(Direction direction) {
             break;
         case Left:
             Actuators::turnIntersection(false);
-            Tape::update();
-            while (!Tape::tapePresentCentre()) {Tape::update();}
+            while (!Tape::tapePresentCentreWithUpdate()) {}
             break;
         case Right:
             Actuators::turnIntersection(true);
-            Tape::update();
-            while (!Tape::tapePresentCentre()) {Tape::update();}
+            while (!Tape::tapePresentCentreWithUpdate()) {}
             break;
         case TurnAround:
             turnOntoTape(direction);
@@ -84,17 +82,17 @@ void Robot::turnOntoTape(Direction direction) {
             
         case Left:
             Actuators::turnInPlace(TURN_OFF_TAPE_DURATION, false);
-            while (!Tape::tapePresentCentre()) {}
+            while (!Tape::tapePresentCentreWithUpdate()) {}
             break;
             
         case Right:
             Actuators::turnInPlace(TURN_OFF_TAPE_DURATION, true);
-            while (!Tape::tapePresentCentre()) {}
+            while (!Tape::tapePresentCentreWithUpdate()) {}
             break;
             
         case TurnAround:
             Actuators::turnInPlace(TURN_180, true);
-            while (!Tape::tapePresentCentre()) {}
+            while (!Tape::tapePresentCentreWithUpdate()) {}
             break;
     }
 }
@@ -117,7 +115,7 @@ void Robot::pickUpPassenger(bool turnRightBefore, bool turnRightAfter) {
     
     Actuators::drive(velocity, Actuators::Straight);
     
-    while (Collision::occured()) {} // wait until both are tripped //TODO: change to allow for one tripping...
+    while (Collision::occuredWithUpdate()) {} // wait until both are tripped //TODO: change to allow for one tripping...
     
     unsigned long approachTime = millis() - approachStartTime;
    
@@ -135,7 +133,7 @@ void Robot::pickUpPassenger(bool turnRightBefore, bool turnRightAfter) {
     delay(approachTime);
     
     Actuators::turnInPlace(turnRightAfter);
-    while(!Tape::tapePresentCentre()) {}
+    while(!Tape::tapePresentCentreWithUpdate()) {}
 
     Actuators::stop();
 }
@@ -146,6 +144,7 @@ void Robot::dropOffPassenger(Direction direction, bool rightSideDropOff) {
     
     unsigned long time = millis();
     while( (millis() - time) < DROP_OFF_APPROACH_TIME ){
+        Tape::update();
         Actuators::drive(Actuators::Fast, Tape::driveCorrection());
     }
     
@@ -171,7 +170,7 @@ void Robot::dropOffPassenger(Direction direction, bool rightSideDropOff) {
     Actuators::raiseArm();
     
     Actuators::turnInPlace(!rightSideDropOff);
-    while(!Tape::tapePresentCentre()){}
+    while(!Tape::tapePresentCentreWithUpdate()){}
 }
 
 void Robot::evade() {
@@ -180,6 +179,5 @@ void Robot::evade() {
     delay(REVERSE_TIME_EVADE);
     
     Actuators::turnInPlace(TURN_180, true);
-    while (!Tape::tapePresentCentre()) {}
-    
+    while (!Tape::tapePresentCentreWithUpdate()) {}
 }
