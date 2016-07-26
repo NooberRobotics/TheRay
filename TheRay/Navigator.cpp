@@ -30,6 +30,7 @@ Direction Navigator::getTurn() {
         
         if( (millis() - timeOfCollision) > (timeOfCollision - timeOfIntersection)){ //add safety factor?
             //we got to another intersection, so must've taken the most immediate left turn at the previous intersection
+            
             lastNode = currentNode;
             currentNode = nextNode;
             nextNode = CityMap::getLeftmostTurnNode(lastNode, currentNode);
@@ -149,16 +150,16 @@ bool Navigator::returnToDropoff(bool turnRightForPickup) {
         nextNode = tempNode;
         
         if (turnRightForPickup) turnRightAfterPickup = false;
-        else turnAfterPickup = true;
+        else turnRightAfterPickup = true;
     } else {
-        if (turnRightForPickup) turnAfterPickup = true;
-        else turnAfterPickup = false;
+        if (turnRightForPickup) turnRightAfterPickup = true;
+        else turnRightAfterPickup = false;
     }
     
     startNodeIndex = currentNode;
     nextNodeIndex = 0;
     
-    return turnAfterPickup;
+    return turnRightAfterPickup;
 }
 
 void Navigator::passengerDroppedOff(){
