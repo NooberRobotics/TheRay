@@ -15,7 +15,7 @@
 
 
 class Navigator {
-        
+    
     int lastNode;
     int currentNode = 0;
     int nextNode = 1;
@@ -27,6 +27,12 @@ class Navigator {
     bool returningToDropoff = false;
     
     bool primaryPath = true; // TODO: determine which path we start at
+    
+    
+    unsigned long timeOfIntersection;
+    unsigned long timeOfCollision;
+    
+    void checkAndHandleColissionOnTape();
     
 public:
    

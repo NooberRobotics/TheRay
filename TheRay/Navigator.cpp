@@ -9,42 +9,46 @@
 #include "Navigator.hpp"
 #include <Arduino.h>
 
-unsigned long timeOfIntersection = millis();
-unsigned long timeOfCollision = millis();
 
 bool collisionsHaveOccured = false;
+
+unsigned long currentTime() {
+    return millis();
+}
 
 void Navigator::changeStartingPositionToRightTurnFirst() {
     currentNode = 18;
     nextNode = 19;
     primaryPath = false;
-    
 }
 
-
-Direction Navigator::getTurn() {
+void Navigator::checkAndHandleColissionOnTape() {
     
-    Direction turn;
-    
-    if( collisionsHaveOccured && timeOfCollision - timeOfIntersection < TIME_FREE_OF_INTERSECTION){
+    unsigned long timeFromIntersectionToColission = timeOfCollision - timeOfIntersection;
+    if (timeFromIntersectionToColission < TIME_FREE_OF_INTERSECTION) {
         
-        if( (millis() - timeOfCollision) > (timeOfCollision - timeOfIntersection)){ //add safety factor?
-            //we got to another intersection, so must've taken the most immediate left turn at the previous intersection
+        unsigned long timeSinceCollision = currentTime() - timeOfCollision;
+        if ( timeSinceCollision > timeFromIntersectionToColission) {
+            
+            // we got to another intersection, so must've taken the most immediate left turn at the previous intersection
             
             lastNode = currentNode;
             currentNode = nextNode;
             nextNode = CityMap::getLeftmostTurnNode(lastNode, currentNode);
         }
     }
+}
+
+Direction Navigator::getTurn() {
     
-    timeOfIntersection = millis();
+    if (collisionsHaveOccured) checkAndHandleColissionOnTape();
+    
+    Direction turn;
+    
+    timeOfIntersection = currentTime();
     
     lastNode = currentNode;
     currentNode = nextNode;
-    
-    
-    Serial.print("Current Node: ");
-    Serial.println(currentNode);
     
     if (returningToDropoff) {
         
@@ -54,11 +58,11 @@ Direction Navigator::getTurn() {
         turn = CityMap::getTurnDirection(lastNode, currentNode, nextNode);
         
         if (nextNode == 11) {
-            if(currentNode == 7) {
+            if (currentNode == 7) {
                 dropOffTurnRight = true;
                 nextNode = 17;
                 lastNode = 7;
-            } else if (currentNode == 17){
+            } else if (currentNode == 17) {
                 dropOffTurnRight = false;
                 nextNode = 7;
                 lastNode = 17;
@@ -73,12 +77,12 @@ Direction Navigator::getTurn() {
         
         turn = CityMap::getTurnDirection(lastNode, currentNode, nextNode);
         
-        if(nextNode == 11){
+        if (nextNode == 11) {
             if(currentNode == 7) {
                 nextNodeIndex = CityMap::getNextNodeIndex(nextNodeIndex);
                 nextNode = 17;
                 lastNode = 7;
-            } else if(currentNode == 17) {
+            } else if (currentNode == 17) {
                 nextNodeIndex = CityMap::getNextNodeIndex(nextNodeIndex);
                 nextNode = 7;
                 lastNode = 17;
