@@ -72,6 +72,13 @@ bool Tape::tapePresentCentre() {
     return onMidLeft || onMidRight;
 }
 
+bool Tape::tapePresentCentreWithUpdate() {
+    onMidLeft = detectedTape(QRD_MIDLEFT);
+    onMidRight = detectedTape(QRD_MIDRIGHT);
+    return tapePresentCentre();
+}
+
+
 bool Tape::tapePresentSides() {
     return onLeft || onRight;
 }

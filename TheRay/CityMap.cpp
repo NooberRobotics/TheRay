@@ -27,7 +27,7 @@ int CityMap::getNextNodeToGoal(int startNodeIndex, int nextNodeIndex, bool prima
 
 int CityMap::getNextNodeIndex(int currentNodeIndex) {
     int index = currentNodeIndex + 1;
-    return index < 39 ? index : index - 39;
+    return index < TRAVERSAL_MAP_SIZE ? index : index - TRAVERSAL_MAP_SIZE;
 }
 
 int CityMap::getNextNodeToSearch(int currentNodeIndex, bool primaryPath) {
@@ -62,11 +62,11 @@ Direction CityMap::getTurnDirection(int lastNode, int currentNode, int nextNode)
 
 int CityMap::updateNodeIndex(int nextNode, bool primaryPath){
     if (primaryPath){
-        for (int i = 0; i < 39; i++){
+        for (int i = 0; i < TRAVERSAL_MAP_SIZE; i++){
             if (nextNode == CityMap::primaryTraversalPath[i]) return i;
         }
     } else {
-        for (int i = 0; i < 39; i++){
+        for (int i = 0; i < TRAVERSAL_MAP_SIZE; i++){
             if (nextNode == CityMap::secondaryTraversalPath[i]) return i;
         }
     }
