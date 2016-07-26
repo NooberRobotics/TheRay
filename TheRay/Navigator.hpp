@@ -11,6 +11,7 @@
 
 #include "Direction.hpp"
 #include "CityMap.hpp"
+#include "Config.hpp"
 
 
 class Navigator {

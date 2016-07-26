@@ -9,6 +9,10 @@
 #include "Navigator.hpp"
 #include <Arduino.h>
 
+unsigned long timeOfIntersection = millis();
+unsigned long timeOfCollision = millis();
+
+
 void Navigator::changeStartingPositionToRightTurnFirst() {
     currentNode = 18;
     nextNode = 19;
@@ -18,10 +22,27 @@ void Navigator::changeStartingPositionToRightTurnFirst() {
 
 Direction Navigator::getTurn() {
     
+    
+    Direction turn;
+    
+    if( timeOfCollision - timeOfIntersection < TIME_FREE_OF_INTERSECTION){
+        
+        if( (millis() - timeOfCollision) > (timeOfCollision - timeOfIntersection)){ //add safety factor?
+            //we got to another intersection, so must've taken the most immediate left turn at the previous intersection
+            lastNode = currentNode;
+            currentNode = nextNode;
+            nextNode = getLeftmostTurnNode(lastNode, currentNode);
+        }
+        
+    }
+    
+    
+    timeOfIntersection = millis();
+    
     lastNode = currentNode;
     currentNode = nextNode;
     
-    Direction turn;
+    
     
     Serial.print("Current Node: ");
     Serial.println(currentNode);
@@ -82,7 +103,7 @@ Direction Navigator::getTurn() {
 void Navigator::collisionOccurred() {
         
     bool expected = false;
-    
+
     for (int i = 0; i<7; i++) {
         if (nextNode == CityMap::collisionNodes[i]) expected = true;
     }
@@ -94,6 +115,7 @@ void Navigator::collisionOccurred() {
     if (returningToDropoff) {
         if (!expected) {
             primaryPath = !primaryPath;
+            timeOfCollision = millis();
         }
         
         startNodeIndex = currentNode;
@@ -103,6 +125,7 @@ void Navigator::collisionOccurred() {
         if (expected) {
             nextNodeIndex = CityMap::getNextNodeIndex(nextNodeIndex);
         } else {
+            timeOfCollision = millis();
             primaryPath = !primaryPath;
             nextNodeIndex = CityMap::updateNodeIndex(nextNode, primaryPath);
         }

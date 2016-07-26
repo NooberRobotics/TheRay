@@ -6,7 +6,8 @@
 //
 
 #include "Robot.hpp"
-//unsigned long timeSinceIntersection = 0;
+
+
 
 Status Robot::cruise(Direction direction) {
     
@@ -35,6 +36,8 @@ Status Robot::cruise(Direction direction) {
         Tape::update();
         IR::update();
         
+        
+        
 //        switch (IR::check()) { //IR Check
 //                
 //            case IR::None:
@@ -61,12 +64,14 @@ Status Robot::cruise(Direction direction) {
 //        }
         
         if (Collision::occured()) {
-            return Collided;
+            
+                        return Collided;
         }
         
         if (Tape::atIntersection()) {
+        
             
-            //timeOfLastIntersection = millis();
+           
             return Intersection;
         }
 
