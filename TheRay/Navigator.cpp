@@ -31,11 +31,9 @@ Direction Navigator::getTurn() {
             //we got to another intersection, so must've taken the most immediate left turn at the previous intersection
             lastNode = currentNode;
             currentNode = nextNode;
-            nextNode = getLeftmostTurnNode(lastNode, currentNode);
+            nextNode = CityMap::getLeftmostTurnNode(lastNode, currentNode);
         }
-        
     }
-    
     
     timeOfIntersection = millis();
     
