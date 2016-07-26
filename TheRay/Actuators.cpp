@@ -32,11 +32,11 @@ void Actuators::turnInPlace(bool rightTurn) {
 void Actuators::turnIntersection(bool rightTurn){
     
     if (rightTurn) {
-        motor.speed(MOTOR_RIGHT, -150);
+        motor.speed(MOTOR_RIGHT, 0);
         motor.speed(MOTOR_LEFT, INTERSECTION_TURN_VELOCITY);
     } else {
         motor.speed(MOTOR_RIGHT, INTERSECTION_TURN_VELOCITY);
-        motor.speed(MOTOR_LEFT, -150);
+        motor.speed(MOTOR_LEFT, 0);
     }
     delay(INTERSECTION_TURN_DELAY);
 }
