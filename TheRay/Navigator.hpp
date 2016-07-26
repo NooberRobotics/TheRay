@@ -15,7 +15,7 @@
 
 
 class Navigator {
-    
+        
     int lastNode;
     int currentNode = 0;
     int nextNode = 1;
