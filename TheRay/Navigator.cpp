@@ -143,9 +143,9 @@ bool Navigator::returnToDropoff(bool turnRightForPickup) {
     
     bool turnRightAfterPickup;
     
-    // Setting up for handeling of dropoff path
+    // Setting up for handling of dropoff path
     
-    // Determine next turn-direction and reverse travel drection to avoid turning arround at next node ir requiered
+    // Determine next turn-direction and reverse travel drection to avoid turning arround at next node ir required
     Direction nextTurn = CityMap::getTurnDirection(lastNode, currentNode, nextNode);
     
     if (nextTurn == TurnAround) {

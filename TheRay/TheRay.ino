@@ -17,8 +17,7 @@ Controller controller;
 void setup() {
     #include <phys253setup.txt>
     Serial.begin(9600);
-    
-    RCServo0.write(70);
+
     
     controller = Controller();
 }

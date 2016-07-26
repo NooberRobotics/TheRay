@@ -36,30 +36,30 @@ Status Robot::cruise(Direction direction) {
         
         
         
-//        switch (IR::check()) { //IR Check
-//                
-//            case IR::None:
-//                driveVelocity = Actuators::Normal;
-//                break;
-//                
-//            case IR::WeakLeft:
-//                driveVelocity = Actuators::Slow;
-//                break;
-//                
-//            case IR::WeakRight:
-//                driveVelocity = Actuators::Slow;
-//                break;
-//                
-//            case IR::StrongLeft:
-//                Actuators::stop();
-//                return IRLeft;
-//                break;
-//                
-//            case IR::StrongRight:
-//                Actuators::stop();
-//                return IRRight;
-//                break;
-//        }
+        switch (IR::check()) { //IR Check
+                
+            case IR::None:
+                driveVelocity = Actuators::Normal;
+                break;
+                
+            case IR::WeakLeft:
+                driveVelocity = Actuators::Slow;
+                break;
+                
+            case IR::WeakRight:
+                driveVelocity = Actuators::Slow;
+                break;
+                
+            case IR::StrongLeft:
+                Actuators::stop();
+                return IRLeft;
+                break;
+                
+            case IR::StrongRight:
+                Actuators::stop();
+                return IRRight;
+                break;
+        }
         
         if (Collision::occured()) {
             
@@ -67,9 +67,7 @@ Status Robot::cruise(Direction direction) {
         }
         
         if (Tape::atIntersection()) {
-        
-            
-           
+  
             return Intersection;
         }
 
@@ -148,6 +146,7 @@ void Robot::dropOffPassenger(Direction direction, bool rightSideDropOff) {
     turnOntoTape(direction);
     
     unsigned long time = millis();
+    
     while( (millis() - time) < DROP_OFF_APPROACH_TIME ){
         Tape::update();
         Actuators::drive(Actuators::Fast, Tape::driveCorrection());
@@ -155,7 +154,7 @@ void Robot::dropOffPassenger(Direction direction, bool rightSideDropOff) {
     
     Actuators::turnInPlace(TURN_FOR_PASSENGER_DROPOFF_DURATION, rightSideDropOff);
     
-    Actuators::drive(Actuators::Slow, Actuators::Straight);
+    Actuators::drive(Actuators::Slow, Actuators::Straight); //drive up to drop off platform
     delay(DROP_OFF_PASSENGER_DRIVE_OFF_TRACK_DELAY);
     
     Actuators::stop();
@@ -165,7 +164,7 @@ void Robot::dropOffPassenger(Direction direction, bool rightSideDropOff) {
     
     delay(OPEN_FINGERS_FOR_PASSENGER_DROP_OFF_DURATION);
     
-    Actuators::drive(Actuators::Slow, Actuators::Straight, true);
+    Actuators::drive(Actuators::Slow, Actuators::Straight, true); //get back onto track
     
     delay(DROP_OFF_PASSENGER_DRIVE_OFF_TRACK_DELAY);
     

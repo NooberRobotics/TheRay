@@ -11,7 +11,7 @@
 // Tape
 #define THRESH_QRD 300
 
-#define KP 14;
+#define KP 15;
 #define KD 5;
 
 
