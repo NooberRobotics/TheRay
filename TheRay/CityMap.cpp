@@ -89,12 +89,18 @@ int CityMap::getLeftmostTurnNode(int lastNode, int currentNode) {
         int bestDirectionNumber = -1;
 
         int testDepartingNode = CityMap::departureMap[currentNode][heading];
-        int directionNumber = ((testDepartingNode - arriving) + 4) % 4;
         
-        if (bestDirectionNumber < directionNumber) {
-            bestDirectionNumber = directionNumber;
-            departing = testDepartingNode;
+        if (testDepartingNode != -1) {
+            
+            int directionNumber = ((heading - arriving) + 4) % 4;
+            
+            if (directionNumber > bestDirectionNumber) {
+                bestDirectionNumber = directionNumber;
+                departing = testDepartingNode;
+            }
+
         }
+        
     }
     
     return departureMap[currentNode][departing];

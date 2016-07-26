@@ -63,7 +63,7 @@ Status Robot::cruise(Direction direction) {
         
         if (Collision::occured()) {
             
-                        return Collided;
+            return Collided;
         }
         
         if (Tape::atIntersection()) {
