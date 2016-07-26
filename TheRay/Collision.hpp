@@ -13,13 +13,6 @@
 
 namespace Collision {
     
-//    enum Result {
-//        None,
-//        Left,
-//        Right,
-//        Both,
-//    };
-    
     void update();
     bool occured();
     bool occuredWithUpdate();
