@@ -32,6 +32,7 @@ void Controller::execution() {
             if (navigatorNotInitialized) initializeNavigator();
             
             turnDirection = navigator.getTurn();
+            
             if (navigator.dropOffNow) initializeDropoff();
             
             break;
