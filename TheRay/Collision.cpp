@@ -27,3 +27,8 @@ bool Collision::occured() {
     
     return collision;
 }
+
+bool Collision::occuredWithUpdate() {
+    update();
+    return occured();
+}

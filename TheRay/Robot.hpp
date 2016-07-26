@@ -32,8 +32,8 @@ public:
     Tape::IntersectionType lastIntersection = Tape::None;
     
     Robot() {
-        Actuators::closeClaw();
-        Actuators::raiseArm();
+//        Actuators::closeClaw();
+//        Actuators::raiseArm();
     }
     
     Status cruise(Direction direction);

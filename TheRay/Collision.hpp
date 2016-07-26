@@ -22,6 +22,7 @@ namespace Collision {
     
     void update();
     bool occured();
+    bool occuredWithUpdate();
 };
 
 

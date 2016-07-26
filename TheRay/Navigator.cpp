@@ -132,13 +132,34 @@ void Navigator::collisionOccurred() {
     }
 }
 
-void Navigator::returnToDropoff(bool turnRightForPickup) {
+bool Navigator::returnToDropoff(bool turnRightForPickup) {
+    
     primaryPath = true;
     returningToDropoff = true;
     
-    // Setting up for handeling of secondary path
+    bool turnRightAfterPickup;
+    
+    // Setting up for handeling of dropoff path
+    
+    // Determine next turn-direction and reverse travel drection to avoid turning arround at next node ir requiered
+    Direction nextTurn = CityMap::getTurnDirection(lastNode, currentNode, nextNode);
+    
+    if (nextTurn == TurnAround) {
+        int tempNode = currentNode;
+        currentNode = nextNode;
+        nextNode = tempNode;
+        
+        if (turnRightForPickup) turnRightAfterPickup = false;
+        else turnAfterPickup = true;
+    } else {
+        if (turnRightForPickup) turnAfterPickup = true;
+        else turnAfterPickup = false;
+    }
+    
     startNodeIndex = currentNode;
     nextNodeIndex = 0;
+    
+    return turnAfterPickup;
 }
 
 void Navigator::passengerDroppedOff(){
