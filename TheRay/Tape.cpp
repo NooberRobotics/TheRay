@@ -34,11 +34,10 @@ int Tape::driveCorrection(bool defaultTurnRight) {
         if (lastError > 0) error = 5;
         else if (lastError < 0) error = -5;
         
-        else {
-            
-        }
+        else if (onLeft) error = -10;
+        else if (onRight) error = 10;
+        else error = 0;
     
-        
     } else { // tape found
         if (left && right) error = 0;
         else if (left && !right) error = -1; // turn left
