@@ -33,12 +33,12 @@ void Actuators::turnIntersection(bool rightTurn){
     
     if (rightTurn) {
         Serial.println("actuators: Intersection RIGHT");
-        motor.speed(MOTOR_RIGHT, -60);
+        motor.speed(MOTOR_RIGHT, -70);
         motor.speed(MOTOR_LEFT, INTERSECTION_TURN_VELOCITY);
     } else {
         Serial.println("actuators: Intersection LEFT");
         motor.speed(MOTOR_RIGHT, INTERSECTION_TURN_VELOCITY);
-        motor.speed(MOTOR_LEFT, -60);
+        motor.speed(MOTOR_LEFT, -70);
     }
     delay(INTERSECTION_TURN_DELAY);
 }
