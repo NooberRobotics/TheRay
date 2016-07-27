@@ -17,6 +17,7 @@ Status Robot::cruise(Direction direction) {
         case StraightAhead:
             break;
         case Left:
+            Serial.println("WE MADE THE LEFT");
             Tape::update();
             while (!Tape::tapePresentLeft()) {
                 Tape::update();
@@ -121,7 +122,7 @@ void Robot::pickUpPassenger(bool turnRightBefore, bool turnRightAfter) {
     Actuators::lowerArm();
     
     unsigned long approachStartTime = millis();
-    Actuators::Velocity velocity = Actuators::Normal;
+    Actuators::Velocity velocity = Actuators::Slow;
     
     Actuators::drive(velocity, Actuators::Straight);
     

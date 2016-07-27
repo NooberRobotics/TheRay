@@ -9,7 +9,7 @@
 #define Config_hpp
 
 // Tape
-#define THRESH_QRD 300
+#define THRESH_QRD 400
 
 #define KP 15;
 #define KD 5;
@@ -76,8 +76,8 @@
 
 // SERVO ANGLES
 
-#define SERVO_OPEN 80
-#define SERVO_CLOSED 0
+#define SERVO_OPEN 0
+#define SERVO_CLOSED 80
 #define SERVO_OPERATION_TIME 500 //millis
 
 // QRD (ANALOG)
