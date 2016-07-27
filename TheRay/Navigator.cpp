@@ -22,13 +22,13 @@ void Navigator::changeStartingPositionToRightTurnFirst() {
     primaryPath = false;
 }
 
-void Navigator::checkAndHandleColissionOnTape() {
+void Navigator::checkAndHandleCollisionOnTape() {
     
-    unsigned long timeFromIntersectionToColission = timeOfCollision - timeOfIntersection;
-    if (timeFromIntersectionToColission < TIME_FREE_OF_INTERSECTION) {
+    unsigned long timeFromIntersectionToCollision = timeOfCollision - timeOfIntersection;
+    if (timeFromIntersectionToCollision < TIME_FREE_OF_INTERSECTION) {
         
         unsigned long timeSinceCollision = currentTime() - timeOfCollision;
-        if ( timeSinceCollision > timeFromIntersectionToColission) {
+        if ( timeSinceCollision > timeFromIntersectionToCollision + TIME_MIN_BETWEEN_INTERSECTIONS ) {
             
             // we got to another intersection, so must've taken the most immediate left turn at the previous intersection
             
@@ -37,7 +37,7 @@ void Navigator::checkAndHandleColissionOnTape() {
             nextNode = CityMap::getLeftmostTurnNode(lastNode, currentNode);
             
             if (returningToDropoff) {
-                startNodeIndex = currentNode;
+                startNodeIndex = nextNode;
                 nextNodeIndex = 0;
             } else {
                 nextNodeIndex = CityMap::updateNodeIndex(nextNode, primaryPath);
@@ -48,8 +48,8 @@ void Navigator::checkAndHandleColissionOnTape() {
 
 Direction Navigator::getTurn() {
     
-    if (collisionsHaveOccured) checkAndHandleColissionOnTape();
-    
+    if (collisionsHaveOccured) checkAndHandleCollisionOnTape();
+    collisionsHaveOccured = false;
     Direction turn;
     
     timeOfIntersection = currentTime();
@@ -130,7 +130,7 @@ void Navigator::collisionOccurred() {
             timeOfCollision = millis();
         }
         
-        startNodeIndex = currentNode;
+        startNodeIndex = nextNode;
         nextNodeIndex = 0;
         
     } else {

@@ -21,11 +21,11 @@ void Actuators::turnInPlace(bool rightTurn) {
     
     // positive angle -> cv/rigth turn
     if (rightTurn) {
-        motor.speed(MOTOR_RIGHT, -TURN_IN_PLACE_VELOCITY);
-        motor.speed(MOTOR_LEFT, TURN_IN_PLACE_VELOCITY);
+        motor.speed(MOTOR_RIGHT, -TURN_IN_PLACE_VELOCITY * MOTOR_RIGHT_SIGN_UP);
+        motor.speed(MOTOR_LEFT, TURN_IN_PLACE_VELOCITY * MOTOR_LEFT_SIGN_UP);
     } else {
-        motor.speed(MOTOR_RIGHT, TURN_IN_PLACE_VELOCITY);
-        motor.speed(MOTOR_LEFT, -TURN_IN_PLACE_VELOCITY);
+        motor.speed(MOTOR_RIGHT, TURN_IN_PLACE_VELOCITY * MOTOR_RIGHT_SIGN_UP);
+        motor.speed(MOTOR_LEFT, -TURN_IN_PLACE_VELOCITY * MOTOR_LEFT_SIGN_UP);
     }
 }
 
@@ -33,19 +33,19 @@ void Actuators::turnIntersection(bool rightTurn){
     
     if (rightTurn) {
         Serial.println("actuators: Intersection RIGHT");
-        motor.speed(MOTOR_RIGHT, -70);
-        motor.speed(MOTOR_LEFT, INTERSECTION_TURN_VELOCITY);
+        motor.speed(MOTOR_RIGHT, -70 * MOTOR_RIGHT_SIGN_UP);
+        motor.speed(MOTOR_LEFT, INTERSECTION_TURN_VELOCITY * MOTOR_LEFT_SIGN_UP);
     } else {
         Serial.println("actuators: Intersection LEFT");
-        motor.speed(MOTOR_RIGHT, INTERSECTION_TURN_VELOCITY);
-        motor.speed(MOTOR_LEFT, -70);
+        motor.speed(MOTOR_RIGHT, INTERSECTION_TURN_VELOCITY * MOTOR_RIGHT_SIGN_UP);
+        motor.speed(MOTOR_LEFT, -70 * MOTOR_LEFT_SIGN_UP);
     }
     delay(INTERSECTION_TURN_DELAY);
 }
 
 void Actuators::drive(Actuators::Velocity velocity, int turn) {
-    motor.speed(MOTOR_LEFT, velocity + turn);
-    motor.speed(MOTOR_RIGHT, velocity - turn);
+    motor.speed(MOTOR_LEFT, (velocity + turn) * MOTOR_LEFT_SIGN_UP);
+    motor.speed(MOTOR_RIGHT, (velocity - turn) * MOTOR_RIGHT_SIGN_UP);
 }
 
 void Actuators::drive(Actuators::Velocity velocity, Actuators::Turn turn, bool reverse) {

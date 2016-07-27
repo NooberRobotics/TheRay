@@ -2,19 +2,19 @@
 //  Map.cpp
 //  TheRay
 //
-//  Created by Erik MacLennan on 2016-07-19.
 //  Copyright © 2016 Noober. All rights reserved.
 //
 
 #include "CityMap.hpp"
 
-//Takes the lastNode, currentNode and nextNode as input parameters
-//Returns the angle to turn. -180 <= angle <= 180
-//
-//Takes advantage of your turning Function. Theoretically Only Turn -90,0, or 90
-//CAN HANDLE 180 THO
-//SHOULD BE ABLE TO CALL THE TURNING ALGORITM FROM THIS.
+/*
+Takes the lastNode, currentNode and nextNode as input parameters
+Returns the angle to turn. -180 <= angle <= 180
 
+Takes advantage of your turning Function. Theoretically Only Turn -90,0, or 90
+CAN HANDLE 180 THO
+SHOULD BE ABLE TO CALL THE TURNING ALGORITM FROM THIS.
+*/
 
 int CityMap::getNextNodeToGoal(int startNodeIndex, int nextNodeIndex, bool primaryPath) {
     if (primaryPath) {
@@ -84,9 +84,11 @@ int CityMap::getLeftmostTurnNode(int lastNode, int currentNode) {
         }
     }
     
+    int bestDirectionNumber = -1;
+    
     for (int heading = 0; heading < 4; heading++) {
 
-        int bestDirectionNumber = -1;
+        
 
         int testDepartingNode = CityMap::departureMap[currentNode][heading];
         

@@ -32,7 +32,7 @@ class Navigator {
     unsigned long timeOfIntersection;
     unsigned long timeOfCollision;
     
-    void checkAndHandleColissionOnTape();
+    void checkAndHandleCollisionOnTape();
     
 public:
    
