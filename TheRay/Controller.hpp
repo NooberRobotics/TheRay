@@ -22,7 +22,8 @@ class Controller {
     void initializeNavigator();
     void initializePickup(bool rightSidePickup);
     void initializeDropoff();
-
+    void initializeScan();
+    
 public:
     
     Robot robot = Robot();

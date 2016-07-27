@@ -41,6 +41,7 @@ public:
     void pickUpPassenger(bool rightSideBefore, bool turnRightAfter);
     void dropOffPassenger(Direction turn, bool rightSideDropOff);
     void evade();
+    bool turnAndScan();
 };
 
 

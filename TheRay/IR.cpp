@@ -60,4 +60,22 @@ void IR::update(){
     midRight = analogRead(IR_MIDRIGHT);
 }
 
+bool IR::checkLeftWithUpdate(){
+    currentIndex = (currentIndex + 1) % IR_AVERAGING_SAMPLE_SIZE;
+    
+    left = analogRead(IR_LEFT);
+    readingsLeft[currentIndex] = left;
+    
+    int average = 0;
+    
+    for (int i = 0; i<IR_AVERAGING_SAMPLE_SIZE; i++) {
+        average += readingsLeft[i];
+    }
+    average = average / IR_AVERAGING_SAMPLE_SIZE;
+    if(average > THRESH_LOW_IR){
+        return true;
+    }
+    return false;
+}
+
 

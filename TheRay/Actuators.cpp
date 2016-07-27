@@ -11,21 +11,23 @@
 
 void Actuators::turnInPlace(int duration, bool rightTurn) {
     
-    Actuators::turnInPlace(rightTurn);
+    Actuators::turnInPlace(rightTurn, true);
     
     // Delay factor determined experimentally
     delay( duration);
 }
 
-void Actuators::turnInPlace(bool rightTurn) {
+void Actuators::turnInPlace(bool rightTurn, bool fast) {
     
-    // positive angle -> cv/rigth turn
+    int turnSpeed = fast ? TURN_IN_PLACE_VELOCITY : TURN_IN_PLACE_SLOW_VELOCITY;
+    // positive angle -> cv/right turn
+
     if (rightTurn) {
-        motor.speed(MOTOR_RIGHT, -TURN_IN_PLACE_VELOCITY * MOTOR_RIGHT_SIGN_UP);
-        motor.speed(MOTOR_LEFT, TURN_IN_PLACE_VELOCITY * MOTOR_LEFT_SIGN_UP);
+        motor.speed(MOTOR_RIGHT, -turnSpeed * MOTOR_RIGHT_SIGN_UP);
+        motor.speed(MOTOR_LEFT, turnSpeed * MOTOR_LEFT_SIGN_UP);
     } else {
-        motor.speed(MOTOR_RIGHT, TURN_IN_PLACE_VELOCITY * MOTOR_RIGHT_SIGN_UP);
-        motor.speed(MOTOR_LEFT, -TURN_IN_PLACE_VELOCITY * MOTOR_LEFT_SIGN_UP);
+        motor.speed(MOTOR_RIGHT, turnSpeed * MOTOR_RIGHT_SIGN_UP);
+        motor.speed(MOTOR_LEFT, -turnSpeed * MOTOR_LEFT_SIGN_UP);
     }
 }
 

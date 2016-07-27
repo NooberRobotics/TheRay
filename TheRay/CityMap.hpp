@@ -131,21 +131,19 @@ namespace CityMap {
         {19,16,12,8,6,7,11},
     };
     
-#define TRAVERSAL_MAP_SIZE 27
+#define TRAVERSAL_MAP_SIZE 29
     
     const int primaryTraversalPath[TRAVERSAL_MAP_SIZE] = {
-        0,1,6,5,6,8,10,12,16,14,16,17,11,7,2,1,6,8,12,16,19,20,17,11,7,6,1
+        0,1,6,5,6,8,10,9,10,12,16,14,16,17,11,7,2,1,6,8,12,16,19,20,17,11,7,6,1
     };
 
     const int secondaryTraversalPath[TRAVERSAL_MAP_SIZE] = {
-         18,19,16,12,8,6,7,11,17,20,19,16,12,10,8,6,5,6,1,2,7,11,17,16,14,16,19
+         18,19,16,12,8,6,7,11,17,20,19,16,12,10,9,10,8,6,5,6,1,2,7,11,17,16,14,16,19
     };
     
     const int collisionNodes[7] = { 0, 3, 4, 9, 13, 15, 18 };
-    const int scanNodes[2] = {5,14};
 
-    const int irSearchNodes[] = {1,5,10,14,19};
-    
+       
 };
 
 #endif

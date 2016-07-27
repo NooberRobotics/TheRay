@@ -37,6 +37,10 @@ void Controller::execution() {
             
             if (navigator.dropOffNow) initializeDropoff();
             
+            if(navigator.irScanNow){
+                initializeScan();
+            }
+            
             break;
     }
 }
@@ -61,4 +65,13 @@ void Controller::initializeDropoff() {
     turnDirection = StraightAhead;
     hasPassenger = false;
     navigator.passengerDroppedOff();
+}
+void Controller::initializeScan(){
+    
+    if(robot.turnAndScan()){
+        turnDirection = TurnAround;
+        navigator.goOntoBranch();
+    } else {
+        turnDirection = StraightAhead;
+    }
 }

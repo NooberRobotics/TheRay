@@ -159,7 +159,7 @@ void Robot::pickUpPassenger(bool turnRightBefore, bool turnRightAfter) {
         }
     }
     
-    Actuators::turnInPlace(turnRightAfter);
+    Actuators::turnInPlace(turnRightAfter, true);
     while(!Tape::tapePresentCentreWithUpdate()) {}
 
     Actuators::stop();
@@ -198,7 +198,7 @@ void Robot::dropOffPassenger(Direction direction, bool rightSideDropOff) {
     Actuators::closeClaw();
     Actuators::raiseArm();
     
-    Actuators::turnInPlace(!rightSideDropOff);
+    Actuators::turnInPlace(!rightSideDropOff, true);
     while(!Tape::tapePresentCentreWithUpdate()){}
 }
 
@@ -209,4 +209,16 @@ void Robot::evade() {
     
     Actuators::turnInPlace(TURN_180, false);
     while (!Tape::tapePresentCentreWithUpdate()) {}
+}
+
+bool Robot::turnAndScan(){
+    unsigned long time = millis();
+    Actuators::turnInPlace(true, false);
+    bool irDetected = false;
+    while(millis() - time < TURN_180 && !Tape::tapePresentCentreWithUpdate()){
+        if (!irDetected && IR::checkLeftWithUpdate()){
+            irDetected = true;
+        }
+    }
+    return irDetected;
 }

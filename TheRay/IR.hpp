@@ -24,6 +24,7 @@ namespace IR {
     Result check();
 
     void update();
+    bool checkLeftWithUpdate();
 };
 
 

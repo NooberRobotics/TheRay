@@ -48,14 +48,21 @@ void Navigator::checkAndHandleCollisionOnTape() {
 
 Direction Navigator::getTurn() {
     
+    irScanNow = false;
+    
     if (collisionsHaveOccured) checkAndHandleCollisionOnTape();
     collisionsHaveOccured = false;
+    
+    
     Direction turn;
     
     timeOfIntersection = currentTime();
     
     lastNode = currentNode;
     currentNode = nextNode;
+    
+    if (onBranch) return getTurnOnBranch();
+
     
     if (returningToDropoff) {
         
@@ -97,6 +104,12 @@ Direction Navigator::getTurn() {
             }
             currentNode = 11;
         }
+       // scanNodes[] = {5,14};
+        if (currentNode == 5 || currentNode == 14){
+            irScanNow = true;
+        }
+
+        
     }
     
     Serial.print("Last Node: ");
@@ -107,6 +120,7 @@ Direction Navigator::getTurn() {
     Serial.print(nextNode);
     Serial.print(" Turn: ");
     Serial.println(turn);
+    
     
     return turn;
 }
@@ -180,4 +194,28 @@ void Navigator::passengerDroppedOff(){
     nextNodeIndex = CityMap::updateNodeIndex(nextNode, primaryPath);
     dropOffNow = false;
     returningToDropoff = false;
+}
+
+void Navigator::goOntoBranch(){
+    onBranch = true;
+    if (currentNode == 5){
+        nextNode = 3;
+    }else{
+        nextNode = 13;
+    }
+}
+bool firstTime = true;
+Direction getTurnOnBranch(){
+    if (!firstTime) {
+        onBranch = false;
+        firstTime = true;
+    } else {
+        firstTime = false;
+    }
+    
+    if(currentNode == 5){
+        return Right;
+    } else {
+        return Left;
+    }
 }
