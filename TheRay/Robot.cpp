@@ -11,10 +11,13 @@ unsigned long lastIntersectionTime = millis();
 
 Status Robot::cruise(Direction direction) {
     
+    //Serial.print(direction);
+    
     switch (direction) {
         case StraightAhead:
             break;
         case Left:
+            Tape::update();
             while (!Tape::tapePresentLeft()) {
                 Tape::update();
                 Actuators::drive(Actuators::Fast, Tape::driveCorrection());
@@ -23,6 +26,7 @@ Status Robot::cruise(Direction direction) {
             while (!Tape::tapePresentCentreWithUpdate()) {}
             break;
         case Right:
+            Tape::update();
             while (!Tape::tapePresentRight()) {
                 Tape::update();
                 Actuators::drive(Actuators::Fast, Tape::driveCorrection());
@@ -68,6 +72,7 @@ Status Robot::cruise(Direction direction) {
         }
         
         if (Collision::occured()) return Collided;
+        
         if (Tape::atIntersection() && (millis() - lastIntersectionTime) > TIME_FREE_OF_INTERSECTION) {
             lastIntersectionTime = millis();
             return Intersection;
@@ -145,7 +150,32 @@ void Robot::pickUpPassenger(bool turnRightBefore, bool turnRightAfter) {
 
 void Robot::dropOffPassenger(Direction direction, bool rightSideDropOff) {
     
-    turnOntoTape(direction);
+    switch (direction) {
+        case StraightAhead:
+            break;
+        case Left:
+            Tape::update();
+            while (!Tape::tapePresentLeft()) {
+                Tape::update();
+                Actuators::drive(Actuators::Fast, Tape::driveCorrection());
+            }
+            Actuators::turnIntersection(false);
+            while (!Tape::tapePresentCentreWithUpdate()) {}
+            break;
+        case Right:
+            Tape::update();
+            while (!Tape::tapePresentRight()) {
+                Tape::update();
+                Actuators::drive(Actuators::Fast, Tape::driveCorrection());
+            }
+            Actuators::turnIntersection(true);
+            while (!Tape::tapePresentCentreWithUpdate()) {}
+            break;
+        case TurnAround:
+            turnOntoTape(direction);
+            break;
+    }
+
     
     unsigned long time = millis();
     
