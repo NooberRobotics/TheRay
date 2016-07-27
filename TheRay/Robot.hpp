@@ -26,7 +26,8 @@ class Robot {
     
     void turnOntoTape(Direction direction);
     Actuators::Velocity driveVelocity = Actuators::Normal;
-
+    void turnAtIntersection(Direction direction);
+    
 public:
         
     Tape::IntersectionType lastIntersection = Tape::None;

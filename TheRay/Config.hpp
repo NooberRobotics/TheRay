@@ -11,8 +11,8 @@
 // Tape
 #define THRESH_QRD 400
 
-#define KP 15;
-#define KD 5;
+#define KP 20;
+#define KD 50;
 
 
 // IR
@@ -36,6 +36,7 @@
 #define INTERSECTION_DETECTED_DRIVE_DELAY 235
 #define TIME_MIN_BETWEEN_INTERSECTIONS 2000
 #define TIME_FREE_OF_INTERSECTION 750
+#define TIME_IN_INTERSECTION 200
 
 
 // Pickup
@@ -52,8 +53,9 @@
 
 // Velocities
 #define VELOCITY_SLOW 75
-#define VELOCITY_NORMAL 220
-#define VELOCITY_FAST 255
+#define VELOCITY_NORMAL 160
+#define VELOCITY_FAST 220
+#define VELOCITY_NITROUS 255
 
 #define VELOCITY_ARM 100
 

@@ -19,13 +19,13 @@ void Controller::execution() {
             
         case IRRight:
             if (!hasPassenger) initializePickup(true);
-            else //tell navigator doll was detected
+            //tell navigator doll was detected
             turnDirection = StraightAhead;
             break;
             
         case IRLeft:
             if (!hasPassenger) initializePickup(false);
-            else // tell navigator doll was detected
+            // tell navigator doll was detected
             turnDirection = StraightAhead;
             break;
             

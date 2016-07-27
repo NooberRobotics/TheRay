@@ -9,7 +9,9 @@
 
 unsigned long lastIntersectionTime = millis();
 
-Status Robot::cruise(Direction direction) {
+void Robot::turnAtIntersection(Direction direction){
+    
+    unsigned long time = millis();
     
     //Serial.print(direction);
     
@@ -19,7 +21,7 @@ Status Robot::cruise(Direction direction) {
         case Left:
             Serial.println("WE MADE THE LEFT");
             Tape::update();
-            while (!Tape::tapePresentLeft()) {
+            while (!Tape::tapePresentLeft() && (millis() - time) < TIME_IN_INTERSECTION) {
                 Tape::update();
                 Actuators::drive(Actuators::Fast, Tape::driveCorrection());
             }
@@ -28,7 +30,7 @@ Status Robot::cruise(Direction direction) {
             break;
         case Right:
             Tape::update();
-            while (!Tape::tapePresentRight()) {
+            while (!Tape::tapePresentRight() && (millis() - time) < TIME_IN_INTERSECTION) {
                 Tape::update();
                 Actuators::drive(Actuators::Fast, Tape::driveCorrection());
             }
@@ -39,7 +41,12 @@ Status Robot::cruise(Direction direction) {
             turnOntoTape(direction);
             break;
     }
+
+}
+
+Status Robot::cruise(Direction direction) {
     
+    turnAtIntersection(direction);
     
     while (true) {
         
@@ -160,31 +167,7 @@ void Robot::pickUpPassenger(bool turnRightBefore, bool turnRightAfter) {
 
 void Robot::dropOffPassenger(Direction direction, bool rightSideDropOff) {
     
-    switch (direction) {
-        case StraightAhead:
-            break;
-        case Left:
-            Tape::update();
-            while (!Tape::tapePresentLeft()) {
-                Tape::update();
-                Actuators::drive(Actuators::Fast, Tape::driveCorrection());
-            }
-            Actuators::turnIntersection(false);
-            while (!Tape::tapePresentCentreWithUpdate()) {}
-            break;
-        case Right:
-            Tape::update();
-            while (!Tape::tapePresentRight()) {
-                Tape::update();
-                Actuators::drive(Actuators::Fast, Tape::driveCorrection());
-            }
-            Actuators::turnIntersection(true);
-            while (!Tape::tapePresentCentreWithUpdate()) {}
-            break;
-        case TurnAround:
-            turnOntoTape(direction);
-            break;
-    }
+    turnAtIntersection(direction);
 
     
     unsigned long time = millis();
