@@ -140,7 +140,16 @@ void Robot::pickUpPassenger(bool turnRightBefore, bool turnRightAfter) {
     bool successful = true; //!IR::frontDetected();
     
     Actuators::drive(velocity, Actuators::Straight, true);
-    delay(approachTime);
+    
+    unsigned long backupStartTime = millis();
+    
+    while(millis() - backupStartTime < (approachTime)){
+        Tape::update();
+        
+        if (Tape::tapePresent()){
+            break;
+        }
+    }
     
     Actuators::turnInPlace(turnRightAfter);
     while(!Tape::tapePresentCentreWithUpdate()) {}
