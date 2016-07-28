@@ -7,6 +7,7 @@
 
 #include "Tape.hpp"
 
+
 int error = 0;
 int lastError = 0;
 int recentError = 0;
