@@ -12,8 +12,8 @@
 #define THRESH_QRD 400
 
 #define KP 18
-#define KD 140
-#define KI 10
+#define KD 130
+#define KI 9
 #define K 88
 
 #define TAPE_HISTORY_COUNT 3
@@ -58,7 +58,7 @@
 
 
 // Velocities
-#define VELOCITY_SLOW 120
+#define VELOCITY_SLOW 100
 #define VELOCITY_NORMAL 175
 #define VELOCITY_FAST 220
 #define VELOCITY_NITROUS 255
