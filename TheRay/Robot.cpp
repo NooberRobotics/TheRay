@@ -19,7 +19,6 @@ void Robot::turnAtIntersection(Direction direction){
         case StraightAhead:
             break;
         case Left:
-            Serial.println("WE MADE THE LEFT");
             Tape::update();
             while (!Tape::tapePresentLeft() && (millis() - time) < TIME_IN_INTERSECTION) {
                 Tape::update();

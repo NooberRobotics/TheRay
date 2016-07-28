@@ -12,13 +12,10 @@ int errorsIndex = 0;
 
 int error = 0;
 int lastError = 0;
-int recentError = 0;
+int lastDifferentError = 0;
 
-int kp = KP;
-int kd = KD;
-
-int q = 0;
-int m = 0;
+int lastErrorDuration = 0;
+int errorDuration = 0;
 
 bool onLeft = false;
 bool onMidLeft = false;
@@ -34,10 +31,10 @@ int nextIndex(int index) {
 // Tape-following code, return error term to robot
 int Tape::driveCorrection(bool defaultTurnRight) {
     
-    bool left = onMidLeft;
-    bool right = onMidRight;
-    
-    if (!left && !right) { // both off
+    if (onMidLeft && onMidRight) error = 0;
+    else if (onMidLeft) error = -1; // turn left
+    else if (onMidRight) error = +1; // turn right
+    else {
         
         if (lastError > 0) error = 5;
         else if (lastError < 0) error = -5;
@@ -45,31 +42,27 @@ int Tape::driveCorrection(bool defaultTurnRight) {
         else if (onLeft) error = -5;
         else if (onRight) error = 5;
         else error = 0;
-        
     }
-    else if (left) error = -1; // turn left
-    else if (right) error = +1; // turn right
-    else error = 0;
     
     if (error != lastError) {
-        recentError = lastError;
-        q = m;
-        m = 1;
+        lastDifferentError = lastError;
+        lastErrorDuration = errorDuration;
+        errorDuration = 1;
     }
     
-    int p = kp * error;
-    int d = (int)((float)kd * (float)(error - recentError) / (float)(q + m));
+    int p = KP * error;
+    int d = (int)(KD * (error - lastDifferentError) / (float)(errorDuration + lastErrorDuration));
     
     double summation = 0;
     for (int j = 0; j < TAPE_HISTORY_COUNT; j++) {
-        summation += (int) ((double)errors[nextIndex(errorsIndex + j)] / (double)(j+1));
+        summation += errors[nextIndex(errorsIndex + j)] / (double)(j+1);
     }
     
-    int i = (int) (((double) KI * summation)/((double)1000));
+    int i = (int) ((KI * summation)/1000);
     
-    int con = (int)((double)(K*(p + d + i))/((double)100));
+    int con = K*(p + d + i)/100;
     
-    m++;
+    errorDuration++;
     lastError = error;
     
     errorsIndex = nextIndex(errorsIndex);
@@ -82,8 +75,9 @@ int Tape::driveCorrection(bool defaultTurnRight) {
 // Intersection detection
 
 bool Tape::atIntersection() {
-    if (abs(error) < 10) return tapePresentSides();
-    return false;
+   // if (tapePresentCentre()) return tapePresentSides();
+   // return false;
+    return tapePresentSides();
 }
 
 bool Tape::atIntersectionWithUpdate() {
