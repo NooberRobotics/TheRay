@@ -40,7 +40,7 @@ IR::Result IR::check() {
 }
 
 int readSensor(int sensor) {
-    int value = analogRead(IR_RIGHT);
+    int value = analogRead(sensor);
 //    Serial.println(value);
     return value > THRESH_CAP_IR ? THRESH_CAP_IR : value;
 }

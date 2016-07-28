@@ -54,30 +54,30 @@ Status Robot::cruise(Direction direction) {
         Tape::update();
         IR::update();
         
-//        switch (IR::check()) { //IR Check
-//                
-//            case IR::None:
-//                driveVelocity = Actuators::Normal;
-//                break;
-//                
-//            case IR::WeakLeft:
-//                driveVelocity = Actuators::Slow;
-//                break;
-//                
-//            case IR::WeakRight:
-//                driveVelocity = Actuators::Slow;
-//                break;
-//                
-//            case IR::StrongLeft:
-//                Actuators::stop();
-//                return IRLeft;
-//                break;
-//                
-//            case IR::StrongRight:
-//                Actuators::stop();
-//                return IRRight;
-//                break;
-//        }
+        switch (IR::check()) { //IR Check
+                
+            case IR::None:
+                driveVelocity = Actuators::Normal;
+                break;
+                
+            case IR::WeakLeft:
+                driveVelocity = Actuators::Slow;
+                break;
+                
+            case IR::WeakRight:
+                driveVelocity = Actuators::Slow;
+                break;
+                
+            case IR::StrongLeft:
+                Actuators::stop();
+                return IRLeft;
+                break;
+                
+            case IR::StrongRight:
+                Actuators::stop();
+                return IRRight;
+                break;
+        }
         
         if (Collision::occured()) return Collided;
         

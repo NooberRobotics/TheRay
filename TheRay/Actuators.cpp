@@ -65,9 +65,7 @@ void Actuators::drive(Actuators::Velocity velocity, Actuators::Turn turn, bool r
 
 bool armNotInPosition(int switchNumber) {
     if (digitalRead(switchNumber)) {
-        
         delay(1);
-        
         if (digitalRead(switchNumber)) {
             return true;
         }

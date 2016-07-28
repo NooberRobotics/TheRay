@@ -122,7 +122,7 @@ bool Tape::atIntersection() {
 
 bool Tape::atIntersectionWithUpdate() {
     Tape::update();
-    return atIntersection();
+    return error < 10 ? atIntersection() : false;
 }
 
 bool Tape::tapePresentCentre() {
