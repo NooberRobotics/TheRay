@@ -7,38 +7,19 @@
 
 #include "IR.hpp"
 
-int readingsRight[IR_AVERAGING_SAMPLE_SIZE] = {0};
-int readingsLeft[IR_AVERAGING_SAMPLE_SIZE] = {0};
+int indexIR = 0;
 
-int currentIndex = 0;
-
-int right = 0;
-int left = 0;
-int midLeft = 0;
-int midRight = 0;
+int readingsIRRight[IR_AVERAGING_SAMPLE_SIZE] = {0};
+int readingsIRLeft[IR_AVERAGING_SAMPLE_SIZE] = {0};
+int readingsIRMidRight[IR_AVERAGING_SAMPLE_SIZE] = {0};
+int readingsIRMidLeft[IR_AVERAGING_SAMPLE_SIZE] = {0};
 
 IR::Result IR::check() {
-    
-    currentIndex = (currentIndex + 1) % IR_AVERAGING_SAMPLE_SIZE;
-    
-    readingsRight[currentIndex] = right;
-    readingsLeft[currentIndex] = left;
-    
-    int right = 0;
-    int left = 0;
 
-    for (int i = 0; i<IR_AVERAGING_SAMPLE_SIZE; i++) {
-        right += readingsRight[i];
-        left += readingsLeft[i];
-    }
-    
-    right = right / IR_AVERAGING_SAMPLE_SIZE;
-    left = left / IR_AVERAGING_SAMPLE_SIZE;
-    
-//    Serial.print("Right: ");
-//    Serial.print(right);
-//    Serial.print("Left: ");
-//    Serial.println(left);
+    int right = checkSensor(readingsIRRight);
+    int midRight = checkSensor(readingsIRMidRight);
+    int midLeft = checkSensor(readingsIRMidLeft);
+    int left = checkSensor(readingsIRLeft);
     
     if (left < THRESH_LOW_IR && right < THRESH_LOW_IR){
         return IR::None;
@@ -54,28 +35,32 @@ IR::Result IR::check() {
 }
 
 void IR::update(){
-    right = analogRead(IR_RIGHT);
-    left = analogRead(IR_LEFT);
-    midLeft = analogRead(IR_MIDLEFT);
-    midRight = analogRead(IR_MIDRIGHT);
+    
+    indexIR = (indexIR + 1) % IR_AVERAGING_SAMPLE_SIZE;
+
+    readingsIRRight[indexIR] = analogRead(IR_RIGHT);
+    readingsIRMidRight[indexIR] = analogRead(IR_MIDRIGHT);
+    readingsIRMidLeft[indexIR] = analogRead(IR_MIDLEFT);
+    readingsIRLeft[indexIR] = analogRead(IR_LEFT);
 }
 
 bool IR::checkLeftWithUpdate(){
-    currentIndex = (currentIndex + 1) % IR_AVERAGING_SAMPLE_SIZE;
+    indexIR = (indexIR + 1) % IR_AVERAGING_SAMPLE_SIZE;
+    readingsIRLeft[indexIR] = analogRead(IR_LEFT);
     
-    left = analogRead(IR_LEFT);
-    readingsLeft[currentIndex] = left;
-    
+    if (averageFromSensor(readingsIRLeft) > THRESH_LOW_IR) return true;
+    return false;
+}
+
+int IR::averageFromSensor(int array[]) {
     int average = 0;
     
     for (int i = 0; i<IR_AVERAGING_SAMPLE_SIZE; i++) {
-        average += readingsLeft[i];
+        average += array[i];
     }
-    average = average / IR_AVERAGING_SAMPLE_SIZE;
-    if(average > THRESH_LOW_IR){
-        return true;
-    }
-    return false;
+    
+    return (int) ((double) average / (double) IR_AVERAGING_SAMPLE_SIZE);
+
 }
 
 
