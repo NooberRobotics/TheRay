@@ -27,26 +27,30 @@ void Navigator::checkAndHandleCollisionOnTape() {
     
     unsigned long timeFromIntersectionToCollision = timeOfCollision - timeOfIntersection;
     
-    Serial.println("in 1");
-    
-    Serial.print("intersection: ");
-    Serial.println(timeOfIntersection);
-    
-    Serial.print("collision: ");
-    Serial.println(timeOfCollision);
-    
-    Serial.print("time from intersection to collision: ");
-    Serial.println(timeFromIntersectionToCollision);
+//    Serial.println("in 1");
+//    
+//    Serial.print("intersection: ");
+//    Serial.println(timeOfIntersection);
+//    
+//    Serial.print("collision: ");
+//    Serial.println(timeOfCollision);
+//    
+//    Serial.print("time from intersection to collision: ");
+//    Serial.println(timeFromIntersectionToCollision);
     
     
     if (timeFromIntersectionToCollision < TIME_FREE_OF_INTERSECTION) {
         
-        Serial.println("in 2");
+//        Serial.println("in 2");
         
         unsigned long timeSinceCollision = currentTime() - timeOfCollision;
+//        
+//        Serial.print("Time since collision: ");
+//        Serial.println(timeSinceCollision);
+//        
         if ( timeSinceCollision > timeFromIntersectionToCollision + TIME_MIN_BETWEEN_INTERSECTIONS ) {
             
-            Serial.println("in 3");
+//            Serial.println("in 3");
             
             // we got to another intersection, so must've taken the most immediate left turn at the previous intersection
             

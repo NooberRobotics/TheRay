@@ -22,6 +22,7 @@ bool onMidLeft = false;
 bool onMidRight = false;
 bool onRight = false;
 
+bool defaultTurnRight = true;
 
 int nextIndex(int index) {
     return (index + TAPE_HISTORY_COUNT) % TAPE_HISTORY_COUNT;
@@ -29,19 +30,60 @@ int nextIndex(int index) {
 
 
 // Tape-following code, return error term to robot
+
+Tape::IntersectionType defaultTurnDirection = Tape::None;
+
 int Tape::driveCorrection(bool defaultTurnRight) {
     
-    if (onMidLeft && onMidRight) error = 0;
+    if (defaultTurnRight) defaultTurnDirection = Right;
+    else defaultTurnDirection = Left;
+    
+    int correction = driveCorrection();
+    
+    defaultTurnDirection = None;
+    
+    return correction;
+}
+
+
+int Tape::driveCorrection() {
+    
+    if (onMidLeft && onMidRight) {
+        error = 0;
+        defaultTurnDirection = None;
+    }
     else if (onMidLeft) error = -1; // turn left
     else if (onMidRight) error = +1; // turn right
     else {
         
         if (lastError > 0) error = 5;
         else if (lastError < 0) error = -5;
-        
-        else if (onLeft) error = -5;
-        else if (onRight) error = 5;
-        else error = 0;
+        else {
+            switch (defaultTurnDirection) {
+                case Left:
+                    error = -10;
+                    break;
+                    
+                case Right:
+                    error = 10;
+                    break;
+                    
+                case None:
+                    
+                    if (onLeft) {
+                        defaultTurnDirection = Left;
+                        error = -10;
+                    }
+                    else if (onRight) {
+                        defaultTurnDirection = Right;
+                        error = 10;
+                    }
+                    else error = 0;
+                    
+                    break;
+            }
+
+        }
     }
     
     if (error != lastError) {
@@ -55,7 +97,7 @@ int Tape::driveCorrection(bool defaultTurnRight) {
     
     double summation = 0;
     for (int j = 0; j < TAPE_HISTORY_COUNT; j++) {
-        summation += errors[nextIndex(errorsIndex + j)] / (double)(j+1);
+        summation += errors[nextIndex(errorsIndex + j)] / (float)(j+1);
     }
     
     int i = (int) ((KI * summation)/1000);
@@ -75,8 +117,6 @@ int Tape::driveCorrection(bool defaultTurnRight) {
 // Intersection detection
 
 bool Tape::atIntersection() {
-   // if (tapePresentCentre()) return tapePresentSides();
-   // return false;
     return tapePresentSides();
 }
 

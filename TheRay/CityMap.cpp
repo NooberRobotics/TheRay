@@ -85,6 +85,7 @@ int CityMap::getLeftmostTurnNode(int lastNode, int currentNode) {
     }
     
     int leftmostDepartingDirection = -1;
+    int foundBest = -1;
     
     for (int heading = 0; heading < 4; heading++) {
 
@@ -94,11 +95,34 @@ int CityMap::getLeftmostTurnNode(int lastNode, int currentNode) {
             
             int directionNumber = ((heading - arriving) + 4) % 4;
             
-            if (directionNumber > leftmostDepartingDirection) {
-                leftmostDepartingDirection = directionNumber;
+            if (directionNumber == 3) {
+                leftmostDepartingDirection = heading;
+                foundBest = 1;
+            } else if (directionNumber == 0) {
+                if (foundBest != 1) {
+                    leftmostDepartingDirection = heading;
+                    foundBest = 2;
+                }
+            } else if (directionNumber == 1) {
+                if (foundBest != 1 && foundBest != 2) {
+                    leftmostDepartingDirection = heading;
+                    foundBest = 3;
+                }
+            } else {
+                Serial.println("LEFTMOST MAP SERIOUS ERROR!");
             }
         }
     }
     
-    return departureMap[currentNode][leftmostDepartingDirection];
+    Serial.print("Leftmost Direction: ");
+    Serial.println(leftmostDepartingDirection);
+
+    int node = departureMap[currentNode][leftmostDepartingDirection];
+
+    
+    Serial.print("Leftmost node: ");
+    Serial.println(node);
+    
+    
+    return node;
 }

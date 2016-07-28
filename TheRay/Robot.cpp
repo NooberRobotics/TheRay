@@ -17,12 +17,13 @@ void Robot::turnAtIntersection(Direction direction){
     
     switch (direction) {
         case StraightAhead:
+            delay(60);
             break;
         case Left:
             Tape::update();
             while (!Tape::tapePresentLeft() && (millis() - time) < TIME_IN_INTERSECTION) {
                 Tape::update();
-                Actuators::drive(Actuators::Fast, Tape::driveCorrection());
+                Actuators::drive(Actuators::Fast, Tape::driveCorrection(false));
             }
             Actuators::turnIntersection(false);
             while (!Tape::tapePresentCentreWithUpdate()) {}
@@ -31,7 +32,7 @@ void Robot::turnAtIntersection(Direction direction){
             Tape::update();
             while (!Tape::tapePresentRight() && (millis() - time) < TIME_IN_INTERSECTION) {
                 Tape::update();
-                Actuators::drive(Actuators::Fast, Tape::driveCorrection());
+                Actuators::drive(Actuators::Fast, Tape::driveCorrection(true));
             }
             Actuators::turnIntersection(true);
             while (!Tape::tapePresentCentreWithUpdate()) {}
@@ -53,30 +54,30 @@ Status Robot::cruise(Direction direction) {
         Tape::update();
         IR::update();
         
-//        switch (IR::check()) { //IR Check
-//                
-//            case IR::None:
-//                driveVelocity = Actuators::Normal;
-//                break;
-//                
-//            case IR::WeakLeft:
-//                driveVelocity = Actuators::Slow;
-//                break;
-//                
-//            case IR::WeakRight:
-//                driveVelocity = Actuators::Slow;
-//                break;
-//                
-//            case IR::StrongLeft:
-//                Actuators::stop();
-//                return IRLeft;
-//                break;
-//                
-//            case IR::StrongRight:
-//                Actuators::stop();
-//                return IRRight;
-//                break;
-//        }
+        switch (IR::check()) { //IR Check
+                
+            case IR::None:
+                driveVelocity = Actuators::Normal;
+                break;
+                
+            case IR::WeakLeft:
+                driveVelocity = Actuators::Slow;
+                break;
+                
+            case IR::WeakRight:
+                driveVelocity = Actuators::Slow;
+                break;
+                
+            case IR::StrongLeft:
+                Actuators::stop();
+                return IRLeft;
+                break;
+                
+            case IR::StrongRight:
+                Actuators::stop();
+                return IRRight;
+                break;
+        }
         
         if (Collision::occured()) return Collided;
         
@@ -206,6 +207,6 @@ void Robot::evade() {
     Actuators::drive(Actuators::Slow, Actuators::Straight, true);
     delay(REVERSE_TIME_EVADE);
     
-    Actuators::turnInPlace(TURN_OFF_TAPE_DURATION, false);
+    Actuators::turnInPlace(TURN_OFF_TAPE_DURATION, true);
     while (!Tape::tapePresentCentreWithUpdate()) {}
 }
