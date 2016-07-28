@@ -63,6 +63,8 @@
 #define VELOCITY_FAST 220
 #define VELOCITY_NITROUS 255
 
+#define ACCELERATION_FACTOR 10
+
 #define VELOCITY_ARM 100
 
 // Turns

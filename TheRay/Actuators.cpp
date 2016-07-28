@@ -43,12 +43,12 @@ void Actuators::turnIntersection(bool rightTurn){
     delay(INTERSECTION_TURN_DELAY);
 }
 
-void Actuators::drive(Actuators::Velocity velocity, int turn) {
+void Actuators::drive(int velocity, int turn) {
     motor.speed(MOTOR_LEFT, (velocity + turn) * MOTOR_LEFT_SIGN_UP);
     motor.speed(MOTOR_RIGHT, (velocity - turn) * MOTOR_RIGHT_SIGN_UP);
 }
 
-void Actuators::drive(Actuators::Velocity velocity, Actuators::Turn turn, bool reverse) {
+void Actuators::drive(int velocity, Actuators::Turn turn, bool reverse) {
 
     int rightSpeed = velocity - turn;
     int leftSpeed = velocity + turn;

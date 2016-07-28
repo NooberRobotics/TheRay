@@ -8,6 +8,8 @@
 #include "Robot.hpp"
 
 unsigned long lastIntersectionTime = millis();
+int currentVelocity = 0;
+int targetVelocity = VELOCITY_NORMAL;
 
 void Robot::turnAtIntersection(Direction direction){
     
@@ -17,9 +19,11 @@ void Robot::turnAtIntersection(Direction direction){
     
     switch (direction) {
         case StraightAhead:
+            currentVelocity = VELOCITY_FAST;
             delay(60);
             break;
         case Left:
+            currentVelocity = 0;
             Tape::update();
             while (!Tape::tapePresentLeft() && (millis() - time) < TIME_IN_INTERSECTION) {
                 Tape::update();
@@ -29,6 +33,7 @@ void Robot::turnAtIntersection(Direction direction){
             while (!Tape::tapePresentCentreWithUpdate()) {}
             break;
         case Right:
+            currentVelocity = 0;
             Tape::update();
             while (!Tape::tapePresentRight() && (millis() - time) < TIME_IN_INTERSECTION) {
                 Tape::update();
@@ -38,6 +43,7 @@ void Robot::turnAtIntersection(Direction direction){
             while (!Tape::tapePresentCentreWithUpdate()) {}
             break;
         case TurnAround:
+            currentVelocity = 0;
             turnOntoTape(direction);
             break;
     }
@@ -54,39 +60,47 @@ Status Robot::cruise(Direction direction) {
         Tape::update();
         IR::update();
         
-//        switch (IR::check()) { //IR Check
-//                
-//            case IR::None:
-//                driveVelocity = Actuators::Normal;
-//                break;
-//                
-//            case IR::WeakLeft:
-//                driveVelocity = Actuators::Slow;
-//                break;
-//                
-//            case IR::WeakRight:
-//                driveVelocity = Actuators::Slow;
-//                break;
-//                
-//            case IR::StrongLeft:
-//                Actuators::stop();
-//                return IRLeft;
-//                break;
-//                
-//            case IR::StrongRight:
-//                Actuators::stop();
-//                return IRRight;
-//                break;
-//        }
+        switch (IR::check()) { //IR Check
+                
+            case IR::None:
+                currentVelocity = VELOCITY_NORMAL;
+                break;
+                
+            case IR::WeakLeft:
+                currentVelocity = VELOCITY_SLOW;
+                break;
+                
+            case IR::WeakRight:
+                currentVelocity = VELOCITY_SLOW;
+                break;
+                
+            case IR::StrongLeft:
+                Actuators::stop();
+                currentVelocity = 0;
+                return IRLeft;
+                break;
+                
+            case IR::StrongRight:
+                Actuators::stop();
+                currentVelocity = 0;
+                return IRRight;
+                break;
+        }
         
-        if (Collision::occured()) return Collided;
+        if (Collision::occured()){
+            currentVelocity = 0;
+            return Collided;
+        }
         
         if (Tape::atIntersection() && (millis() - lastIntersectionTime) > TIME_QRD_FREE_OF_INTERSECTION) {
             lastIntersectionTime = millis();
+            currentVelocity = 0;
             return Intersection;
         }
+        
+        if (currentVelocity < targetVelocity) currentVelocity = currentVelocity + ACCELERATION_FACTOR;
 
-        Actuators::drive(driveVelocity, Tape::driveCorrection());
+        Actuators::drive(currentVelocity, Tape::driveCorrection());
     }
 }
 
