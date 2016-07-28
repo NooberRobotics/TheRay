@@ -34,8 +34,8 @@ namespace Actuators {
     void turnInPlace(bool rightTurn);
     void turnIntersection (bool rightTurn);
     
-    void drive(Velocity velocity, int turn);
-    void drive(Velocity velocity, Turn turn, bool reverse = false);
+    void drive(int velocity, int turn);
+    void drive(int velocity, Turn turn, bool reverse = false);
     void stop();
 
     void raiseArm();
