@@ -81,7 +81,7 @@ Status Robot::cruise(Direction direction) {
         
         if (Collision::occured()) return Collided;
         
-        if (Tape::atIntersection() && (millis() - lastIntersectionTime) > TIME_FREE_OF_INTERSECTION) {
+        if (Tape::atIntersection() && (millis() - lastIntersectionTime) > TIME_QRD_FREE_OF_INTERSECTION) {
             lastIntersectionTime = millis();
             return Intersection;
         }
@@ -207,6 +207,6 @@ void Robot::evade() {
     Actuators::drive(Actuators::Slow, Actuators::Straight, true);
     delay(REVERSE_TIME_EVADE);
     
-    Actuators::turnInPlace(TURN_180, false);
+    Actuators::turnInPlace(TURN_OFF_TAPE_DURATION, false);
     while (!Tape::tapePresentCentreWithUpdate()) {}
 }

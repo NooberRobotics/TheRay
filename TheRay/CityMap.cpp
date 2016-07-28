@@ -43,10 +43,10 @@ Direction CityMap::getTurnDirection(int lastNode, int currentNode, int nextNode)
     int departing = -1;
     
     for (int heading = 0; heading < 4; heading++){
-        if (CityMap::arrivalMap[currentNode][heading] == lastNode){
+        if (CityMap::arrivalMap[currentNode][heading] == lastNode) {
             arriving = heading;
         }
-        if (CityMap::departureMap[currentNode][heading] == nextNode){
+        if (CityMap::departureMap[currentNode][heading] == nextNode) {
             departing = heading;
         }
     }
@@ -76,19 +76,17 @@ int CityMap::updateNodeIndex(int nextNode, bool primaryPath){
 int CityMap::getLeftmostTurnNode(int lastNode, int currentNode) {
     
     int arriving = -1;
-    int departing = -1;
     
     for (int heading = 0; heading < 4; heading++){
         if (CityMap::arrivalMap[currentNode][heading] == lastNode) {
             arriving = heading;
+            break;
         }
     }
     
-    int bestDirectionNumber = -1;
+    int leftmostDepartingDirection = -1;
     
     for (int heading = 0; heading < 4; heading++) {
-
-        
 
         int testDepartingNode = CityMap::departureMap[currentNode][heading];
         
@@ -96,14 +94,11 @@ int CityMap::getLeftmostTurnNode(int lastNode, int currentNode) {
             
             int directionNumber = ((heading - arriving) + 4) % 4;
             
-            if (directionNumber > bestDirectionNumber) {
-                bestDirectionNumber = directionNumber;
-                departing = testDepartingNode;
+            if (directionNumber > leftmostDepartingDirection) {
+                leftmostDepartingDirection = directionNumber;
             }
-
         }
-        
     }
     
-    return departureMap[currentNode][departing];
+    return departureMap[currentNode][leftmostDepartingDirection];
 }

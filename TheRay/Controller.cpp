@@ -13,8 +13,8 @@ void Controller::execution() {
             
         case Collided:
             turnDirection = StraightAhead;
-            robot.evade();
             navigator.collisionOccurred();
+            robot.evade();
             break;
             
         case IRRight:

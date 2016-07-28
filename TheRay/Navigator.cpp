@@ -10,7 +10,7 @@
 #include <Arduino.h>
 
 
-bool collisionsHaveOccured = false;
+bool collisionHasOccurred = false;
 
 unsigned long currentTime() {
     return millis();
@@ -24,11 +24,29 @@ void Navigator::changeStartingPositionToRightTurnFirst() {
 
 void Navigator::checkAndHandleCollisionOnTape() {
     
+    
     unsigned long timeFromIntersectionToCollision = timeOfCollision - timeOfIntersection;
+    
+    Serial.println("in 1");
+    
+    Serial.print("intersection: ");
+    Serial.println(timeOfIntersection);
+    
+    Serial.print("collision: ");
+    Serial.println(timeOfCollision);
+    
+    Serial.print("time from intersection to collision: ");
+    Serial.println(timeFromIntersectionToCollision);
+    
+    
     if (timeFromIntersectionToCollision < TIME_FREE_OF_INTERSECTION) {
+        
+        Serial.println("in 2");
         
         unsigned long timeSinceCollision = currentTime() - timeOfCollision;
         if ( timeSinceCollision > timeFromIntersectionToCollision + TIME_MIN_BETWEEN_INTERSECTIONS ) {
+            
+            Serial.println("in 3");
             
             // we got to another intersection, so must've taken the most immediate left turn at the previous intersection
             
@@ -48,11 +66,15 @@ void Navigator::checkAndHandleCollisionOnTape() {
 
 Direction Navigator::getTurn() {
     
-    if (collisionsHaveOccured) checkAndHandleCollisionOnTape();
-    collisionsHaveOccured = false;
-    Direction turn;
+    if (collisionHasOccurred) checkAndHandleCollisionOnTape();
+    collisionHasOccurred = false;
     
     timeOfIntersection = currentTime();
+    
+    Serial.print("Setting time: ");
+    Serial.println(timeOfIntersection);
+    
+    Direction turn;
     
     lastNode = currentNode;
     currentNode = nextNode;
@@ -112,7 +134,9 @@ Direction Navigator::getTurn() {
 }
 
 void Navigator::collisionOccurred() {
-    collisionsHaveOccured = true;
+    
+    timeOfCollision = currentTime();
+    collisionHasOccurred = true;
     
     bool expected = false;
 
@@ -127,7 +151,6 @@ void Navigator::collisionOccurred() {
     if (returningToDropoff) {
         if (!expected) {
             primaryPath = !primaryPath;
-            timeOfCollision = millis();
         }
         
         startNodeIndex = nextNode;
@@ -137,7 +160,21 @@ void Navigator::collisionOccurred() {
         if (expected) {
             nextNodeIndex = CityMap::getNextNodeIndex(nextNodeIndex);
         } else {
-            timeOfCollision = millis();
+            
+            
+            if (nextNode == 11) {
+                if(currentNode == 7) {
+                    nextNodeIndex = CityMap::getNextNodeIndex(nextNodeIndex);
+                    nextNode = 17;
+                    lastNode = 7;
+                } else if (currentNode == 17) {
+                    nextNodeIndex = CityMap::getNextNodeIndex(nextNodeIndex);
+                    nextNode = 7;
+                    lastNode = 17;
+                }
+                currentNode = 11;
+            }
+            
             primaryPath = !primaryPath;
             nextNodeIndex = CityMap::updateNodeIndex(nextNode, primaryPath);
         }
