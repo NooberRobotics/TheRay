@@ -153,10 +153,7 @@ void Robot::pickUpPassenger(bool turnRightBefore, bool turnRightAfter) {
     
     while(millis() - backupStartTime < (approachTime)){
         Tape::update();
-        
-        if (Tape::tapePresent()){
-            break;
-        }
+        if (Tape::tapePresent()) break;
     }
     
     Actuators::turnInPlace(turnRightAfter);

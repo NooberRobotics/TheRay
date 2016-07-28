@@ -24,6 +24,8 @@ namespace IR {
     Result check();
 
     void update();
+    int averageFromSensor(int array[]);
+    bool checkLeftWithUpdate();
 };
 
 

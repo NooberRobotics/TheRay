@@ -22,6 +22,7 @@
 // IR
 #define THRESH_LOW_IR 20
 #define THRESH_HIGH_IR 80
+#define THRESH_CAP_IR 90
 
 #define THRESH_FRONT_IR 65
 
@@ -109,9 +110,8 @@
 
 #define TOUCH_SWITCH_RIGHT 0
 #define TOUCH_SWITCH_LEFT 1
-#define TOUCH_SWITCH_BACK 5
-#define TOUCH_SWITCH_ARM_UP 5 //lower switch
-#define TOUCH_SWITCH_ARM_DOWN 4 //upper switch
+#define TOUCH_SWITCH_ARM_UP 4 //lower switch
+#define TOUCH_SWITCH_ARM_DOWN 5 //upper switch
 
 // MOTORS
 
