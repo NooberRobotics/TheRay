@@ -204,8 +204,9 @@ void Navigator::goOntoBranch(){
         nextNode = 13;
     }
 }
+
 bool firstTime = true;
-Direction getTurnOnBranch(){
+Direction Navigator::getTurnOnBranch(){
     if (!firstTime) {
         onBranch = false;
         firstTime = true;

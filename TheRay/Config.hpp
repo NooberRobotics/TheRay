@@ -11,9 +11,20 @@
 // Tape
 #define THRESH_QRD 400
 
-#define KP 22;
-#define KD 0;
+#define KP 18
+#define KD 120
+#define KI 11
+#define K 88
 
+
+// seems like getting there "ligit"
+//#define KP 18
+//#define KD 100
+//#define KI 11
+//#define K 80
+
+
+#define TAPE_HISTORY_COUNT 3
 
 // IR
 #define THRESH_LOW_IR 20
