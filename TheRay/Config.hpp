@@ -11,8 +11,12 @@
 // Tape
 #define THRESH_QRD 400
 
-#define KP 22;
-#define KD 0;
+#define KP 18
+#define KD 120
+#define KI 11
+#define K 88
+
+#define TAPE_HISTORY_COUNT 3
 
 
 // IR
@@ -62,7 +66,8 @@
 // Turns
 
 #define TURN_IN_PLACE_VELOCITY 100
-#define TURN_OFF_TAPE_DURATION 250
+#define TURN_OFF_TAPE_DURATION 150
+#define TURN_180 900
 
 #define INTERSECTION_TURN_VELOCITY 200
 #define INTERSECTION_TURN_DELAY 250
@@ -70,8 +75,6 @@
 #define TURN_SLIGHT 5
 #define TURN_HARD 15
 
-#define TURN_90 400
-#define TURN_180 900
 
 
 // Pin connectors
