@@ -24,7 +24,6 @@ void Navigator::changeStartingPositionToRightTurnFirst() {
 
 void Navigator::checkAndHandleCollisionOnTape() {
     
-    
     unsigned long timeFromIntersectionToCollision = timeOfCollision - timeOfIntersection;
     
 //    Serial.println("in 1");
@@ -74,9 +73,6 @@ Direction Navigator::getTurn() {
     collisionHasOccurred = false;
     
     timeOfIntersection = currentTime();
-    
-    Serial.print("Setting time: ");
-    Serial.println(timeOfIntersection);
     
     Direction turn;
     
@@ -138,6 +134,8 @@ Direction Navigator::getTurn() {
 }
 
 void Navigator::collisionOccurred() {
+    
+    dropOffNow = false;
     
     timeOfCollision = currentTime();
     collisionHasOccurred = true;

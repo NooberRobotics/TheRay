@@ -57,8 +57,12 @@ void Controller::initializePickup(bool rightSidePickup) {
 }
 
 void Controller::initializeDropoff() {
-    robot.dropOffPassenger(turnDirection, navigator.dropOffTurnRight);
-    turnDirection = StraightAhead;
-    hasPassenger = false;
-    navigator.passengerDroppedOff();
+    if (robot.dropOffPassenger(turnDirection, navigator.dropOffTurnRight)) {
+        hasPassenger = false;
+        turnDirection = StraightAhead;
+        navigator.passengerDroppedOff();
+    } else {
+        robot.evade();
+        navigator.collisionOccurred();
+    }
 }

@@ -28,7 +28,6 @@ class Navigator {
     
     bool primaryPath = true; // TODO: determine which path we start at
     
-    
     unsigned long timeOfIntersection;
     unsigned long timeOfCollision;
     

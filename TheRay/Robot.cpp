@@ -8,7 +8,7 @@
 #include "Robot.hpp"
 
 unsigned long lastIntersectionTime = millis();
-int currentVelocity = 0;
+double currentVelocity = START_VELOCITY;
 int targetVelocity = VELOCITY_NORMAL;
 
 void Robot::turnAtIntersection(Direction direction){
@@ -19,11 +19,10 @@ void Robot::turnAtIntersection(Direction direction){
     
     switch (direction) {
         case StraightAhead:
-            currentVelocity = VELOCITY_FAST;
             delay(60);
             break;
         case Left:
-            currentVelocity = 0;
+            currentVelocity = START_VELOCITY;
             Tape::update();
             while (!Tape::tapePresentLeft() && (millis() - time) < TIME_IN_INTERSECTION) {
                 Tape::update();
@@ -33,7 +32,7 @@ void Robot::turnAtIntersection(Direction direction){
             while (!Tape::tapePresentCentreWithUpdate()) {}
             break;
         case Right:
-            currentVelocity = 0;
+            currentVelocity = START_VELOCITY;
             Tape::update();
             while (!Tape::tapePresentRight() && (millis() - time) < TIME_IN_INTERSECTION) {
                 Tape::update();
@@ -43,7 +42,7 @@ void Robot::turnAtIntersection(Direction direction){
             while (!Tape::tapePresentCentreWithUpdate()) {}
             break;
         case TurnAround:
-            currentVelocity = 0;
+            currentVelocity = START_VELOCITY;
             turnOntoTape(direction);
             break;
     }
@@ -63,36 +62,37 @@ Status Robot::cruise(Direction direction) {
         switch (IR::check()) { //IR Check
                 
             case IR::None:
-                driveVelocity = Actuators::Normal;
                 break;
                 
             case IR::WeakLeft:
-                driveVelocity = Actuators::Slow;
+                currentVelocity = VELOCITY_SLOW;
                 break;
                 
             case IR::WeakRight:
-                driveVelocity = Actuators::Slow;
+                currentVelocity = VELOCITY_SLOW;
                 break;
                 
             case IR::StrongLeft:
                 Actuators::stop();
+                currentVelocity = START_VELOCITY;
                 return IRLeft;
                 break;
                 
             case IR::StrongRight:
                 Actuators::stop();
+                currentVelocity = START_VELOCITY;
                 return IRRight;
                 break;
         }
         
         if (Collision::occured()){
-            currentVelocity = 0;
+            currentVelocity = START_VELOCITY;
             return Collided;
         }
         
         if (Tape::atIntersection() && (millis() - lastIntersectionTime) > TIME_QRD_FREE_OF_INTERSECTION) {
             lastIntersectionTime = millis();
-            currentVelocity = 0;
+            currentVelocity = START_VELOCITY;
             return Intersection;
         }
         
@@ -174,16 +174,17 @@ void Robot::pickUpPassenger(bool turnRightBefore, bool turnRightAfter) {
     Actuators::stop();
 }
 
-void Robot::dropOffPassenger(Direction direction, bool rightSideDropOff) {
+bool Robot::dropOffPassenger(Direction direction, bool rightSideDropOff) {
     
     turnAtIntersection(direction);
 
-    
     unsigned long time = millis();
     
     while( (millis() - time) < DROP_OFF_APPROACH_TIME ){
         Tape::update();
-        Actuators::drive(Actuators::Fast, Tape::driveCorrection());
+        Actuators::drive(VELOCITY_NITROUS, Tape::driveCorrection());
+        
+        if (Collision::occuredWithUpdate()) return false;
     }
     
     Actuators::turnInPlace(TURN_FOR_PASSENGER_DROPOFF_DURATION, rightSideDropOff);
@@ -209,6 +210,8 @@ void Robot::dropOffPassenger(Direction direction, bool rightSideDropOff) {
     
     Actuators::turnInPlace(!rightSideDropOff);
     while(!Tape::tapePresentCentreWithUpdate()){}
+    
+    return true;
 }
 
 void Robot::evade() {

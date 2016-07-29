@@ -163,7 +163,7 @@ bool Tape::detectedTape(int sensor) {
     return (analogRead(sensor) > THRESH_QRD);
 }
 
-void Tape::update(){
+void Tape::update() {
     onLeft = detectedTape(QRD_LEFT);
     onMidLeft = detectedTape(QRD_MIDLEFT);
     onMidRight = detectedTape(QRD_MIDRIGHT);
