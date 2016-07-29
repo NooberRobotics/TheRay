@@ -219,3 +219,7 @@ void Navigator::passengerDroppedOff(){
     dropOffNow = false;
     returningToDropoff = false;
 }
+
+bool Navigator::shouldPerformPickup(bool rightSide){
+    return CityMap::irValid(rightSide, currentNode, nextNode );
+}

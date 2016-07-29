@@ -118,3 +118,17 @@ int CityMap::getLeftmostTurnNode(int lastNode, int currentNode) {
     
     return node;
 }
+
+bool CityMap::irValid(bool rightSide, int currentNode, int nextNode){
+    if(rightSide){
+        for (int i = 0; i < NUM_EDGES_NO_IR_RIGHT; i++){
+            if (CityMap::noSidewalkOnRight[i][0] == currentNode && CityMap::noSidewalkOnRight[i][1] == nextNode) return false;
+        }
+        return true;
+    } else {
+        for (int i = 0; i < NUM_EDGES_NO_IR_LEFT; i++){
+            if (CityMap::noSidewalkOnLeft[i][0] == currentNode && CityMap::noSidewalkOnLeft[i][1] == nextNode) return false;
+        }
+        return true;
+    }
+}
