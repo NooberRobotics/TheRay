@@ -33,7 +33,7 @@ class Navigator {
     void checkAndHandleCollisionOnTape();
     
 public:
-   
+    
     void changeStartingPositionToRightTurnFirst();
     
     bool dropOffNow = false;

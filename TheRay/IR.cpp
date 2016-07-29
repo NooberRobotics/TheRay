@@ -80,3 +80,11 @@ int IR::averageFromSensor(int array[]) {
     
 }
 
+void IR::resetIR() {
+    for (int i = 0; i<IR_AVERAGING_SAMPLE_SIZE; i++) {
+        readingsIRLeft[i] = 0;
+        readingsIRMidLeft[i] = 0;
+        readingsIRMidRight[i] = 0;
+        readingsIRRight[i] = 0;
+    }
+}

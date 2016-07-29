@@ -45,6 +45,11 @@ int Tape::driveCorrection(bool defaultTurnRight) {
     return correction;
 }
 
+int Tape::driveCorrectionWithUpdate() {
+    update();
+    return driveCorrection();
+}
+
 
 int Tape::driveCorrection() {
     
@@ -145,12 +150,8 @@ bool Tape::tapePresent() {
 }
 
 
-bool Tape::tapePresentRight() {
-    return onRight;
-}
-
-bool Tape::tapePresentLeft() {
-    return onLeft;
+bool Tape::tapePresentOnSide(bool rightSide) {
+    return rightSide ? onRight : onLeft;
 }
 
 Tape::IntersectionType Tape::tapePresentOnSide() {
@@ -168,4 +169,10 @@ void Tape::update() {
     onMidLeft = detectedTape(QRD_MIDLEFT);
     onMidRight = detectedTape(QRD_MIDRIGHT);
     onRight = detectedTape(QRD_RIGHT);
+}
+
+void Tape::resetErrors() {
+    for (int i = 0; i < TAPE_HISTORY_COUNT; i++) {
+        errors[i] = 0;
+    }
 }
