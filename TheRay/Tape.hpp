@@ -23,8 +23,7 @@ namespace Tape {
     bool atIntersectionWithUpdate();
     
     bool tapePresent();
-    bool tapePresentRight();
-    bool tapePresentLeft();
+    bool tapePresentOnSide(bool rightSide);
 
     bool tapePresentCentre();
     bool tapePresentCentreWithUpdate();

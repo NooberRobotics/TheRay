@@ -145,12 +145,8 @@ bool Tape::tapePresent() {
 }
 
 
-bool Tape::tapePresentRight() {
-    return onRight;
-}
-
-bool Tape::tapePresentLeft() {
-    return onLeft;
+bool Tape::tapePresentOnSide(bool rightSide) {
+    return rightSide ? onRight : onLeft;
 }
 
 Tape::IntersectionType Tape::tapePresentOnSide() {

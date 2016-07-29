@@ -24,9 +24,24 @@ enum Status {
 
 class Robot {
     
+    void turnOntoTape(bool turnRight);
     void turnOntoTape(Direction direction);
     
-    void turnAtIntersection(Direction direction);
+    void handleIntersection(Direction direction);
+    void turnAtIntersection(bool rightTurn, unsigned long time);
+    
+    int velocity(int velocity) {
+        targetVelocity = velocity;
+    }
+    
+    int velocity() {
+        if (currentVelocity < targetVelocity) currentVelocity = currentVelocity + ACCELERATION_FACTOR;
+        return currentVelocity;
+    }
+    
+private:
+    double currentVelocity = START_VELOCITY;
+    int targetVelocity = VELOCITY_NORMAL;
     
 public:
         
