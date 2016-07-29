@@ -41,7 +41,7 @@ class Robot {
     
     int velocity() {
         if (currentVelocity < targetVelocity) currentVelocity = currentVelocity + ACCELERATION_FACTOR;
-        if (currentVelocity > targetVelocity) currentVelocity = currentVelocity - ACCELERATION_FACTOR;
+        else if (currentVelocity > targetVelocity) currentVelocity = currentVelocity - ACCELERATION_FACTOR;
         return currentVelocity;
     }
     

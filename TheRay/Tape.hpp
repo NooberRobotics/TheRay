@@ -18,6 +18,7 @@ namespace Tape {
 
     int driveCorrection(bool defaultTurnRight);
     int driveCorrection();
+    int driveCorrectionWithUpdate();
 
     bool atIntersection();
     bool atIntersectionWithUpdate();
@@ -34,6 +35,7 @@ namespace Tape {
 
     bool detectedTape(int sensor);
     void update();
+    void resetErrors();
 };
 
 
