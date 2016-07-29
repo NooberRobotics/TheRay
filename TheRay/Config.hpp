@@ -104,8 +104,7 @@
 // IR (ANALOG)
 
 #define IR_RIGHT 0
-#define IR_MIDRIGHT 1
-#define IR_MIDLEFT 2
+#define IR_MID 2
 #define IR_LEFT 3
 
 // ULTRASONIC (DIGITAL)

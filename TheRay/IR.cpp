@@ -11,8 +11,6 @@ int indexIR = 0;
 
 int readingsIRRight[IR_AVERAGING_SAMPLE_SIZE] = {0};
 int readingsIRLeft[IR_AVERAGING_SAMPLE_SIZE] = {0};
-int readingsIRMidRight[IR_AVERAGING_SAMPLE_SIZE] = {0};
-int readingsIRMidLeft[IR_AVERAGING_SAMPLE_SIZE] = {0};
 
 IR::Result IR::check() {
     
@@ -52,10 +50,6 @@ void IR::update() {
     
 //    Serial.print("Right IR: ");
     readingsIRRight[indexIR] = readSensor(IR_RIGHT);
-//    Serial.print("MidRigh IR: ");
-//    readingsIRMidRight[indexIR] = readSensor(IR_MIDRIGHT);
-//    Serial.print("MidLeft IR: ");
-//    readingsIRMidLeft[indexIR] = readSensor(IR_MIDLEFT);
 //    Serial.print("LeftIR: ");
     readingsIRLeft[indexIR] = readSensor(IR_LEFT);
 }
@@ -66,6 +60,14 @@ bool IR::checkLeftWithUpdate(){
     
     if (averageFromSensor(readingsIRLeft) > THRESH_LOW_IR) return true;
     return false;
+}
+
+int IR::readingFromFront(){
+    return analogRead(IR_MID);
+}
+
+bool IR::frontPresent(){
+    return IR::readingFromFront() > THRESH_FRONT_IR;
 }
 
 int IR::averageFromSensor(int array[]) {
@@ -83,8 +85,6 @@ int IR::averageFromSensor(int array[]) {
 void IR::resetIR() {
     for (int i = 0; i<IR_AVERAGING_SAMPLE_SIZE; i++) {
         readingsIRLeft[i] = 0;
-        readingsIRMidLeft[i] = 0;
-        readingsIRMidRight[i] = 0;
         readingsIRRight[i] = 0;
     }
 }

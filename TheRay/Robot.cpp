@@ -139,15 +139,44 @@ void Robot::turnOntoTape(Direction direction) {
     }
 }
 
-void Robot::pickUpPassenger(bool turnRightBefore, bool turnRightAfter) {
+bool turnToMaximizeFrontIR(bool rightTurn){
+    int strongestSignal = IR::readingFromFront();
+    
+    Actuators::turnInPlace(rightTurn);
+    while (true){
+        int currentSignal = IR::readingFromFront();
+        
+        if( strongestSignal > THRESH_HIGH_IR && strongestSignal > currentSignal){
+            Actuators::stop();
+            return true;
+        }
+        
+        if( currentSignal > strongestSignal) strongestSignal = currentSignal;
+        
+        if( Tape::tapePresentOnSide(rightTurn) ){
+            Actuators::stop();
+            return false;
+        }
+        
+    }
+
+}
+
+bool Robot::pickUpPassenger(bool turnRightBefore, bool turnRightAfter) {
     
     Actuators::drive(VELOCITY_SLOW, Actuators::Straight);
     delay(DRIVE_FORWARD_BEFORE_TURNING_WHEN_DETECTED_IR);
 
     int duration = TURN_FOR_PASSENGER_PICKUP_DURATION;
     
-    Actuators::turnInPlace(duration, turnRightBefore);
-    Actuators::stop();
+    if (!turnToMaximizeFrontIR(turnRightBefore)){
+        
+        if (turnRightBefore != turnRightAfter) {
+            turnOntoTape(!turnRightBefore);
+        }
+        
+        return false;
+    }
     
     Actuators::openClaw();
     Actuators::lowerArm();
@@ -168,7 +197,7 @@ void Robot::pickUpPassenger(bool turnRightBefore, bool turnRightAfter) {
     
     Actuators::raiseArm();
     
-    bool successful = true; //!IR::frontDetected();
+    bool successful = !IR::frontPresent();
     
     Actuators::drive(VELOCITY_SLOW, Actuators::Straight, true);
     
@@ -182,6 +211,8 @@ void Robot::pickUpPassenger(bool turnRightBefore, bool turnRightAfter) {
     turnOntoTape(turnRightAfter);
     
     Actuators::stop();
+    
+    return successful;
 }
 
 bool Robot::dropOffPassenger(Direction direction, bool rightSideDropOff) {
@@ -231,3 +262,4 @@ void Robot::evade() {
     
     turnOntoTape(true);
 }
+

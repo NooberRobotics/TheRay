@@ -28,6 +28,8 @@ namespace IR {
     
     int averageFromSensor(int array[]);
     bool checkLeftWithUpdate();
+    int readingFromFront();
+    bool frontPresent();
 };
 
 

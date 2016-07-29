@@ -59,7 +59,7 @@ public:
     }
     
     Status cruise(Direction direction);
-    void pickUpPassenger(bool rightSideBefore, bool turnRightAfter);
+    bool pickUpPassenger(bool rightSideBefore, bool turnRightAfter);
     bool dropOffPassenger(Direction turn, bool rightSideDropOff);
     void evade();
 };
