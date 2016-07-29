@@ -26,6 +26,7 @@ namespace CityMap {
     
     int getNextNodeToGoal(int startNodeIndex, int nextNodeIndex, bool primaryPath);
     int updateNodeIndex(int nextNode, bool primaryPath);
+    bool irValid(bool rightSide, int currentNode, int nextNode);
     
     Direction getTurnDirection(int lastNode, int currentNode, int nextNode);
 
@@ -146,6 +147,21 @@ namespace CityMap {
     const int scanNodes[2] = {5,14};
 
     const int irSearchNodes[] = {1,5,10,14,19};
+    
+    //for edge with 1st entry currentNode and 2nd nextNode. Read in reverse for opposite.
+    int noSidewalkOnRight[11][2] = {
+        {0,1},
+        {1,2},
+        {2,7},
+        {7,11},
+        {11,17},
+        {17,20},
+        {20,19},
+        {19,18},
+        {10,12},
+        {12,8},
+        {8,10}
+    }
     
 };
 

@@ -46,6 +46,7 @@ public:
     
     bool returnToDropoff(bool turnRightForPickup); //first turn stages must be direction required after pickup
     void passengerDroppedOff();
+    bool shouldPerformPickup(bool rightSide);
 };
 
 
