@@ -106,16 +106,14 @@ int CityMap::getLeftmostTurnNode(int lastNode, int currentNode) {
         }
     }
     
-    Serial.print("Leftmost Direction: ");
-    Serial.println(leftmostDepartingDirection);
+//    Serial.print("Leftmost Direction: ");
+//    Serial.println(leftmostDepartingDirection);
 
     int node = departureMap[currentNode][leftmostDepartingDirection];
-
     
-    Serial.print("Leftmost node: ");
-    Serial.println(node);
-    
-    
+//    Serial.print("Leftmost node: ");
+//    Serial.println(node);
+        
     return node;
 }
 

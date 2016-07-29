@@ -21,36 +21,36 @@ Status Robot::cruise(Direction direction) {
         Tape::update();
         IR::update();
         
-        switch (IR::check()) { //IR Check
-                
-            case IR::None:
-                setVelocity(VELOCITY_NORMAL);
-                break;
-                
-            case IR::WeakLeft:
-                setVelocity(VELOCITY_SLOW);
-                break;
-                
-            case IR::WeakRight:
-                setVelocity(VELOCITY_SLOW);
-                break;
-                
-            case IR::StrongLeft:
-                Actuators::stop();
-                resetVelocity();
-                IR::resetIR();
-                return IRLeft;
-                break;
-                
-            case IR::StrongRight:
-                Actuators::stop();
-                resetVelocity();
-                IR::resetIR();
-                return IRRight;
-                break;
-        }
+//        switch (IR::check()) { //IR Check
+//                
+//            case IR::None:
+//                setVelocity(VELOCITY_NORMAL);
+//                break;
+//                
+//            case IR::WeakLeft:
+//                setVelocity(VELOCITY_SLOW);
+//                break;
+//                
+//            case IR::WeakRight:
+//                setVelocity(VELOCITY_SLOW);
+//                break;
+//                
+//            case IR::StrongLeft:
+//                Actuators::stop();
+//                resetVelocity();
+//                IR::resetIR();
+//                return IRLeft;
+//                break;
+//                
+//            case IR::StrongRight:
+//                Actuators::stop();
+//                resetVelocity();
+//                IR::resetIR();
+//                return IRRight;
+//                break;
+//        }
         
-        if (Collision::occured()){
+        if (Collision::occured()) {
             resetVelocity();
             return Collided;
         }
@@ -58,6 +58,7 @@ Status Robot::cruise(Direction direction) {
         if (Tape::atIntersection() && (millis() - lastIntersectionTime) > TIME_QRD_FREE_OF_INTERSECTION) {
             lastIntersectionTime = millis();
             resetVelocity();
+            Actuators::stop();
             return Intersection;
         }
         
@@ -68,23 +69,20 @@ Status Robot::cruise(Direction direction) {
 
 void Robot::handleIntersection(Direction direction){
     
-    unsigned long time = millis();
-    
     switch (direction) {
         case StraightAhead:
-            //            delay(60);
             break;
             
         case Left:
-            turnAtIntersection(false, time);
+            turnAtIntersection(false, millis());
             break;
             
         case Right:
-            turnAtIntersection(true, time);
+            turnAtIntersection(true, millis());
             break;
             
         case TurnAround:
-            currentVelocity = START_VELOCITY;
+            resetVelocity();
             turnOntoTape(direction);
             break;
     }
@@ -143,10 +141,8 @@ void Robot::pickUpPassenger(bool turnRightBefore, bool turnRightAfter) {
     
     Actuators::drive(VELOCITY_SLOW, Actuators::Straight);
     delay(DRIVE_FORWARD_BEFORE_TURNING_WHEN_DETECTED_IR);
-
-    int duration = TURN_FOR_PASSENGER_PICKUP_DURATION;
     
-    Actuators::turnInPlace(duration, turnRightBefore);
+    Actuators::turnInPlace(TURN_FOR_PASSENGER_PICKUP_DURATION, turnRightBefore);
     Actuators::stop();
     
     Actuators::openClaw();
@@ -154,16 +150,15 @@ void Robot::pickUpPassenger(bool turnRightBefore, bool turnRightAfter) {
     
     unsigned long approachStartTime = millis();
     
-    Actuators::drive(VELOCITY_SLOW, Actuators::Straight);
+    Actuators::drive(VELOCITY_PICKUP, Actuators::Straight);
     
-    while (!Collision::occuredWithUpdate() && (millis() - approachStartTime ) < APPROACH_MAX_TIME) {}
+    while (!Collision::occuredWithUpdate() || (millis() - approachStartTime ) < APPROACH_MAX_TIME) {}
     
     unsigned long approachTime = millis() - approachStartTime;
    
     Actuators::stop();
     
     Actuators::closeClaw();
-    
     delay(SERVO_OPERATION_TIME);
     
     Actuators::raiseArm();
@@ -174,10 +169,7 @@ void Robot::pickUpPassenger(bool turnRightBefore, bool turnRightAfter) {
     
     unsigned long backupStartTime = millis();
     
-    while(millis() - backupStartTime < (approachTime)){
-        Tape::update();
-        if (Tape::tapePresent()) break;
-    }
+    while(millis() - backupStartTime < (approachTime)) {}
     
     turnOntoTape(turnRightAfter);
     

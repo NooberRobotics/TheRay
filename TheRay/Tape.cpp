@@ -75,13 +75,13 @@ int Tape::driveCorrection() {
                     
                 case None:
                     
-                    if (onLeft) {
+                    if (onLeft && !onRight) {
                         defaultTurnDirection = Left;
-                        error = -10;
+                        error = -5;
                     }
-                    else if (onRight) {
+                    else if (onRight && !onLeft) {
                         defaultTurnDirection = Right;
-                        error = 10;
+                        error = 5;
                     }
                     else error = 0;
                     
@@ -148,7 +148,6 @@ bool Tape::tapePresentSides() {
 bool Tape::tapePresent() {
     return onMidLeft || onMidRight ||  onLeft || onRight;
 }
-
 
 bool Tape::tapePresentOnSide(bool rightSide) {
     return rightSide ? onRight : onLeft;
