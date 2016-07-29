@@ -148,8 +148,10 @@ namespace CityMap {
 
     const int irSearchNodes[] = {1,5,10,14,19};
     
-    //for edge with 1st entry currentNode and 2nd nextNode. Read in reverse for opposite.
-    int noSidewalkOnRight[11][2] = {
+#define NUM_EDGES_NO_IR_LEFT 12
+#define NUM_EDGES_NO_IR_RIGHT 12
+    
+    const int noSidewalkOnRight[NUM_EDGES_NO_IR_RIGHT][2] = {
         {0,1},
         {1,2},
         {2,7},
@@ -160,8 +162,24 @@ namespace CityMap {
         {19,18},
         {10,12},
         {12,8},
-        {8,10}
-    }
+        {8,10},
+        {9,10}
+    };
+    
+    const int noSidewalkOnLeft[NUM_EDGES_NO_IR_LEFT][2] = {
+        {1,0},
+        {2,1},
+        {7,2},
+        {11,7},
+        {17,11},
+        {20,17},
+        {19,20},
+        {18,19},
+        {12,10},
+        {8,12},
+        {10,8},
+        {9,10}
+    };
     
 };
 

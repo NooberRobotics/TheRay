@@ -222,6 +222,6 @@ void Navigator::passengerDroppedOff(){
     returningToDropoff = false;
 }
 
-bool shouldPerformPickup(bool rightSide){
-    return CityMap::irValid(rightSide, this->currentNode, this->nextNode );
+bool Navigator::shouldPerformPickup(bool rightSide){
+    return CityMap::irValid(rightSide, currentNode, nextNode );
 }

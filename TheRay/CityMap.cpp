@@ -121,13 +121,13 @@ int CityMap::getLeftmostTurnNode(int lastNode, int currentNode) {
 
 bool CityMap::irValid(bool rightSide, int currentNode, int nextNode){
     if(rightSide){
-        for (int i = 0; i < 11; i++){
+        for (int i = 0; i < NUM_EDGES_NO_IR_RIGHT; i++){
             if (CityMap::noSidewalkOnRight[i][0] == currentNode && CityMap::noSidewalkOnRight[i][1] == nextNode) return false;
         }
         return true;
     } else {
-        for (int i = 0; i < 11; i++){
-            if (CityMap::noSidewalkOnRight[i][1] == currentNode && CityMap::noSidewalkOnRight[i][0] == nextNode) return false;
+        for (int i = 0; i < NUM_EDGES_NO_IR_LEFT; i++){
+            if (CityMap::noSidewalkOnLeft[i][0] == currentNode && CityMap::noSidewalkOnLeft[i][1] == nextNode) return false;
         }
         return true;
     }

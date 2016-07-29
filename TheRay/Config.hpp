@@ -24,6 +24,7 @@
 #define THRESH_HIGH_IR 80
 #define THRESH_CAP_IR 90
 
+
 #define THRESH_FRONT_IR 65
 
 #define IR_AVERAGING_SAMPLE_SIZE 3
