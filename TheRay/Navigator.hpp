@@ -2,8 +2,7 @@
 //  Navigator.hpp
 //  TheRay
 //
-//  Created by Morten Kals on 20/07/2016.
-//  Copyright © 2016 Noober. All rights reserved.
+//  Copyright © 2016 Noober Robotics. All rights reserved.
 //
 
 #ifndef Navigator_hpp
@@ -26,7 +25,7 @@ class Navigator {
     
     bool returningToDropoff = false;
     
-    bool primaryPath = true; // TODO: determine which path we start at
+    bool primaryPath = true;
     
     
     unsigned long timeOfIntersection;
@@ -45,7 +44,7 @@ public:
     
     void collisionOccurred();
     
-    bool returnToDropoff(bool turnRightForPickup); //first turn stages must be direction reqiered after pickup
+    bool returnToDropoff(bool turnRightForPickup); //first turn stages must be direction required after pickup
     void passengerDroppedOff();
 };
 

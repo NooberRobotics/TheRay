@@ -2,8 +2,7 @@
 //  Map.hpp
 //  TheRay
 //
-//  Created by Erik MacLennan on 2016-07-19.
-//  Copyright © 2016 Noober. All rights reserved.
+//  Copyright © 2016 Noober Robotics. All rights reserved.
 //
 
 #ifndef CityMap_hpp
