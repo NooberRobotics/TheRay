@@ -2,7 +2,7 @@
 //  Actuators.cpp
 //  TheRay
 //
-//  Copyright © 2016 Noober. All rights reserved.
+//  Copyright © 2016 Noober Robotics. All rights reserved.
 //
 
 
@@ -19,7 +19,7 @@ void Actuators::turnInPlace(int duration, bool rightTurn) {
 
 void Actuators::turnInPlace(bool rightTurn) {
     
-    // positive angle -> cv/rigth turn
+    // positive angle is CW/right turn
     if (rightTurn) {
         motor.speed(MOTOR_RIGHT, -TURN_IN_PLACE_VELOCITY * MOTOR_RIGHT_SIGN_UP);
         motor.speed(MOTOR_LEFT, TURN_IN_PLACE_VELOCITY * MOTOR_LEFT_SIGN_UP);

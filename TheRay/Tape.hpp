@@ -2,7 +2,7 @@
 //  Tape.hpp
 //  TheRay
 //
-//  Copyright © 2016 Noober. All rights reserved.
+//  Copyright © 2016 Noober Robotics. All rights reserved.
 //
 
 #ifndef Tape_hpp

@@ -2,7 +2,7 @@
 //  Robot.cpp
 //  TheRay
 //
-//  Copyright © 2016 Noober. All rights reserved.
+//  Copyright © 2016 NooberRobotics. All rights reserved.
 //
 
 #include "Robot.hpp"
