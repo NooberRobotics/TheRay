@@ -63,7 +63,6 @@ int CityMap::updateNodeIndex(int nextNode, bool primaryPath){
         }
     }
     return -1;
-}
 
 int CityMap::getLeftmostTurnNode(int lastNode, int currentNode) {
     
@@ -117,4 +116,4 @@ int CityMap::getLeftmostTurnNode(int lastNode, int currentNode) {
     
     
     return node;
-}
+}}
