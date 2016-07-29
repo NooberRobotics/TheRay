@@ -30,12 +30,18 @@ class Robot {
     void handleIntersection(Direction direction);
     void turnAtIntersection(bool rightTurn, unsigned long time);
     
-    int velocity(int velocity) {
+    void resetVelocity() {
+        currentVelocity = START_VELOCITY;
+        targetVelocity = VELOCITY_NORMAL;
+    }
+    
+    int setVelocity(int velocity) {
         targetVelocity = velocity;
     }
     
     int velocity() {
         if (currentVelocity < targetVelocity) currentVelocity = currentVelocity + ACCELERATION_FACTOR;
+        if (currentVelocity > targetVelocity) currentVelocity = currentVelocity - ACCELERATION_FACTOR;
         return currentVelocity;
     }
     

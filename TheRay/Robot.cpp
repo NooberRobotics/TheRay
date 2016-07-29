@@ -30,28 +30,28 @@ Status Robot::cruise(Direction direction) {
                 break;
                 
             case IR::WeakLeft:
-                currentVelocity = VELOCITY_SLOW;
+                setVelocity(VELOCITY_SLOW);
                 break;
                 
             case IR::WeakRight:
-                currentVelocity = VELOCITY_SLOW;
+                setVelocity(VELOCITY_SLOW);
                 break;
                 
             case IR::StrongLeft:
                 Actuators::stop();
-                currentVelocity = START_VELOCITY;
+                resetVelocity();
                 return IRLeft;
                 break;
                 
             case IR::StrongRight:
                 Actuators::stop();
-                currentVelocity = START_VELOCITY;
+                resetVelocity();
                 return IRRight;
                 break;
         }
         
         if (Collision::occured()){
-            currentVelocity = START_VELOCITY;
+            resetVelocity();
             return Collided;
         }
         
@@ -177,9 +177,8 @@ void Robot::pickUpPassenger(bool turnRightBefore, bool turnRightAfter) {
         if (Tape::tapePresent()) break;
     }
     
-    Actuators::turnInPlace(turnRightAfter);
-    while(!Tape::tapePresentCentreWithUpdate()) {}
-
+    turnOntoTape(turnRightAfter);
+    
     Actuators::stop();
 }
 
@@ -217,8 +216,7 @@ bool Robot::dropOffPassenger(Direction direction, bool rightSideDropOff) {
     Actuators::closeClaw();
     Actuators::raiseArm();
     
-    Actuators::turnInPlace(!rightSideDropOff);
-    while(!Tape::tapePresentCentreWithUpdate()){}
+    turnOntoTape(!rightSideDropOff);
     
     return true;
 }
