@@ -156,7 +156,7 @@ void Robot::pickUpPassenger(bool turnRightBefore, bool turnRightAfter) {
     
     Actuators::drive(VELOCITY_SLOW, Actuators::Straight);
     
-    while (!Collision::occuredWithUpdate()) {}
+    while (!Collision::occuredWithUpdate() && (millis() - approachStartTime ) < APPROACH_MAX_TIME) {}
     
     unsigned long approachTime = millis() - approachStartTime;
    

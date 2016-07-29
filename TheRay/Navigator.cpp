@@ -150,10 +150,25 @@ void Navigator::collisionOccurred() {
     currentNode = temp;
     
     if (returningToDropoff) {
+        
+        
         if (!expected) {
             primaryPath = !primaryPath;
         }
         
+        if (nextNode == 11) {
+       
+            if(currentNode == 7) {
+                nextNode = 17;
+                lastNode = 7;
+            } else if (currentNode == 17) {
+                nextNode = 7;
+                lastNode = 17;
+            }
+            
+            currentNode = 11;
+        }
+
         startNodeIndex = nextNode;
         nextNodeIndex = 0;
         
@@ -192,6 +207,12 @@ bool Navigator::returnToDropoff(bool turnRightForPickup) {
     // Setting up for handling of dropoff path
     
     // Determine next turn-direction and reverse travel drection to avoid turning arround at next node if required
+    
+    if(currentNode == 11){
+        startNodeIndex = nextNode;
+        nextNodeIndex = 0;
+        return !turnRightForPickup;
+    }
     
     int testNextNode = CityMap::getNextNodeToGoal(nextNode, 0, primaryPath);
     
