@@ -119,14 +119,24 @@ void Robot::turnOntoTape(Direction direction) {
             
         case Left:
             resetVelocity();
-            Actuators::turnInPlace(TURN_OFF_TAPE_DURATION, false);
+            Actuators::turnInPlace(false);
+            
+            delay(TURN_OFF_TAPE_DURATION);
+            while (Tape::tapePresentCentreWithUpdate()) {}
+            delay(10);
             while (!Tape::tapePresentCentreWithUpdate()) {}
+            
             break;
             
         case Right:
             resetVelocity();
-            Actuators::turnInPlace(TURN_OFF_TAPE_DURATION, true);
+            Actuators::turnInPlace(true);
+            
+            delay(TURN_OFF_TAPE_DURATION);
+            while (Tape::tapePresentCentreWithUpdate()) {}
+            delay(10);
             while (!Tape::tapePresentCentreWithUpdate()) {}
+            
             break;
             
         case TurnAround:
