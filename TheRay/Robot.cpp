@@ -21,34 +21,34 @@ Status Robot::cruise(Direction direction) {
         Tape::update();
         IR::update();
         
-//        switch (IR::check()) { //IR Check
-//                
-//            case IR::None:
-//                setVelocity(VELOCITY_NORMAL);
-//                break;
-//                
-//            case IR::WeakLeft:
-//                setVelocity(VELOCITY_SLOW);
-//                break;
-//                
-//            case IR::WeakRight:
-//                setVelocity(VELOCITY_SLOW);
-//                break;
-//                
-//            case IR::StrongLeft:
-//                Actuators::stop();
-//                resetVelocity();
-//                IR::resetIR();
-//                return IRLeft;
-//                break;
-//                
-//            case IR::StrongRight:
-//                Actuators::stop();
-//                resetVelocity();
-//                IR::resetIR();
-//                return IRRight;
-//                break;
-//        }
+        switch (IR::check()) { //IR Check
+                
+            case IR::None:
+                setVelocity(VELOCITY_NORMAL);
+                break;
+                
+            case IR::WeakLeft:
+                setVelocity(VELOCITY_SLOW);
+                break;
+                
+            case IR::WeakRight:
+                setVelocity(VELOCITY_SLOW);
+                break;
+                
+            case IR::StrongLeft:
+                Actuators::stop();
+                resetVelocity();
+                IR::resetIR();
+                return IRLeft;
+                break;
+                
+            case IR::StrongRight:
+                Actuators::stop();
+                resetVelocity();
+                IR::resetIR();
+                return IRRight;
+                break;
+        }
         
         if (Collision::occured()) {
             resetVelocity();
@@ -119,14 +119,24 @@ void Robot::turnOntoTape(Direction direction) {
             
         case Left:
             resetVelocity();
-            Actuators::turnInPlace(TURN_OFF_TAPE_DURATION, false);
+            Actuators::turnInPlace(false);
+            
+            delay(TURN_OFF_TAPE_DURATION);
+            while (Tape::tapePresentCentreWithUpdate()) {}
+            delay(10);
             while (!Tape::tapePresentCentreWithUpdate()) {}
+            
             break;
             
         case Right:
             resetVelocity();
-            Actuators::turnInPlace(TURN_OFF_TAPE_DURATION, true);
+            Actuators::turnInPlace(true);
+            
+            delay(TURN_OFF_TAPE_DURATION);
+            while (Tape::tapePresentCentreWithUpdate()) {}
+            delay(10);
             while (!Tape::tapePresentCentreWithUpdate()) {}
+            
             break;
             
         case TurnAround:
