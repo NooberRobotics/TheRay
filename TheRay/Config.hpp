@@ -16,12 +16,7 @@
 #define KI 2
 #define K 60
 
-//#define KP 18
-//#define KD 100
-//#define KI 2
-//#define K 76
-
-#define CLOCK_FREQUENCY 100
+#define CLOCK_FREQUENCY 1200
 
 // IR
 #define THRESH_LOW_IR 13

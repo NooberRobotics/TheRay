@@ -29,7 +29,6 @@ namespace Tape {
     bool tapePresentCentreWithUpdate();
     bool tapePresentSides();
     
-    
     IntersectionType tapePresentOnSide();
 
     bool detectedTape(int sensor);
