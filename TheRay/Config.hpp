@@ -14,15 +14,14 @@
 #define KP 18
 #define KD 90
 #define KI 2
-#define K 76
+#define K 60
 
 //#define KP 18
 //#define KD 100
 //#define KI 2
 //#define K 76
 
-#define TAPE_HISTORY_COUNT 3
-
+#define CLOCK_FREQUENCY 100
 
 // IR
 #define THRESH_LOW_IR 13
@@ -76,7 +75,7 @@
 
 // Velocities
 #define VELOCITY_SLOW 100
-#define VELOCITY_NORMAL 165
+#define VELOCITY_NORMAL 125
 #define VELOCITY_FAST 220
 #define VELOCITY_NITROUS 255
 

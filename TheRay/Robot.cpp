@@ -17,43 +17,9 @@ Status Robot::cruise(Direction direction) {
     
     while (true) {
         
-        Collision::update();
         Tape::update();
-        IR::update();
         
-        switch (IR::check()) { //IR Check
-                
-            case IR::None:
-                setVelocity(VELOCITY_NORMAL);
-                break;
-                
-            case IR::WeakLeft:
-                setVelocity(VELOCITY_SLOW);
-                break;
-                
-            case IR::WeakRight:
-                setVelocity(VELOCITY_SLOW);
-                break;
-                
-            case IR::StrongLeft:
-                Actuators::stop();
-                resetVelocity();
-                IR::resetIR();
-                return IRLeft;
-                break;
-                
-            case IR::StrongRight:
-                Actuators::stop();
-                resetVelocity();
-                IR::resetIR();
-                return IRRight;
-                break;
-        }
-        
-        if (Collision::occured()) {
-            resetVelocity();
-            return Collided;
-        }
+        Actuators::drive(velocity(), Tape::driveCorrection());
         
         if (Tape::atIntersection() && (millis() - lastIntersectionTime) > TIME_QRD_FREE_OF_INTERSECTION) {
             lastIntersectionTime = millis();
@@ -62,7 +28,43 @@ Status Robot::cruise(Direction direction) {
             return Intersection;
         }
         
-        Actuators::drive(velocity(), Tape::driveCorrection());
+        Collision::update();
+        
+        if (Collision::occured()) {
+            resetVelocity();
+            return Collided;
+        }
+        
+        IR::update();
+        
+//        switch (IR::check()) { //IR Check
+//                
+//            case IR::None:
+//                setVelocity(VELOCITY_NORMAL);
+//                break;
+//                
+//            case IR::WeakLeft:
+//                setVelocity(VELOCITY_SLOW);
+//                break;
+//                
+//            case IR::WeakRight:
+//                setVelocity(VELOCITY_SLOW);
+//                break;
+//                
+//            case IR::StrongLeft:
+//                Actuators::stop();
+//                resetVelocity();
+//                IR::resetIR();
+//                return IRLeft;
+//                break;
+//                
+//            case IR::StrongRight:
+//                Actuators::stop();
+//                resetVelocity();
+//                IR::resetIR();
+//                return IRRight;
+//                break;
+//        }
     }
 }
 
