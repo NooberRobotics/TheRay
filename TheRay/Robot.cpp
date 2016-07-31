@@ -10,7 +10,7 @@
 unsigned long lastIntersectionTime = millis();
 
 
-int clockCycles = 0;
+//int clockCycles = 0;
 
 Status Robot::cruise(Direction direction) {
     
@@ -19,16 +19,16 @@ Status Robot::cruise(Direction direction) {
     
     while (true) {
         
-        if (++clockCycles > 10000) {
-            
-            int timeClock = millis() - lastIntersectionTime;
-            
-            Serial.println("Clock time for 10000 cycles: ");
-            Serial.println(timeClock);
-            
-            lastIntersectionTime = millis();
-            clockCycles = 0;
-        }
+//        if (++clockCycles > 10000) {
+//            
+//            int timeClock = millis() - lastIntersectionTime;
+//            
+//            Serial.println("Clock time for 10000 cycles: ");
+//            Serial.println(timeClock);
+//            
+//            lastIntersectionTime = millis();
+//            clockCycles = 0;
+//        }
         
         Tape::update();
         
