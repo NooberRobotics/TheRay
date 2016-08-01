@@ -9,12 +9,12 @@
 #define Config_hpp
 
 // Tape
-#define THRESH_QRD 400
+#define THRESH_QRD 100
 
 #define KP 18
-#define KD 90
-#define KI 2
-#define K 60
+#define KD 20
+#define KI 0
+#define K 100
 
 #define CLOCK_FREQUENCY 1200
 
@@ -69,17 +69,17 @@
 
 
 // Velocities
-#define VELOCITY_SLOW 100
-#define VELOCITY_NORMAL 125
+#define VELOCITY_SLOW 110
+#define VELOCITY_NORMAL 140
 #define VELOCITY_FAST 220
 #define VELOCITY_NITROUS 255
 
 #define VELOCITY_PICKUP 130
 
-#define ACCELERATION_FACTOR .7
-#define START_VELOCITY 80
+#define ACCELERATION_FACTOR .3
+#define START_VELOCITY 70
 
-#define KICKBACK 50
+#define KICKBACK 30
 
 #define VELOCITY_ARM 100
 
@@ -90,7 +90,7 @@
 // SERVO ANGLES
 
 #define SERVO_OPEN 26
-#define SERVO_CLOSED 105
+#define SERVO_CLOSED 120
 #define SERVO_OPERATION_TIME 500 //millis
 
 // QRD (ANALOG)

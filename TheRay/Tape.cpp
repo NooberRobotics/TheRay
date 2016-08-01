@@ -50,19 +50,19 @@ int Tape::driveCorrection() {
     
     if (onMidLeft && onMidRight) error = 0;
     
-    else if (onMidRight) error = +1;
+    else if (onMidRight) error = 1;
     else if (onMidLeft) error = -1;
     
-    else if (defaultTurn && defaultTurnIsRight) error = 10;
-    else if (defaultTurn && !defaultTurnIsRight) error = -10;
+    else if (defaultTurn && defaultTurnIsRight) error = 8;
+    else if (defaultTurn && !defaultTurnIsRight) error = -8;
     
-    else if (onRight && !onLeft) error = 10;
-    else if (onLeft && !onRight) error = -10;
+    else if (onRight && !onLeft) error = 5;
+    else if (onLeft && !onRight) error = -5;
     
     else if (lastError > 0) error = 5;
     else if (lastError < 0) error = -5;
     
-    else error = 0;
+    else error = 0; // handle!
     
     if (error != lastError) {
         lastDifferentError = lastError;
@@ -83,7 +83,7 @@ int Tape::driveCorrection() {
 // Intersection detection
 
 bool Tape::atIntersection() {
-    return error <= 5 ? tapePresentSides() : false;
+    return abs(error) <= 5 ? tapePresentSides() : false;
 }
 
 bool Tape::tapePresentCentre() {

@@ -59,7 +59,6 @@ Direction Navigator::getTurn() {
     
     if (returningToDropoff) {
         
-        
         nextNode = CityMap::getNextNodeToGoal(startNodeIndex, nextNodeIndex, primaryPath);
 
         turn = CityMap::getTurnDirection(lastNode, currentNode, nextNode);
@@ -111,7 +110,30 @@ Direction Navigator::getTurn() {
     return turn;
 }
 
-void Navigator::collisionOccurred() {
+
+bool Navigator::collisionInBranchesHandled() {
+    
+    if (currentNode == 5) {
+        
+        if (nextNode == 4) {
+            
+        }
+        
+        if (nextNode == 3) {
+            
+        }
+        
+    } else if (currentNode == 14) {
+        
+        
+        
+    }
+}
+
+
+bool Navigator::collisionOccurred() {
+    
+    if (collisionInBranchesHandled()) return false;
     
     dropOffNow = false;
     
@@ -129,7 +151,6 @@ void Navigator::collisionOccurred() {
     currentNode = temp;
     
     if (returningToDropoff) {
-        
         
         if (!expected) {
             primaryPath = !primaryPath;
@@ -173,6 +194,7 @@ void Navigator::collisionOccurred() {
             nextNodeIndex = CityMap::updateNodeIndex(nextNode, primaryPath);
         }
     }
+    return true;
 }
 
 bool Navigator::returnToDropoff(bool turnRightForPickup) {

@@ -15,7 +15,6 @@ unsigned long lastIntersectionTime = millis();
 Status Robot::cruise(Direction direction) {
     
     handleIntersection(direction);
-    Tape::resetErrors();
     
     while (true) {
         
@@ -36,7 +35,6 @@ Status Robot::cruise(Direction direction) {
         
         if (Tape::atIntersection() && (millis() - lastIntersectionTime) > TIME_QRD_FREE_OF_INTERSECTION) {
             lastIntersectionTime = millis();
-            resetVelocity();
             Actuators::stop();
             return Intersection;
         }
@@ -89,14 +87,19 @@ void Robot::handleIntersection(Direction direction){
             break;
             
         case Left:
+            Tape::resetErrors();
+            resetVelocity();
             turnAtIntersection(false, millis());
             break;
             
         case Right:
+            Tape::resetErrors();
+            resetVelocity();
             turnAtIntersection(true, millis());
             break;
             
         case TurnAround:
+            Tape::resetErrors();
             resetVelocity();
             turnOntoTape(direction);
             break;
@@ -106,7 +109,6 @@ void Robot::handleIntersection(Direction direction){
 void Robot::turnAtIntersection(bool turnRight, unsigned long time) {
     
     // wait for correct road on intersection to appear
-    Tape::resetErrors();
     Tape::update();
     while (!Tape::tapePresentOnSide(turnRight) && (millis() - time) < TIME_IN_INTERSECTION) {
         Tape::update();

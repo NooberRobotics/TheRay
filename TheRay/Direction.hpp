@@ -16,5 +16,8 @@ enum Direction {
     Left
 };
 
+enum CollisionReaction {
+    
+};
 
 #endif /* Direction_hpp */

@@ -11,7 +11,7 @@
 #include "Direction.hpp"
 #include "CityMap.hpp"
 #include "Config.hpp"
-
+#include "Robot.hpp"
 
 class Navigator {
     
@@ -32,6 +32,9 @@ class Navigator {
     
     void checkAndHandleCollisionOnTape();
     
+    bool collisionInBranchesHandled();
+
+    
 public:
     
     void changeStartingPositionToRightTurnFirst();
@@ -41,7 +44,7 @@ public:
     
     Direction getTurn(); // only called at intersections
     
-    void collisionOccurred();
+    bool collisionOccurred();
     
     bool returnToDropoff(bool turnRightForPickup); //first turn stages must be direction required after pickup
     void passengerDroppedOff();
