@@ -11,7 +11,6 @@
 #include "Direction.hpp"
 #include "CityMap.hpp"
 #include "Config.hpp"
-#include "Robot.hpp"
 
 class Navigator {
     
@@ -27,13 +26,14 @@ class Navigator {
     
     bool primaryPath = true;
     
-    unsigned long timeOfIntersection;
-    unsigned long timeOfCollision;
+    unsigned long timeOfIntersection = 0;
+    unsigned long timeOfCollision = 0;
     
     void checkAndHandleCollisionOnTape();
     
     bool collisionInBranchesHandled();
 
+    bool turnAroundOppositeDirection = false;
     
 public:
     

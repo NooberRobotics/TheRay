@@ -30,7 +30,7 @@ namespace CityMap {
     
     Direction getTurnDirection(int lastNode, int currentNode, int nextNode);
 
-    int getLeftmostTurnNode(int lastNode, int currentNode);
+    int getLeftmostTurnNode(int lastNode, int currentNode, bool actuallyRight = false);
     
     int* travelPathToGoal(int currentNode, bool alternatePath = false); // returns array containing nodes in order
     int* travelPathSearch(int currentNode);

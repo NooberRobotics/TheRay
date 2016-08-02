@@ -65,7 +65,20 @@ int CityMap::updateNodeIndex(int nextNode, bool primaryPath){
     return -1;
 }
 
-int CityMap::getLeftmostTurnNode(int lastNode, int currentNode) {
+int CityMap::getLeftmostTurnNode(int lastNode, int currentNode, bool actuallyRight) {
+    
+    int preferenceOrder[3];
+
+    if (actuallyRight) {
+        preferenceOrder[0] = 1;
+        preferenceOrder[1] = 0;
+        preferenceOrder[2] = 3;
+        
+    } else {
+        preferenceOrder[0] = 3;
+        preferenceOrder[1] = 0;
+        preferenceOrder[2] = 1;
+    }
     
     int arriving = -1;
     
@@ -87,15 +100,15 @@ int CityMap::getLeftmostTurnNode(int lastNode, int currentNode) {
             
             int directionNumber = ((heading - arriving) + 4) % 4;
             
-            if (directionNumber == 3) {
+            if (directionNumber == preferenceOrder[0]) {
                 leftmostDepartingDirection = heading;
                 foundBest = 1;
-            } else if (directionNumber == 0) {
+            } else if (directionNumber == preferenceOrder[1]) {
                 if (foundBest != 1) {
                     leftmostDepartingDirection = heading;
                     foundBest = 2;
                 }
-            } else if (directionNumber == 1) {
+            } else if (directionNumber == preferenceOrder[2]) {
                 if (foundBest != 1 && foundBest != 2) {
                     leftmostDepartingDirection = heading;
                     foundBest = 3;

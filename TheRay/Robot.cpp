@@ -243,10 +243,10 @@ bool Robot::dropOffPassenger(Direction direction, bool rightSideDropOff) {
     return true;
 }
 
-void Robot::evade() {
+void Robot::evade(bool rightTurn) {
     
     Actuators::drive(VELOCITY_SLOW, Actuators::Straight, true);
     delay(REVERSE_TIME_EVADE);
     
-    turnOntoTape(true);
+    turnOntoTape(rightTurn);
 }

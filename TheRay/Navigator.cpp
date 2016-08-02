@@ -24,16 +24,30 @@ void Navigator::changeStartingPositionToRightTurnFirst() {
 void Navigator::checkAndHandleCollisionOnTape() {
     
     unsigned long timeFromIntersectionToCollision = timeOfCollision - timeOfIntersection;
+    Serial.print("timeFromIntersectionToCollision: ");
+    Serial.println(timeFromIntersectionToCollision);
     
     if (timeFromIntersectionToCollision < TIME_FREE_OF_INTERSECTION) {
-                
+        
         unsigned long timeSinceCollision = currentTime() - timeOfCollision;
-
+        Serial.println(timeSinceCollision);
+        
         if ( timeSinceCollision > timeFromIntersectionToCollision + TIME_MIN_BETWEEN_INTERSECTIONS ) {
+            
+            Serial.println("in checkAndHandle");
             
             lastNode = currentNode;
             currentNode = nextNode;
-            nextNode = CityMap::getLeftmostTurnNode(lastNode, currentNode);
+            
+            Serial.print(lastNode);
+            Serial.print("       ");
+            Serial.println(currentNode);
+            
+            nextNode = CityMap::getLeftmostTurnNode(lastNode, currentNode, turnAroundOppositeDirection);
+            
+            if (lastNode == 3 || lastNode == 4 || lastNode == 13 || lastNode == 15 ) {
+                primaryPath = !primaryPath;
+            }
             
             if (returningToDropoff) {
                 startNodeIndex = nextNode;
@@ -43,12 +57,14 @@ void Navigator::checkAndHandleCollisionOnTape() {
             }
         }
     }
+    
+    collisionHasOccurred = false;
+    turnAroundOppositeDirection = false;
 }
 
 Direction Navigator::getTurn() {
     
     if (collisionHasOccurred) checkAndHandleCollisionOnTape();
-    collisionHasOccurred = false;
     
     timeOfIntersection = currentTime();
     
@@ -111,42 +127,21 @@ Direction Navigator::getTurn() {
 }
 
 
-bool Navigator::collisionInBranchesHandled() {
-    
-    if (currentNode == 5) {
-        
-        if (nextNode == 4) {
-            
-        }
-        
-        if (nextNode == 3) {
-            
-        }
-        
-    } else if (currentNode == 14) {
-        
-        
-        
-    }
-}
-
-
 bool Navigator::collisionOccurred() {
-    
-    if (collisionInBranchesHandled()) return false;
     
     dropOffNow = false;
     
-    timeOfCollision = currentTime();
-    collisionHasOccurred = true;
-    
     bool expected = false;
-
     for (int i = 0; i<7; i++) {
         if (nextNode == CityMap::collisionNodes[i]) expected = true;
     }
     
+    if (expected || (collisionHasOccurred && (nextNode == 5 || nextNode == 14))) {
+        checkAndHandleCollisionOnTape();
+    }
+    
     int temp = nextNode;
+    lastNode = currentNode;
     nextNode =  currentNode;
     currentNode = temp;
     
@@ -194,7 +189,16 @@ bool Navigator::collisionOccurred() {
             nextNodeIndex = CityMap::updateNodeIndex(nextNode, primaryPath);
         }
     }
-    return true;
+    
+    timeOfCollision = currentTime();
+    collisionHasOccurred = true;
+    
+    if ((currentNode == 13 && nextNode == 14) || (currentNode == 4 && nextNode == 5)) {
+        turnAroundOppositeDirection = true;
+        return false;
+    }
+    
+    return true; // true if mechanically turning to the right
 }
 
 bool Navigator::returnToDropoff(bool turnRightForPickup) {
