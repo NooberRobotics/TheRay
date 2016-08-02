@@ -26,6 +26,8 @@ class Navigator {
     
     bool primaryPath = true;
     
+    int lastNodeWhenGoingOntoNode11Stretch;
+    
     unsigned long timeOfIntersection = 0;
     unsigned long timeOfCollision = 0;
     

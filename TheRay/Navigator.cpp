@@ -32,21 +32,17 @@ void Navigator::checkAndHandleCollisionOnTape() {
             lastNode = currentNode;
             currentNode = nextNode;
             
-            if (currentNode == 11) {
-                if (lastNode == 7) {
-                    currentNode = 17;
-                } else if (lastNode == 17) {
-                    currentNode = 7;
-                }
-                lastNode = 11;
-            }
-            
 //            Serial.print("lastNode: );
 //            Serial.print(lastNode);
 //            Serial.print(" currentNode: ");
 //            Serial.println(currentNode);
             
-            nextNode = CityMap::getLeftmostTurnNode(lastNode, currentNode, turnAroundOppositeDirection);
+            if (lastNode == 11) {
+                nextNode = CityMap::getLeftmostTurnNode(lastNodeWhenGoingOntoNode11Stretch, currentNode, turnAroundOppositeDirection);
+            } else {
+                nextNode = CityMap::getLeftmostTurnNode(lastNode, currentNode, turnAroundOppositeDirection);
+            }
+            
             
             if (lastNode == 3 || lastNode == 4 || lastNode == 13 || lastNode == 15 ) {
                 primaryPath = !primaryPath;
@@ -85,6 +81,7 @@ Direction Navigator::getTurn() {
         
         nextNodeIndex++;
         if (nextNode == 11) {
+            lastNodeWhenGoingOntoNode11Stretch = lastNode;
             if (currentNode == 7) {
                 dropOffTurnRight = true;
                 nextNode = 17;
@@ -105,6 +102,7 @@ Direction Navigator::getTurn() {
         turn = CityMap::getTurnDirection(lastNode, currentNode, nextNode);
         
         if (nextNode == 11) {
+            lastNodeWhenGoingOntoNode11Stretch = lastNode;
             if(currentNode == 7) {
                 nextNodeIndex = CityMap::getNextNodeIndex(nextNodeIndex);
                 nextNode = 17;
@@ -155,8 +153,7 @@ bool Navigator::collisionOccurred() {
             primaryPath = !primaryPath;
         }
         
-        if (nextNode == 11) {
-       
+        if (nextNode == 11) {            
             if(currentNode == 7) {
                 nextNode = 17;
                 lastNode = 7;
@@ -175,7 +172,6 @@ bool Navigator::collisionOccurred() {
         if (expected) {
             nextNodeIndex = CityMap::getNextNodeIndex(nextNodeIndex);
         } else {
-            
             if (nextNode == 11) {
                 if(currentNode == 7) {
                     nextNodeIndex = CityMap::getNextNodeIndex(nextNodeIndex);
