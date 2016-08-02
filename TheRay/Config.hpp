@@ -90,8 +90,8 @@
 
 // SERVO ANGLES
 
-#define SERVO_OPEN 26
-#define SERVO_CLOSED 120
+#define SERVO_OPEN 10
+#define SERVO_CLOSED 90
 #define SERVO_OPERATION_TIME 500 //millis
 
 // QRD (ANALOG)

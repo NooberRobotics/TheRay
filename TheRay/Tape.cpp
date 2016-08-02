@@ -88,7 +88,7 @@ int Tape::driveCorrection() {
 // Intersection detection
 
 bool Tape::atIntersection() {
-    return (lostCount > LOST_COUNT_LIMIT_FOR_INTERSECTION_DETECTION || abs(error) <= 5) ? tapePresentSides() : false;
+    return lostCount < LOST_COUNT_LIMIT_FOR_INTERSECTION_DETECTION ? tapePresentSides() : false;
 }
 
 bool Tape::tapePresentCentre() {

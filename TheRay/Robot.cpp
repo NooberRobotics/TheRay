@@ -19,12 +19,15 @@ Status Robot::cruise(Direction direction) {
     while (true) {
         
         Tape::update();
+        followTape();
         
         if (Tape::atIntersection() && (millis() - lastIntersectionTime) > TIME_MIN_BETWEEN_INTERSECTIONS) {
             lastIntersectionTime = millis();
             Actuators::stop();
+
             return Intersection;
         }
+        
         
         Collision::update();
         
@@ -184,7 +187,7 @@ void Robot::pickUpPassenger(bool turnRightBefore, bool turnRightAfter) {
     
     Actuators::drive(VELOCITY_PICKUP, Actuators::Straight);
     
-    while (!Collision::occuredWithUpdate() || (millis() - approachStartTime ) < APPROACH_MAX_TIME) {}
+    while (!Collision::occuredWithUpdate() && (millis() - approachStartTime ) < APPROACH_MAX_TIME) {}
     
     unsigned long approachTime = millis() - approachStartTime;
    
