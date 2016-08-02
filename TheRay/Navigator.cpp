@@ -32,6 +32,15 @@ void Navigator::checkAndHandleCollisionOnTape() {
             lastNode = currentNode;
             currentNode = nextNode;
             
+            if (currentNode == 11) {
+                if (lastNode == 7) {
+                    currentNode = 17;
+                } else if (lastNode == 17) {
+                    currentNode = 7;
+                }
+                lastNode = 11;
+            }
+            
 //            Serial.print("lastNode: );
 //            Serial.print(lastNode);
 //            Serial.print(" currentNode: ");
@@ -46,6 +55,7 @@ void Navigator::checkAndHandleCollisionOnTape() {
             if (returningToDropoff) {
                 startNodeIndex = nextNode;
                 nextNodeIndex = 0;
+                
             } else {
                 nextNodeIndex = CityMap::updateNodeIndex(nextNode, primaryPath);
             }
