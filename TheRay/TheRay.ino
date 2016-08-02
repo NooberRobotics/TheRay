@@ -1,7 +1,6 @@
 
 #include "Controller.hpp"
 
-
 #include <phys253.h>
 
 LiquidCrystal LCD(26,27,28,16, 17, 18, 19,20,21,22,23);
