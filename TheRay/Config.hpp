@@ -11,8 +11,8 @@
 // Tape
 #define THRESH_QRD 120
 
-#define KP 18
-#define KD 20
+#define KP 22
+#define KD 25
 #define KI 0
 #define K 100
 
@@ -41,7 +41,6 @@
 
 
 // Intersection
-#define INTERSECTION_DETECTED_DRIVE_DELAY 235
 #define TIME_MIN_BETWEEN_INTERSECTIONS 500
 #define TIME_FREE_OF_INTERSECTION 1000
 #define TIME_IN_INTERSECTION 200
@@ -73,7 +72,7 @@
 
 // Velocities
 #define VELOCITY_SLOW 110
-#define VELOCITY_NORMAL 120
+#define VELOCITY_NORMAL 150
 #define VELOCITY_FAST 220
 #define VELOCITY_NITROUS 255
 
@@ -82,7 +81,7 @@
 #define ACCELERATION_FACTOR .3
 #define START_VELOCITY 70
 
-#define KICKBACK 30
+#define KICKBACK 35
 
 #define VELOCITY_ARM 100
 
