@@ -60,10 +60,11 @@ void Controller::initializePickup(bool rightSidePickup) {
 void Controller::initializeDropoff() {
     if (robot.dropOffPassenger(turnDirection, navigator.dropOffTurnRight)) {
         hasPassenger = false;
-        turnDirection = StraightAhead;
         navigator.passengerDroppedOff();
     } else {
         robot.evade();
         navigator.collisionOccurred();
+        
     }
+    turnDirection = StraightAhead;
 }
