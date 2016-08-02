@@ -31,8 +31,6 @@ Status Robot::cruise(Direction direction) {
         
         Tape::update();
         
-        Actuators::drive(velocity(), Tape::driveCorrection());
-        
         if (Tape::atIntersection() && (millis() - lastIntersectionTime) > TIME_QRD_FREE_OF_INTERSECTION) {
             lastIntersectionTime = millis();
             Actuators::stop();
@@ -79,6 +77,13 @@ Status Robot::cruise(Direction direction) {
     }
 }
 
+void Robot::followTape(bool defaultTurn, bool turnRight) {
+    
+    int correction = defaultTurn ? Tape::driveCorrection(turnRight) : Tape::driveCorrection();
+    
+    if (correction == TAPE_LOST_ERROR) findTape();
+    else Actuators::drive(velocity(), correction);
+}
 
 void Robot::handleIntersection(Direction direction){
     
@@ -112,7 +117,7 @@ void Robot::turnAtIntersection(bool turnRight, unsigned long time) {
     Tape::update();
     while (!Tape::tapePresentOnSide(turnRight) && (millis() - time) < TIME_IN_INTERSECTION) {
         Tape::update();
-        Actuators::drive(velocity(), Tape::driveCorrection(turnRight));
+        followTape(true, turnRight);
     }
     
     // turn onto tape
@@ -120,6 +125,24 @@ void Robot::turnAtIntersection(bool turnRight, unsigned long time) {
     while (!Tape::tapePresentCentreWithUpdate()) {}
 }
 
+
+void Robot::findTape() {
+    
+    int duration = INTIAL_FIND_TAPE_DURATION;
+    bool rightDirection = true;
+    
+    while (true) {
+        unsigned long time = millis();
+        Actuators::turnInPlace(rightDirection);
+        
+        while ((millis() - time) < duration) {
+            if (Tape::tapePresentCentreWithUpdate()) return;
+        }
+        
+        duration *= 2;
+        rightDirection = !rightDirection;
+    }
+}
 
 void Robot::turnOntoTape(bool turnRight) {
     if (turnRight) turnOntoTape(Right);
@@ -212,8 +235,7 @@ bool Robot::dropOffPassenger(Direction direction, bool rightSideDropOff) {
 
     while( (millis() - time) < DROP_OFF_APPROACH_TIME ){
         Tape::update();
-        Actuators::drive(VELOCITY_NORMAL, Tape::driveCorrection());
-        
+        followTape();
         if (Collision::occuredWithUpdate()) return false;
     }
     

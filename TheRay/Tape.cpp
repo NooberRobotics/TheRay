@@ -62,7 +62,7 @@ int Tape::driveCorrection() {
     else if (lastError > 0) error = 5;
     else if (lastError < 0) error = -5;
     
-    else error = 0; // handle!
+    else return TAPE_LOST_ERROR;
     
     if (error != lastError) {
         lastDifferentError = lastError;
