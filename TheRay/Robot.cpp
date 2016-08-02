@@ -182,6 +182,7 @@ void Robot::pickUpPassenger(bool turnRightBefore, bool turnRightAfter) {
     
     Actuators::openClaw();
     Actuators::lowerArm();
+    Actuators::lowerArm();
     
     unsigned long approachStartTime = millis();
     
@@ -196,6 +197,7 @@ void Robot::pickUpPassenger(bool turnRightBefore, bool turnRightAfter) {
     Actuators::closeClaw();
     delay(SERVO_OPERATION_TIME);
     
+    Actuators::raiseArm();
     Actuators::raiseArm();
     
     bool successful = true; //!IR::frontDetected();
