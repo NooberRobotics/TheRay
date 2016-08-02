@@ -31,7 +31,7 @@ Status Robot::cruise(Direction direction) {
         
         Tape::update();
         
-        if (Tape::atIntersection() && (millis() - lastIntersectionTime) > TIME_QRD_FREE_OF_INTERSECTION) {
+        if (Tape::atIntersection() && (millis() - lastIntersectionTime) > TIME_MIN_BETWEEN_INTERSECTIONS) {
             lastIntersectionTime = millis();
             Actuators::stop();
             return Intersection;
@@ -145,8 +145,14 @@ void Robot::findTape() {
 }
 
 void Robot::turnOntoTape(bool turnRight) {
-    if (turnRight) turnOntoTape(Right);
-    else turnOntoTape(Left);
+    
+    resetVelocity();
+    Actuators::turnInPlace(turnRight);
+    
+    delay(TURN_OFF_TAPE_DURATION);
+    while (Tape::tapePresentCentreWithUpdate()) {}
+    delay(10);
+    while (!Tape::tapePresentCentreWithUpdate()) {}
 }
 
 
@@ -158,34 +164,21 @@ void Robot::turnOntoTape(Direction direction) {
             break;
             
         case Left:
-            resetVelocity();
-            Actuators::turnInPlace(false);
-            
-            delay(TURN_OFF_TAPE_DURATION);
-            while (Tape::tapePresentCentreWithUpdate()) {}
-            delay(10);
-            while (!Tape::tapePresentCentreWithUpdate()) {}
-            
+            turnOntoTape(false);
             break;
             
         case Right:
-            resetVelocity();
-            Actuators::turnInPlace(true);
-            
-            delay(TURN_OFF_TAPE_DURATION);
-            while (Tape::tapePresentCentreWithUpdate()) {}
-            delay(10);
-            while (!Tape::tapePresentCentreWithUpdate()) {}
-            
+            turnOntoTape(true);
             break;
             
         case TurnAround:
             resetVelocity();
-            Actuators::turnInPlace(TURN_180, true);
+            Actuators::turnInPlace(TURN_180_DURATOIN, true);
             while (!Tape::tapePresentCentreWithUpdate()) {}
             break;
     }
 }
+
 
 void Robot::pickUpPassenger(bool turnRightBefore, bool turnRightAfter) {
     
