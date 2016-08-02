@@ -49,7 +49,9 @@ Direction CityMap::getTurnDirection(int lastNode, int currentNode, int nextNode)
     if (directionNumber == 1) return Right;
     if (directionNumber == 2) return TurnAround;
     if (directionNumber == 3) return Left;
-    return StraightAhead; // Error state
+    
+    Serial.println("GET TURN DIRECTION SERIOS ERROR!");
+    return StraightAhead;
 }
 
 int CityMap::updateNodeIndex(int nextNode, bool primaryPath){
@@ -119,7 +121,7 @@ int CityMap::getLeftmostTurnNode(int lastNode, int currentNode, bool actuallyRig
         }
     }
     
-//    Serial.print("Leftmost Direction: ");
+//    Serial.print("leftmostDepartingDirection: ");
 //    Serial.println(leftmostDepartingDirection);
 
     int node = departureMap[currentNode][leftmostDepartingDirection];
@@ -131,8 +133,8 @@ int CityMap::getLeftmostTurnNode(int lastNode, int currentNode, bool actuallyRig
 }
 
 bool CityMap::irValid(bool rightSide, int currentNode, int nextNode){
-    if(rightSide){
-        for (int i = 0; i < NUM_EDGES_NO_IR_RIGHT; i++){
+    if (rightSide) {
+        for (int i = 0; i < NUM_EDGES_NO_IR_RIGHT; i++) {
             if (CityMap::noSidewalkOnRight[i][0] == currentNode && CityMap::noSidewalkOnRight[i][1] == nextNode) return false;
         }
         return true;

@@ -18,17 +18,6 @@ Status Robot::cruise(Direction direction) {
     
     while (true) {
         
-//        if (++clockCycles > 10000) {
-//            
-//            int timeClock = millis() - lastIntersectionTime;
-//            
-//            Serial.println("Clock time for 10000 cycles: ");
-//            Serial.println(timeClock);
-//            
-//            lastIntersectionTime = millis();
-//            clockCycles = 0;
-//        }
-        
         Tape::update();
         
         if (Tape::atIntersection() && (millis() - lastIntersectionTime) > TIME_MIN_BETWEEN_INTERSECTIONS) {
@@ -46,34 +35,34 @@ Status Robot::cruise(Direction direction) {
         
         IR::update();
         
-//        switch (IR::check()) { //IR Check
-//                
-//            case IR::None:
-//                setVelocity(VELOCITY_NORMAL);
-//                break;
-//                
-//            case IR::WeakLeft:
-//                setVelocity(VELOCITY_SLOW);
-//                break;
-//                
-//            case IR::WeakRight:
-//                setVelocity(VELOCITY_SLOW);
-//                break;
-//                
-//            case IR::StrongLeft:
-//                Actuators::stop();
-//                resetVelocity();
-//                IR::resetIR();
-//                return IRLeft;
-//                break;
-//                
-//            case IR::StrongRight:
-//                Actuators::stop();
-//                resetVelocity();
-//                IR::resetIR();
-//                return IRRight;
-//                break;
-//        }
+        switch (IR::check()) {
+                
+            case IR::None:
+                setVelocity(VELOCITY_NORMAL);
+                break;
+                
+            case IR::WeakLeft:
+                setVelocity(VELOCITY_SLOW);
+                break;
+                
+            case IR::WeakRight:
+                setVelocity(VELOCITY_SLOW);
+                break;
+                
+            case IR::StrongLeft:
+                Actuators::stop();
+                resetVelocity();
+                IR::resetIR();
+                return IRLeft;
+                break;
+                
+            case IR::StrongRight:
+                Actuators::stop();
+                resetVelocity();
+                IR::resetIR();
+                return IRRight;
+                break;
+        }
     }
 }
 
@@ -265,3 +254,16 @@ void Robot::evade(bool rightTurn) {
     
     turnOntoTape(rightTurn);
 }
+
+//void printLoopTime() {
+//    if (++clockCycles > 10000) {
+//        
+//        int timeClock = millis() - lastIntersectionTime;
+//        
+//        Serial.println("Clock time for 10000 cycles: ");
+//        Serial.println(timeClock);
+//        
+//        lastIntersectionTime = millis();
+//        clockCycles = 0;
+//    }
+//}

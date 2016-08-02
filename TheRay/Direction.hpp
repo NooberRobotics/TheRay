@@ -16,5 +16,4 @@ enum Direction {
     Left
 };
 
-enum CollisionAction { Normal, SpecialLeft, SpecialRight };
 #endif /* Direction_hpp */

@@ -33,6 +33,7 @@ class Navigator {
     
     bool collisionInBranchesHandled();
 
+    bool collisionHasOccurred = false;
     bool turnAroundOppositeDirection = false;
     
 public:

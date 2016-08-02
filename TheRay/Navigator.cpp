@@ -9,12 +9,6 @@
 #include <Arduino.h>
 
 
-bool collisionHasOccurred = false;
-
-unsigned long currentTime() {
-    return millis();
-}
-
 void Navigator::changeStartingPositionToRightTurnFirst() {
     currentNode = 18;
     nextNode = 19;
@@ -24,24 +18,24 @@ void Navigator::changeStartingPositionToRightTurnFirst() {
 void Navigator::checkAndHandleCollisionOnTape() {
     
     unsigned long timeFromIntersectionToCollision = timeOfCollision - timeOfIntersection;
-    Serial.print("timeFromIntersectionToCollision: ");
-    Serial.println(timeFromIntersectionToCollision);
+//    Serial.print("timeFromIntersectionToCollision: ");
+//    Serial.println(timeFromIntersectionToCollision);
     
     if (timeFromIntersectionToCollision < TIME_FREE_OF_INTERSECTION) {
         
-        unsigned long timeSinceCollision = currentTime() - timeOfCollision;
-        Serial.println(timeSinceCollision);
+        unsigned long timeSinceCollision = millis() - timeOfCollision;
+//        Serial.print("timeSinceCollision: ");
+//        Serial.println(timeSinceCollision);
         
         if ( timeSinceCollision > timeFromIntersectionToCollision + TIME_MIN_BETWEEN_INTERSECTIONS ) {
-            
-            Serial.println("in checkAndHandle");
             
             lastNode = currentNode;
             currentNode = nextNode;
             
-            Serial.print(lastNode);
-            Serial.print("       ");
-            Serial.println(currentNode);
+//            Serial.print("lastNode: );
+//            Serial.print(lastNode);
+//            Serial.print(" currentNode: ");
+//            Serial.println(currentNode);
             
             nextNode = CityMap::getLeftmostTurnNode(lastNode, currentNode, turnAroundOppositeDirection);
             
@@ -66,7 +60,7 @@ Direction Navigator::getTurn() {
     
     if (collisionHasOccurred) checkAndHandleCollisionOnTape();
     
-    timeOfIntersection = currentTime();
+    timeOfIntersection = millis();
     
     Direction turn;
     
@@ -114,14 +108,14 @@ Direction Navigator::getTurn() {
         }
     }
     
-    Serial.print("Last Node: ");
-    Serial.print(lastNode);
-    Serial.print(" Current Node: ");
-    Serial.print(currentNode);
-    Serial.print(" Next Node: ");
-    Serial.print(nextNode);
-    Serial.print(" Turn: ");
-    Serial.println(turn);
+//    Serial.print("Last Node: ");
+//    Serial.print(lastNode);
+//    Serial.print(" Current Node: ");
+//    Serial.print(currentNode);
+//    Serial.print(" Next Node: ");
+//    Serial.print(nextNode);
+//    Serial.print(" Turn: ");
+//    Serial.println(turn);
     
     return turn;
 }
@@ -190,15 +184,15 @@ bool Navigator::collisionOccurred() {
         }
     }
     
-    timeOfCollision = currentTime();
+    timeOfCollision = millis();
     collisionHasOccurred = true;
     
     if ((currentNode == 13 && nextNode == 14) || (currentNode == 4 && nextNode == 5)) {
         turnAroundOppositeDirection = true;
-        return false;
+        return false; // mechanically turning to the left
     }
     
-    return true; // true if mechanically turning to the right
+    return true; // mechanically turning to the right
 }
 
 bool Navigator::returnToDropoff(bool turnRightForPickup) {
@@ -208,10 +202,7 @@ bool Navigator::returnToDropoff(bool turnRightForPickup) {
     
     bool turnRightAfterPickup;
     
-    // Setting up for handling of dropoff path
-    
     // Determine next turn-direction and reverse travel drection to avoid turning arround at next node if required
-    
     if(currentNode == 11){
         startNodeIndex = nextNode;
         nextNodeIndex = 0;
