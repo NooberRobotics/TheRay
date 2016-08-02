@@ -20,6 +20,9 @@
 #define TAPE_LOST_ERROR 1000
 #define INTIAL_FIND_TAPE_DURATION 100
 
+#define LOST_COUNT_LIMIT_FOR_INTERSECTION_DETECTION 200
+#define LOST_COUNT_LIMIT_FOR_SEARCH 300 // larger than limit for intersection detection
+
 // IR
 #define THRESH_LOW_IR 13
 #define THRESH_HIGH_IR 27

@@ -15,7 +15,6 @@ bool onRight = false;
 bool defaultTurnIsRight = true;
 bool defaultTurn = false;
 
-
 float integral = 0;
 short proportional = 0;
 short derivative = 0;
@@ -27,6 +26,7 @@ int lastDifferentError = 0;
 int lastErrorDuration = 0;
 int errorDuration = 0;
 
+int lostCount = 0;
 
 int Tape::driveCorrection(bool defaultTurnRight) {
     
@@ -64,6 +64,11 @@ int Tape::driveCorrection() {
     
     else return TAPE_LOST_ERROR;
     
+    if (!tapePresent()) lostCount++;
+    else lostCount = 0;
+    
+    if (lostCount > LOST_COUNT_LIMIT_FOR_SEARCH) return TAPE_LOST_ERROR;
+    
     if (error != lastError) {
         lastDifferentError = lastError;
         lastErrorDuration = errorDuration;
@@ -83,7 +88,7 @@ int Tape::driveCorrection() {
 // Intersection detection
 
 bool Tape::atIntersection() {
-    return abs(error) <= 5 ? tapePresentSides() : false;
+    return (lostCount > LOST_COUNT_LIMIT_FOR_INTERSECTION_DETECTION || abs(error) <= 5) ? tapePresentSides() : false;
 }
 
 bool Tape::tapePresentCentre() {
