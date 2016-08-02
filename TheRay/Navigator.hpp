@@ -12,7 +12,6 @@
 #include "CityMap.hpp"
 #include "Config.hpp"
 
-
 class Navigator {
     
     int lastNode;
@@ -27,10 +26,15 @@ class Navigator {
     
     bool primaryPath = true;
     
-    unsigned long timeOfIntersection;
-    unsigned long timeOfCollision;
+    unsigned long timeOfIntersection = 0;
+    unsigned long timeOfCollision = 0;
     
     void checkAndHandleCollisionOnTape();
+    
+    bool collisionInBranchesHandled();
+
+    bool collisionHasOccurred = false;
+    bool turnAroundOppositeDirection = false;
     
 public:
     
@@ -41,7 +45,7 @@ public:
     
     Direction getTurn(); // only called at intersections
     
-    void collisionOccurred();
+    bool collisionOccurred();
     
     bool returnToDropoff(bool turnRightForPickup); //first turn stages must be direction required after pickup
     void passengerDroppedOff();

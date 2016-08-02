@@ -10,18 +10,32 @@
 unsigned long lastIntersectionTime = millis();
 
 
+//int clockCycles = 0;
+
 Status Robot::cruise(Direction direction) {
     
     handleIntersection(direction);
-    Tape::resetErrors();
     
     while (true) {
         
-        Collision::update();
         Tape::update();
+        
+        if (Tape::atIntersection() && (millis() - lastIntersectionTime) > TIME_MIN_BETWEEN_INTERSECTIONS) {
+            lastIntersectionTime = millis();
+            Actuators::stop();
+            return Intersection;
+        }
+        
+        Collision::update();
+        
+        if (Collision::occured()) {
+            resetVelocity();
+            return Collided;
+        }
+        
         IR::update();
         
-        switch (IR::check()) { //IR Check
+        switch (IR::check()) {
                 
             case IR::None:
                 setVelocity(VELOCITY_NORMAL);
@@ -49,23 +63,16 @@ Status Robot::cruise(Direction direction) {
                 return IRRight;
                 break;
         }
-        
-        if (Collision::occured()) {
-            resetVelocity();
-            return Collided;
-        }
-        
-        if (Tape::atIntersection() && (millis() - lastIntersectionTime) > TIME_QRD_FREE_OF_INTERSECTION) {
-            lastIntersectionTime = millis();
-            resetVelocity();
-            Actuators::stop();
-            return Intersection;
-        }
-        
-        Actuators::drive(velocity(), Tape::driveCorrection());
     }
 }
 
+void Robot::followTape(bool defaultTurn, bool turnRight) {
+    
+    int correction = defaultTurn ? Tape::driveCorrection(turnRight) : Tape::driveCorrection();
+    
+    if (correction == TAPE_LOST_ERROR) findTape();
+    else Actuators::drive(velocity(), correction);
+}
 
 void Robot::handleIntersection(Direction direction){
     
@@ -74,14 +81,19 @@ void Robot::handleIntersection(Direction direction){
             break;
             
         case Left:
+            Tape::resetErrors();
+            resetVelocity();
             turnAtIntersection(false, millis());
             break;
             
         case Right:
+            Tape::resetErrors();
+            resetVelocity();
             turnAtIntersection(true, millis());
             break;
             
         case TurnAround:
+            Tape::resetErrors();
             resetVelocity();
             turnOntoTape(direction);
             break;
@@ -91,11 +103,10 @@ void Robot::handleIntersection(Direction direction){
 void Robot::turnAtIntersection(bool turnRight, unsigned long time) {
     
     // wait for correct road on intersection to appear
-    Tape::resetErrors();
     Tape::update();
     while (!Tape::tapePresentOnSide(turnRight) && (millis() - time) < TIME_IN_INTERSECTION) {
         Tape::update();
-        Actuators::drive(velocity(), Tape::driveCorrection(turnRight));
+        followTape(true, turnRight);
     }
     
     // turn onto tape
@@ -104,9 +115,33 @@ void Robot::turnAtIntersection(bool turnRight, unsigned long time) {
 }
 
 
+void Robot::findTape() {
+    
+    int duration = INTIAL_FIND_TAPE_DURATION;
+    bool rightDirection = true;
+    
+    while (true) {
+        unsigned long time = millis();
+        Actuators::turnInPlace(rightDirection);
+        
+        while ((millis() - time) < duration) {
+            if (Tape::tapePresentCentreWithUpdate()) return;
+        }
+        
+        duration *= 2;
+        rightDirection = !rightDirection;
+    }
+}
+
 void Robot::turnOntoTape(bool turnRight) {
-    if (turnRight) turnOntoTape(Right);
-    else turnOntoTape(Left);
+    
+    resetVelocity();
+    Actuators::turnInPlace(turnRight);
+    
+    delay(TURN_OFF_TAPE_DURATION);
+    while (Tape::tapePresentCentreWithUpdate()) {}
+    delay(10);
+    while (!Tape::tapePresentCentreWithUpdate()) {}
 }
 
 
@@ -118,34 +153,21 @@ void Robot::turnOntoTape(Direction direction) {
             break;
             
         case Left:
-            resetVelocity();
-            Actuators::turnInPlace(false);
-            
-            delay(TURN_OFF_TAPE_DURATION);
-            while (Tape::tapePresentCentreWithUpdate()) {}
-            delay(10);
-            while (!Tape::tapePresentCentreWithUpdate()) {}
-            
+            turnOntoTape(false);
             break;
             
         case Right:
-            resetVelocity();
-            Actuators::turnInPlace(true);
-            
-            delay(TURN_OFF_TAPE_DURATION);
-            while (Tape::tapePresentCentreWithUpdate()) {}
-            delay(10);
-            while (!Tape::tapePresentCentreWithUpdate()) {}
-            
+            turnOntoTape(true);
             break;
             
         case TurnAround:
             resetVelocity();
-            Actuators::turnInPlace(TURN_180, true);
+            Actuators::turnInPlace(TURN_180_DURATOIN, true);
             while (!Tape::tapePresentCentreWithUpdate()) {}
             break;
     }
 }
+
 
 void Robot::pickUpPassenger(bool turnRightBefore, bool turnRightAfter) {
     
@@ -195,8 +217,7 @@ bool Robot::dropOffPassenger(Direction direction, bool rightSideDropOff) {
 
     while( (millis() - time) < DROP_OFF_APPROACH_TIME ){
         Tape::update();
-        Actuators::drive(VELOCITY_NORMAL, Tape::driveCorrection());
-        
+        followTape();
         if (Collision::occuredWithUpdate()) return false;
     }
     
@@ -226,10 +247,23 @@ bool Robot::dropOffPassenger(Direction direction, bool rightSideDropOff) {
     return true;
 }
 
-void Robot::evade() {
+void Robot::evade(bool rightTurn) {
     
     Actuators::drive(VELOCITY_SLOW, Actuators::Straight, true);
     delay(REVERSE_TIME_EVADE);
     
-    turnOntoTape(true);
+    turnOntoTape(rightTurn);
 }
+
+//void printLoopTime() {
+//    if (++clockCycles > 10000) {
+//        
+//        int timeClock = millis() - lastIntersectionTime;
+//        
+//        Serial.println("Clock time for 10000 cycles: ");
+//        Serial.println(timeClock);
+//        
+//        lastIntersectionTime = millis();
+//        clockCycles = 0;
+//    }
+//}

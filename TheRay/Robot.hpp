@@ -24,8 +24,12 @@ enum Status {
 
 class Robot {
     
+    void followTape(bool defaultTurn = false, bool turnRight = false);
+    
     void turnOntoTape(bool turnRight);
     void turnOntoTape(Direction direction);
+    
+    void findTape();
     
     void handleIntersection(Direction direction);
     void turnAtIntersection(bool rightTurn, unsigned long time);
@@ -61,7 +65,7 @@ public:
     Status cruise(Direction direction);
     void pickUpPassenger(bool rightSideBefore, bool turnRightAfter);
     bool dropOffPassenger(Direction turn, bool rightSideDropOff);
-    void evade();
+    void evade(bool rightTurn = true);
 };
 
 

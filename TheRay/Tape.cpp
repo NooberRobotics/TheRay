@@ -7,8 +7,17 @@
 
 #include "Tape.hpp"
 
-int errors[TAPE_HISTORY_COUNT] = {0};
-int errorsIndex = 0;
+bool onLeft = false;
+bool onMidLeft = false;
+bool onMidRight = false;
+bool onRight = false;
+
+bool defaultTurnIsRight = true;
+bool defaultTurn = false;
+
+float integral = 0;
+short proportional = 0;
+short derivative = 0;
 
 int error = 0;
 int lastError = 0;
@@ -17,30 +26,15 @@ int lastDifferentError = 0;
 int lastErrorDuration = 0;
 int errorDuration = 0;
 
-bool onLeft = false;
-bool onMidLeft = false;
-bool onMidRight = false;
-bool onRight = false;
-
-bool defaultTurnRight = true;
-
-int nextIndex(int index) {
-    return (index + TAPE_HISTORY_COUNT) % TAPE_HISTORY_COUNT;
-}
-
-
-// Tape-following code, return error term to robot
-
-Tape::IntersectionType defaultTurnDirection = Tape::None;
+int lostCount = 0;
 
 int Tape::driveCorrection(bool defaultTurnRight) {
     
-    if (defaultTurnRight) defaultTurnDirection = Right;
-    else defaultTurnDirection = Left;
+    defaultTurnIsRight = defaultTurnRight;
+    defaultTurn = true;
     
     int correction = driveCorrection();
-    
-    defaultTurnDirection = None;
+    defaultTurn = false;
     
     return correction;
 }
@@ -50,46 +44,30 @@ int Tape::driveCorrectionWithUpdate() {
     return driveCorrection();
 }
 
-
+// Tape-following code, return error term to robot
+// Right turn positive
 int Tape::driveCorrection() {
     
-    if (onMidLeft && onMidRight) {
-        error = 0;
-        defaultTurnDirection = None;
-    }
-    else if (onMidLeft) error = -1; // turn left
-    else if (onMidRight) error = +1; // turn right
-    else {
-        
-        if (lastError > 0) error = 5;
-        else if (lastError < 0) error = -5;
-        else {
-            switch (defaultTurnDirection) {
-                case Left:
-                    error = -10;
-                    break;
-                    
-                case Right:
-                    error = 10;
-                    break;
-                    
-                case None:
-                    
-                    if (onLeft && !onRight) {
-                        defaultTurnDirection = Left;
-                        error = -5;
-                    }
-                    else if (onRight && !onLeft) {
-                        defaultTurnDirection = Right;
-                        error = 5;
-                    }
-                    else error = 0;
-                    
-                    break;
-            }
-
-        }
-    }
+    if (onMidLeft && onMidRight) error = 0;
+    
+    else if (onMidRight) error = 1;
+    else if (onMidLeft) error = -1;
+    
+    else if (defaultTurn && defaultTurnIsRight) error = 8;
+    else if (defaultTurn && !defaultTurnIsRight) error = -8;
+    
+    else if (onRight && !onLeft) error = 5;
+    else if (onLeft && !onRight) error = -5;
+    
+    else if (lastError > 0) error = 5;
+    else if (lastError < 0) error = -5;
+    
+    else return TAPE_LOST_ERROR;
+    
+    if (!tapePresent()) lostCount++;
+    else lostCount = 0;
+    
+    if (lostCount > LOST_COUNT_LIMIT_FOR_SEARCH) return TAPE_LOST_ERROR;
     
     if (error != lastError) {
         lastDifferentError = lastError;
@@ -97,37 +75,20 @@ int Tape::driveCorrection() {
         errorDuration = 1;
     }
     
-    int p = KP * error;
-    int d = (int)(KD * (error - lastDifferentError) / (float)(errorDuration + lastErrorDuration));
-    
-    double summation = 0;
-    for (int j = 0; j < TAPE_HISTORY_COUNT; j++) {
-        summation += errors[nextIndex(errorsIndex + j)] / (float)(j+1);
-    }
-    
-    int i = (int) ((KI * summation)/1000);
-    
-    int con = K*(p + d + i)/100;
+    proportional = error;
+    derivative = ((error - lastDifferentError) / (errorDuration + lastErrorDuration) * CLOCK_FREQUENCY);
+    integral += error / CLOCK_FREQUENCY;
     
     errorDuration++;
     lastError = error;
     
-    errorsIndex = nextIndex(errorsIndex);
-    errors[errorsIndex] = con;
-    
-    return con;
+    return K / 100 * (KP * proportional + KD * derivative + KI * integral);
 }
-
 
 // Intersection detection
 
 bool Tape::atIntersection() {
-    return tapePresentSides();
-}
-
-bool Tape::atIntersectionWithUpdate() {
-    Tape::update();
-    return error < 10 ? atIntersection() : false;
+    return (lostCount > LOST_COUNT_LIMIT_FOR_INTERSECTION_DETECTION || abs(error) <= 5) ? tapePresentSides() : false;
 }
 
 bool Tape::tapePresentCentre() {
@@ -160,7 +121,7 @@ Tape::IntersectionType Tape::tapePresentOnSide() {
 }
 
 bool Tape::detectedTape(int sensor) {
-    return (analogRead(sensor) > THRESH_QRD);
+    return analogRead(sensor) > THRESH_QRD;
 }
 
 void Tape::update() {
@@ -171,7 +132,14 @@ void Tape::update() {
 }
 
 void Tape::resetErrors() {
-    for (int i = 0; i < TAPE_HISTORY_COUNT; i++) {
-        errors[i] = 0;
-    }
+    integral = 0;
+    proportional = 0;
+    derivative = 0;
+    
+    error = 0;
+    lastError = 0;
+    lastDifferentError = 0;
+    
+    lastErrorDuration = 0;
+    errorDuration = 0;
 }

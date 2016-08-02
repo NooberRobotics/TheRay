@@ -9,24 +9,24 @@
 
 void Controller::execution() {
     
-    switch(robot.cruise(turnDirection)){
+    switch (robot.cruise(turnDirection)) {
             
         case Collided:
             turnDirection = StraightAhead;
-            navigator.collisionOccurred();
-            robot.evade();
+            robot.evade(navigator.collisionOccurred()); // passes true if right is turn-direction
             break;
             
         case IRRight:
-            if (!hasPassenger && navigator.shouldPerformPickup(true)) initializePickup(true);
-            
-            //tell navigator doll was detected
+            if (!hasPassenger && (navigatorNotInitialized || navigator.shouldPerformPickup(true))) {
+                initializePickup(true);
+            }
             turnDirection = StraightAhead;
             break;
             
         case IRLeft:
-            if (!hasPassenger  && navigator.shouldPerformPickup(false)) initializePickup(false);
-            // tell navigator doll was detected
+            if (!hasPassenger && (navigatorNotInitialized || navigator.shouldPerformPickup(false))) {
+                initializePickup(false);
+            }
             turnDirection = StraightAhead;
             break;
             

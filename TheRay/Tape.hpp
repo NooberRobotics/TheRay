@@ -21,7 +21,6 @@ namespace Tape {
     int driveCorrectionWithUpdate();
 
     bool atIntersection();
-    bool atIntersectionWithUpdate();
     
     bool tapePresent();
     bool tapePresentOnSide(bool rightSide);
@@ -29,7 +28,6 @@ namespace Tape {
     bool tapePresentCentre();
     bool tapePresentCentreWithUpdate();
     bool tapePresentSides();
-    
     
     IntersectionType tapePresentOnSide();
 

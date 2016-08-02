@@ -16,5 +16,4 @@ enum Direction {
     Left
 };
 
-
 #endif /* Direction_hpp */

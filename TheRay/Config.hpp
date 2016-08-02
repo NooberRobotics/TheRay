@@ -9,20 +9,19 @@
 #define Config_hpp
 
 // Tape
-#define THRESH_QRD 400
+#define THRESH_QRD 120
 
 #define KP 18
-#define KD 90
-#define KI 2
-#define K 76
+#define KD 20
+#define KI 0
+#define K 100
 
-//#define KP 18
-//#define KD 100
-//#define KI 2
-//#define K 76
+#define CLOCK_FREQUENCY 1200
+#define TAPE_LOST_ERROR 1000
+#define INTIAL_FIND_TAPE_DURATION 100
 
-#define TAPE_HISTORY_COUNT 3
-
+#define LOST_COUNT_LIMIT_FOR_INTERSECTION_DETECTION 200
+#define LOST_COUNT_LIMIT_FOR_SEARCH 300 // larger than limit for intersection detection
 
 // IR
 #define THRESH_LOW_IR 13
@@ -43,16 +42,14 @@
 
 // Intersection
 #define INTERSECTION_DETECTED_DRIVE_DELAY 235
-#define TIME_MIN_BETWEEN_INTERSECTIONS 1000
+#define TIME_MIN_BETWEEN_INTERSECTIONS 500
 #define TIME_FREE_OF_INTERSECTION 1000
-#define TIME_QRD_FREE_OF_INTERSECTION 200
 #define TIME_IN_INTERSECTION 200
 
 // Turns
-
 #define TURN_IN_PLACE_VELOCITY 100
 #define TURN_OFF_TAPE_DURATION 100
-#define TURN_180 900
+#define TURN_180_DURATOIN 900
 
 #define INTERSECTION_TURN_VELOCITY 150
 #define INTERSECTION_TURN_DELAY 250
@@ -75,20 +72,19 @@
 
 
 // Velocities
-#define VELOCITY_SLOW 100
-#define VELOCITY_NORMAL 165
+#define VELOCITY_SLOW 110
+#define VELOCITY_NORMAL 120
 #define VELOCITY_FAST 220
 #define VELOCITY_NITROUS 255
 
 #define VELOCITY_PICKUP 130
 
-#define ACCELERATION_FACTOR .7
-#define START_VELOCITY 80
+#define ACCELERATION_FACTOR .3
+#define START_VELOCITY 70
 
-#define KICKBACK 50
+#define KICKBACK 30
 
 #define VELOCITY_ARM 100
-
 
 
 // Pin connectors
@@ -96,7 +92,7 @@
 // SERVO ANGLES
 
 #define SERVO_OPEN 26
-#define SERVO_CLOSED 105
+#define SERVO_CLOSED 120
 #define SERVO_OPERATION_TIME 500 //millis
 
 // QRD (ANALOG)

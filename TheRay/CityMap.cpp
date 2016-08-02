@@ -49,7 +49,9 @@ Direction CityMap::getTurnDirection(int lastNode, int currentNode, int nextNode)
     if (directionNumber == 1) return Right;
     if (directionNumber == 2) return TurnAround;
     if (directionNumber == 3) return Left;
-    return StraightAhead; // Error state
+    
+    Serial.println("GET TURN DIRECTION SERIOS ERROR!");
+    return StraightAhead;
 }
 
 int CityMap::updateNodeIndex(int nextNode, bool primaryPath){
@@ -65,7 +67,20 @@ int CityMap::updateNodeIndex(int nextNode, bool primaryPath){
     return -1;
 }
 
-int CityMap::getLeftmostTurnNode(int lastNode, int currentNode) {
+int CityMap::getLeftmostTurnNode(int lastNode, int currentNode, bool actuallyRight) {
+    
+    int preferenceOrder[3];
+
+    if (actuallyRight) {
+        preferenceOrder[0] = 1;
+        preferenceOrder[1] = 0;
+        preferenceOrder[2] = 3;
+        
+    } else {
+        preferenceOrder[0] = 3;
+        preferenceOrder[1] = 0;
+        preferenceOrder[2] = 1;
+    }
     
     int arriving = -1;
     
@@ -87,15 +102,15 @@ int CityMap::getLeftmostTurnNode(int lastNode, int currentNode) {
             
             int directionNumber = ((heading - arriving) + 4) % 4;
             
-            if (directionNumber == 3) {
+            if (directionNumber == preferenceOrder[0]) {
                 leftmostDepartingDirection = heading;
                 foundBest = 1;
-            } else if (directionNumber == 0) {
+            } else if (directionNumber == preferenceOrder[1]) {
                 if (foundBest != 1) {
                     leftmostDepartingDirection = heading;
                     foundBest = 2;
                 }
-            } else if (directionNumber == 1) {
+            } else if (directionNumber == preferenceOrder[2]) {
                 if (foundBest != 1 && foundBest != 2) {
                     leftmostDepartingDirection = heading;
                     foundBest = 3;
@@ -106,7 +121,7 @@ int CityMap::getLeftmostTurnNode(int lastNode, int currentNode) {
         }
     }
     
-//    Serial.print("Leftmost Direction: ");
+//    Serial.print("leftmostDepartingDirection: ");
 //    Serial.println(leftmostDepartingDirection);
 
     int node = departureMap[currentNode][leftmostDepartingDirection];
@@ -118,8 +133,8 @@ int CityMap::getLeftmostTurnNode(int lastNode, int currentNode) {
 }
 
 bool CityMap::irValid(bool rightSide, int currentNode, int nextNode){
-    if(rightSide){
-        for (int i = 0; i < NUM_EDGES_NO_IR_RIGHT; i++){
+    if (rightSide) {
+        for (int i = 0; i < NUM_EDGES_NO_IR_RIGHT; i++) {
             if (CityMap::noSidewalkOnRight[i][0] == currentNode && CityMap::noSidewalkOnRight[i][1] == nextNode) return false;
         }
         return true;
