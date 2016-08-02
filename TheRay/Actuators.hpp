@@ -16,11 +16,6 @@
 
 namespace Actuators {
     
-    enum Velocity : int {
-        Slow = VELOCITY_SLOW,
-        Normal = VELOCITY_NORMAL,
-        Fast = VELOCITY_FAST
-    };
     
     enum Turn : int {
         Straight = 0,
