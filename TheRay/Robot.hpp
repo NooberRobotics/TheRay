@@ -54,7 +54,9 @@ private:
     int targetVelocity = VELOCITY_NORMAL;
     
 public:
-        
+    
+    bool hasPassenger = false;
+    
     Tape::IntersectionType lastIntersection = Tape::None;
     
     Robot() {

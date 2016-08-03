@@ -14,7 +14,7 @@
 
 class Controller {
     
-    bool hasPassenger = false;
+    
     Direction turnDirection = StraightAhead;
     bool navigatorNotInitialized = true;
     

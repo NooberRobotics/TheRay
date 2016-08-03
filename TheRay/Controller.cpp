@@ -20,14 +20,14 @@ void Controller::execution() {
             break;
             
         case IRRight:
-            if (!hasPassenger && (navigatorNotInitialized || navigator.shouldPerformPickup(true))) {
+            if (!robot.hasPassenger && (navigatorNotInitialized || navigator.shouldPerformPickup(true))) {
                 initializePickup(true);
             }
             turnDirection = StraightAhead;
             break;
             
         case IRLeft:
-            if (!hasPassenger && (navigatorNotInitialized || navigator.shouldPerformPickup(false))) {
+            if (!robot.hasPassenger && (navigatorNotInitialized || navigator.shouldPerformPickup(false))) {
                 initializePickup(false);
             }
             turnDirection = StraightAhead;
@@ -57,12 +57,12 @@ void Controller::initializeNavigator() {
 void Controller::initializePickup(bool rightSidePickup) {
     bool turnRightAfterPickup = navigator.returnToDropoff(rightSidePickup);
     robot.pickUpPassenger(rightSidePickup, turnRightAfterPickup);
-    hasPassenger = true;
+    robot.hasPassenger = true;
 }
 
 void Controller::initializeDropoff() {
     if (robot.dropOffPassenger(turnDirection, navigator.dropOffTurnRight)) {
-        hasPassenger = false;
+        robot.hasPassenger = false;
         navigator.passengerDroppedOff();
     } else {
         navigator.collisionOccurred();

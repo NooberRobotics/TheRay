@@ -45,12 +45,16 @@ Status Robot::cruise(Direction direction) {
                 break;
                 
             case IR::WeakLeft:
-                setVelocity(VELOCITY_SLOW);
+                if(!hasPassenger){
+                    setVelocity(VELOCITY_SLOW);
+                }
+                
                 break;
                 
             case IR::WeakRight:
-              
-                setVelocity(VELOCITY_SLOW);
+                if(!hasPassenger){
+                    setVelocity(VELOCITY_SLOW);
+                }
                 break;
                 
             case IR::StrongLeft:
