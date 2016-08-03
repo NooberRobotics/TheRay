@@ -25,7 +25,7 @@ class Controller {
     bool startOnOppositePath = false;
 public:
     
-    Controller(){
+    Controller() {
         robot = Robot();
         navigator = Navigator();
         

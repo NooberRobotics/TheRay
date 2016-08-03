@@ -16,6 +16,14 @@ void Navigator::changeStartingPositionToRightTurnFirst() {
     primaryPath = false;
 }
 
+void Navigator::changePrimaryPath(){
+
+    if (!returningToDropoff) {
+        primaryPath = !primaryPath;
+        nextNodeIndex = CityMap::updateNodeIndex(nextNode, primaryPath);
+    }
+}
+
 void Navigator::checkAndHandleCollisionOnTape() {
     
     unsigned long timeFromIntersectionToCollision = timeOfCollision - timeOfIntersection;

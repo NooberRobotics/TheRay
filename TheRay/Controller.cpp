@@ -51,7 +51,7 @@ void Controller::initializeNavigator() {
         navigator.changeStartingPositionToRightTurnFirst();
     }
     if(startOnOppositePath){
-        navigator.primaryPath = !navigator.primaryPath;
+        navigator.changePrimaryPath();
     }
 
     navigatorNotInitialized = false;
