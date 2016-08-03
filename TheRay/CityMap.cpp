@@ -131,16 +131,26 @@ int CityMap::getLeftmostTurnNode(int lastNode, int currentNode, bool actuallyRig
     return node;
 }
 
-bool CityMap::irValid(bool rightSide, int currentNode, int nextNode){
-    if (rightSide) {
+bool CityMap::irValid(bool rightSide, int currentNode, int nextNode, unsigned long timeOnEdge){
+    
+    if (rightSide) { //rightside
         for (int i = 0; i < NUM_EDGES_NO_IR_RIGHT; i++) {
             if (CityMap::noSidewalkOnRight[i][0] == currentNode && CityMap::noSidewalkOnRight[i][1] == nextNode) return false;
         }
-        return true;
-    } else {
+        
+        //special handling of peninsulas
+        if(currentNode == 19 && timeOnEdge > TIME_19_TO_16_MAX_TIME) return false;
+        else if(currentNode == 6 && timeOnEdge < TIME_6_TO_1_MIN_TIME) return false;
+        else return true;
+        
+    } else { //leftside
         for (int i = 0; i < NUM_EDGES_NO_IR_LEFT; i++){
             if (CityMap::noSidewalkOnLeft[i][0] == currentNode && CityMap::noSidewalkOnLeft[i][1] == nextNode) return false;
         }
-        return true;
+        
+        //special handling of peninsulas
+        if(currentNode == 1 && timeOnEdge > TIME_1_TO_6_MAX_TIME) return false;
+        else if(currentNode == 16 && timeOnEdge < TIME_16_TO_19_MIN_TIME) return false;
+        else return true;
     }
 }

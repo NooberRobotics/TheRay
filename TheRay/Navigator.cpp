@@ -9,6 +9,7 @@
 #include <Arduino.h>
 
 
+
 void Navigator::changeStartingPositionToRightTurnFirst() {
     currentNode = 18;
     nextNode = 19;
@@ -27,7 +28,8 @@ void Navigator::checkAndHandleCollisionOnTape() {
 //        Serial.print("timeSinceCollision: ");
 //        Serial.println(timeSinceCollision);
         
-        if ( timeSinceCollision > timeFromIntersectionToCollision + TIME_MIN_BETWEEN_INTERSECTIONS ) {
+        if ( timeSinceCollision > timeFromIntersectionToCollision + TIME_MIN_BETWEEN_INTERSECTIONS ) { //we've broken into a collision near intersection
+            
             
             lastNode = currentNode;
             currentNode = nextNode;
@@ -251,5 +253,10 @@ void Navigator::passengerDroppedOff() {
 }
 
 bool Navigator::shouldPerformPickup(bool rightSide){
-    return CityMap::irValid(rightSide, currentNode, nextNode );
+    unsigned long timeFromCurrentNode;
+    
+    if (collisionHasOccurred) return false;
+    else timeFromCurrentNode = millis() - timeOfIntersection;
+    
+    return CityMap::irValid(rightSide, currentNode, nextNode, timeFromCurrentNode );
 }
