@@ -106,6 +106,7 @@ void Robot::handleIntersection(Direction direction){
             Tape::resetErrors();
             Actuators::drive(velocity(), SLIGHT_RIGHT_AT_SPECIAL_INTERSECTION_TURN);
             delay(SLIGHT_RIGHT_AT_SPECIAL_INTERSECTION_DURATION);
+            findTape();
             break;
     }
 }
@@ -159,6 +160,7 @@ void Robot::turnOntoTape(bool turnRight) {
             Actuators::drive(VELOCITY_SLOW, Actuators::Straight);
             delay(GETTING_UNSTUCK_DELAY);
             timeStamp = millis();
+            Actuators::turnInPlace(turnRight);
         }
     }
 }
