@@ -9,11 +9,14 @@
 
 void Controller::execution() {
     
+    bool robotEvadeRight;
+    
     switch (robot.cruise(turnDirection)) {
             
         case Collided:
             turnDirection = StraightAhead;
-            robot.evade(navigator.collisionOccurred()); // passes true if right is turn-direction
+            robotEvadeRight = navigator.collisionOccurred();
+            robot.evade(robotEvadeRight); // passes true if right is turn-direction
             break;
             
         case IRRight:
@@ -62,9 +65,8 @@ void Controller::initializeDropoff() {
         hasPassenger = false;
         navigator.passengerDroppedOff();
     } else {
-        robot.evade();
         navigator.collisionOccurred();
-        
+        robot.evade();
     }
     turnDirection = StraightAhead;
 }

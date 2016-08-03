@@ -18,31 +18,31 @@ void Navigator::changeStartingPositionToRightTurnFirst() {
 void Navigator::checkAndHandleCollisionOnTape() {
     
     unsigned long timeFromIntersectionToCollision = timeOfCollision - timeOfIntersection;
-//    Serial.print("timeFromIntersectionToCollision: ");
-//    Serial.println(timeFromIntersectionToCollision);
+    Serial.print("timeFromIntersectionToCollision: ");
+    Serial.println(timeFromIntersectionToCollision);
     
     if (timeFromIntersectionToCollision < TIME_FREE_OF_INTERSECTION) {
         
         unsigned long timeSinceCollision = millis() - timeOfCollision;
-//        Serial.print("timeSinceCollision: ");
-//        Serial.println(timeSinceCollision);
+        Serial.print("timeSinceCollision: ");
+        Serial.println(timeSinceCollision);
         
         if ( timeSinceCollision > timeFromIntersectionToCollision + TIME_MIN_BETWEEN_INTERSECTIONS ) {
             
             lastNode = currentNode;
             currentNode = nextNode;
+ 
+            nextNode = CityMap::getLeftmostTurnNode(lastNode, currentNode, turnAroundOppositeDirection);
             
-//            Serial.print("lastNode: );
-//            Serial.print(lastNode);
-//            Serial.print(" currentNode: ");
-//            Serial.println(currentNode);
             
-            if (lastNode == 11) {
-                nextNode = CityMap::getLeftmostTurnNode(lastNodeWhenGoingOntoNode11Stretch, currentNode, turnAroundOppositeDirection);
-            } else {
-                nextNode = CityMap::getLeftmostTurnNode(lastNode, currentNode, turnAroundOppositeDirection);
-            }
-            
+            Serial.print("In collisionOnTapeHandler: lastNode: ");
+            Serial.print(lastNode);
+            Serial.print(" currentNode: ");
+            Serial.print(currentNode);
+            Serial.print(" nextNode: ");
+            Serial.print(nextNode);
+
+
             
             if (lastNode == 3 || lastNode == 4 || lastNode == 13 || lastNode == 15 ) {
                 primaryPath = !primaryPath;
@@ -67,6 +67,8 @@ Direction Navigator::getTurn() {
     if (collisionHasOccurred) checkAndHandleCollisionOnTape();
     
     timeOfIntersection = millis();
+    Serial.print("timeOfIntersection: ");
+    Serial.println(timeOfIntersection);
     
     Direction turn;
     
@@ -81,7 +83,6 @@ Direction Navigator::getTurn() {
         
         nextNodeIndex++;
         if (nextNode == 11) {
-            lastNodeWhenGoingOntoNode11Stretch = lastNode;
             if (currentNode == 7) {
                 dropOffTurnRight = true;
                 nextNode = 17;
@@ -102,7 +103,6 @@ Direction Navigator::getTurn() {
         turn = CityMap::getTurnDirection(lastNode, currentNode, nextNode);
         
         if (nextNode == 11) {
-            lastNodeWhenGoingOntoNode11Stretch = lastNode;
             if(currentNode == 7) {
                 nextNodeIndex = CityMap::getNextNodeIndex(nextNodeIndex);
                 nextNode = 17;
@@ -191,6 +191,9 @@ bool Navigator::collisionOccurred() {
     }
     
     timeOfCollision = millis();
+    Serial.print("timeOfCollision: ");
+    Serial.println(timeOfCollision);
+    
     collisionHasOccurred = true;
     
     if ((currentNode == 13 && nextNode == 14) || (currentNode == 4 && nextNode == 5)) {
@@ -235,7 +238,7 @@ bool Navigator::returnToDropoff(bool turnRightForPickup) {
     return turnRightAfterPickup;
 }
 
-void Navigator::passengerDroppedOff(){
+void Navigator::passengerDroppedOff() {
     primaryPath = (nextNode == 7);
     nextNodeIndex = CityMap::updateNodeIndex(nextNode, primaryPath);
     dropOffNow = false;

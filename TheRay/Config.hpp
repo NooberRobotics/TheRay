@@ -36,7 +36,7 @@
 // Robot operations
 
 // Collision
-#define REVERSE_TIME_EVADE 250
+#define REVERSE_TIME_EVADE 200
 #define NUMBER_OF_SWITCH_CHECKS 2
 
 

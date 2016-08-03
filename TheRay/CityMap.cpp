@@ -105,6 +105,7 @@ int CityMap::getLeftmostTurnNode(int lastNode, int currentNode, bool actuallyRig
             if (directionNumber == preferenceOrder[0]) {
                 leftmostDepartingDirection = heading;
                 foundBest = 1;
+                break;
             } else if (directionNumber == preferenceOrder[1]) {
                 if (foundBest != 1) {
                     leftmostDepartingDirection = heading;
@@ -115,8 +116,6 @@ int CityMap::getLeftmostTurnNode(int lastNode, int currentNode, bool actuallyRig
                     leftmostDepartingDirection = heading;
                     foundBest = 3;
                 }
-            } else {
-                Serial.println("LEFTMOST MAP SERIOUS ERROR!");
             }
         }
     }
