@@ -18,14 +18,14 @@ void Navigator::changeStartingPositionToRightTurnFirst() {
 void Navigator::checkAndHandleCollisionOnTape() {
     
     unsigned long timeFromIntersectionToCollision = timeOfCollision - timeOfIntersection;
-    Serial.print("timeFromIntersectionToCollision: ");
-    Serial.println(timeFromIntersectionToCollision);
+//    Serial.print("timeFromIntersectionToCollision: ");
+//    Serial.println(timeFromIntersectionToCollision);
     
     if (timeFromIntersectionToCollision < TIME_FREE_OF_INTERSECTION) {
         
         unsigned long timeSinceCollision = millis() - timeOfCollision;
-        Serial.print("timeSinceCollision: ");
-        Serial.println(timeSinceCollision);
+//        Serial.print("timeSinceCollision: ");
+//        Serial.println(timeSinceCollision);
         
         if ( timeSinceCollision > timeFromIntersectionToCollision + TIME_MIN_BETWEEN_INTERSECTIONS ) {
             
@@ -35,12 +35,12 @@ void Navigator::checkAndHandleCollisionOnTape() {
             nextNode = CityMap::getLeftmostTurnNode(lastNode, currentNode, turnAroundOppositeDirection);
             
             
-            Serial.print("In collisionOnTapeHandler: lastNode: ");
-            Serial.print(lastNode);
-            Serial.print(" currentNode: ");
-            Serial.print(currentNode);
-            Serial.print(" nextNode: ");
-            Serial.print(nextNode);
+//            Serial.print("In collisionOnTapeHandler: lastNode: ");
+//            Serial.print(lastNode);
+//            Serial.print(" currentNode: ");
+//            Serial.print(currentNode);
+//            Serial.print(" nextNode: ");
+//            Serial.print(nextNode);
 
 
             
@@ -67,8 +67,8 @@ Direction Navigator::getTurn() {
     if (collisionHasOccurred) checkAndHandleCollisionOnTape();
     
     timeOfIntersection = millis();
-    Serial.print("timeOfIntersection: ");
-    Serial.println(timeOfIntersection);
+//    Serial.print("timeOfIntersection: ");
+//    Serial.println(timeOfIntersection);
     
     Direction turn;
     
@@ -191,12 +191,17 @@ bool Navigator::collisionOccurred() {
     }
     
     timeOfCollision = millis();
-    Serial.print("timeOfCollision: ");
-    Serial.println(timeOfCollision);
+//    Serial.print("timeOfCollision: ");
+//    Serial.println(timeOfCollision);
     
     collisionHasOccurred = true;
     
     if ((currentNode == 13 && nextNode == 14) || (currentNode == 4 && nextNode == 5)) {
+        turnAroundOppositeDirection = true;
+        return false; // mechanically turning to the left
+    }
+    
+    if ((currentNode == 20 && nextNode == 17) || (currentNode == 6 && nextNode == 7)) {
         turnAroundOppositeDirection = true;
         return false; // mechanically turning to the left
     }
