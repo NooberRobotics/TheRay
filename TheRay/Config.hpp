@@ -65,9 +65,23 @@
  // ** Special pickup delays
 
 #define TIME_19_TO_16_MAX_TIME 1666
-#define TIME_6_TO_1_MIN_TIME 1000
-#define TIME_1_TO_6_MAX_TIME 1666
 #define TIME_16_TO_19_MIN_TIME 1000
+
+#define TIME_1_TO_6_MAX_TIME 1666
+#define TIME_6_TO_1_MIN_TIME 1000
+
+
+#define TIME_17_TO_16_MAX_TIME 1000
+#define TIME_16_TO_17_MIN_TIME 400
+
+#define TIME_7_TO_6_MAX_TIME 1000
+#define TIME_6_TO_7_MIN_TIME 400
+
+
+
+#define TIME_12_TO_8_MAX_TIME 2500
+#define TIME_12_TO_8_MIN_TIME 500
+
 
 
 // Dropoff

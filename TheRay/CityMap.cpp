@@ -139,8 +139,11 @@ bool CityMap::irValid(bool rightSide, int currentNode, int nextNode, unsigned lo
         }
         
         //special handling of peninsulas
-        if(currentNode == 19 && timeOnEdge > TIME_19_TO_16_MAX_TIME) return false;
-        else if(currentNode == 6 && timeOnEdge < TIME_6_TO_1_MIN_TIME) return false;
+        if(currentNode == 19 && nextNode == 16 && timeOnEdge > TIME_19_TO_16_MAX_TIME) return false;
+        else if(currentNode == 6 && nextNode == 1 && timeOnEdge < TIME_6_TO_1_MIN_TIME) return false;
+        else if(currentNode == 16 && nextNode == 17 && timeOnEdge < TIME_16_TO_17_MIN_TIME) return false;
+        else if(currentNode == 7 && nextNode == 6 && timeOnEdge > TIME_7_TO_6_MAX_TIME) return false;
+        else if(currentNode == 8 && nextNode == 12 && (timeOnEdge > TIME_12_TO_8_MAX_TIME || timeOnEdge < TIME_12_TO_8_MIN_TIME))
         else return true;
         
     } else { //leftside
@@ -149,8 +152,12 @@ bool CityMap::irValid(bool rightSide, int currentNode, int nextNode, unsigned lo
         }
         
         //special handling of peninsulas
-        if(currentNode == 1 && timeOnEdge > TIME_1_TO_6_MAX_TIME) return false;
-        else if(currentNode == 16 && timeOnEdge < TIME_16_TO_19_MIN_TIME) return false;
+        if(currentNode == 1 && nextNode == 6 && timeOnEdge > TIME_1_TO_6_MAX_TIME) return false;
+        else if(currentNode == 16 && nextNode == 19 && timeOnEdge < TIME_16_TO_19_MIN_TIME) return false;
+        else if(currentNode == 6 && nextNode == 7 && timeOnEdge < TIME_6_TO_7_MIN_TIME) return false;
+        else if(currentNode == 17 && nextNode == 16 && timeOnEdge > TIME_17_TO_16_MAX_TIME) return false;
+        else if(currentNode == 12 && nextNode == 8 && (timeOnEdge > TIME_12_TO_8_MAX_TIME || timeOnEdge < TIME_12_TO_8_MIN_TIME)) return false;
+        
         else return true;
     }
 }
