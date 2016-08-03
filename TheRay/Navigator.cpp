@@ -118,6 +118,8 @@ Direction Navigator::getTurn() {
         }
     }
     
+    if (lastNode == 14 && currentNode == 17 && turn == StraightAhead) return SlightRight;
+    
 //    Serial.print("Last Node: ");
 //    Serial.print(lastNode);
 //    Serial.print(" Current Node: ");
