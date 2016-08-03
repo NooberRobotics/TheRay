@@ -50,6 +50,9 @@ void Controller::initializeNavigator() {
     if (Tape::tapePresentOnSide() == Tape::Right) {
         navigator.changeStartingPositionToRightTurnFirst();
     }
+    if(startOnOppositePath){
+        navigator.primaryPath = !navigator.primaryPath;
+    }
 
     navigatorNotInitialized = false;
 }

@@ -22,11 +22,23 @@ class Controller {
     void initializeNavigator();
     void initializePickup(bool rightSidePickup);
     void initializeDropoff();
-
+    bool startOnOppositePath = false;
 public:
     
-    Robot robot = Robot();
-    Navigator navigator = Navigator();
+    Controller(){
+        robot = Robot();
+        navigator = Navigator();
+        
+        if(Collision::occuredWithUpdate()){
+            startOnOppositePath = true;
+            Actuators::openClaw();
+            delay(OPEN_FINGERS_FOR_PASSENGER_DROP_OFF_DURATION);
+            Actuators::closeClaw();
+        }
+    }
+    
+    Robot robot;
+    Navigator navigator;
 
     void execution();
 };

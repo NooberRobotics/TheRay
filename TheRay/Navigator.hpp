@@ -24,8 +24,7 @@ class Navigator {
     
     bool returningToDropoff = false;
     
-    bool primaryPath = true;
-        
+    
     unsigned long timeOfIntersection = 0;
     unsigned long timeOfCollision = 0;
     
@@ -37,6 +36,8 @@ class Navigator {
     bool turnAroundOppositeDirection = false;
     
 public:
+    bool primaryPath = true;
+
     
     void changeStartingPositionToRightTurnFirst();
     
