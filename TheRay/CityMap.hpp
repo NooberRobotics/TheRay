@@ -149,8 +149,8 @@ namespace CityMap {
 
     const int irSearchNodes[] = {1,5,10,14,19};
     
-#define NUM_EDGES_NO_IR_LEFT 12
-#define NUM_EDGES_NO_IR_RIGHT 12
+#define NUM_EDGES_NO_IR_LEFT 13
+#define NUM_EDGES_NO_IR_RIGHT 13
     
     const int noSidewalkOnRight[NUM_EDGES_NO_IR_RIGHT][2] = {
         {0,1},
@@ -164,7 +164,8 @@ namespace CityMap {
         {10,12},
         {12,8},
         {8,10},
-        {9,10}
+        {9,10},
+        {14,16}
     };
     
     const int noSidewalkOnLeft[NUM_EDGES_NO_IR_LEFT][2] = {
@@ -179,7 +180,8 @@ namespace CityMap {
         {12,10},
         {8,12},
         {10,8},
-        {9,10}
+        {9,10},
+        {5,6}
     };
     
 };

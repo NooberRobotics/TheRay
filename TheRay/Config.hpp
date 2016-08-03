@@ -91,6 +91,12 @@
 #define TIME_12_TO_8_MIN_TIME 500
 
 
+#define TIME_16_TO_14_MIN_TIME 400
+
+#define TIME_8_TO_10_MAX_TIME 2000
+#define TIME_12_TO_10_MAX_TIME 2000
+
+
 
 // Dropoff
 #define DROP_OFF_APPROACH_TIME 900
