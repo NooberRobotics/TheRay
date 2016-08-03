@@ -239,9 +239,10 @@ void Navigator::passengerDroppedOff(){
 }
 
 bool Navigator::shouldPerformPickup(bool rightSide){
+    unsigned long timeFromCurrentNode;
     
     if (collisionHasOccurred) return false;
-    else unsigned long timeFromCurrentNode = millis() - timeOfIntersection;
+    else timeFromCurrentNode = millis() - timeOfIntersection;
     
     return CityMap::irValid(rightSide, currentNode, nextNode, timeFromCurrentNode );
 }
