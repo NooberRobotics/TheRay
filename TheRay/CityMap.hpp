@@ -10,6 +10,7 @@
 
 #include "Direction.hpp"
 #include <Arduino.h>
+#include "Config.hpp"
 
 
 namespace CityMap {
@@ -26,7 +27,7 @@ namespace CityMap {
     
     int getNextNodeToGoal(int startNodeIndex, int nextNodeIndex, bool primaryPath);
     int updateNodeIndex(int nextNode, bool primaryPath);
-    bool irValid(bool rightSide, int currentNode, int nextNode);
+    bool irValid(bool rightSide, int currentNode, int nextNode, unsigned long timeOnEdge);
     
     Direction getTurnDirection(int lastNode, int currentNode, int nextNode);
 
