@@ -151,7 +151,15 @@ void Robot::turnOntoTape(bool turnRight) {
     delay(TURN_OFF_TAPE_DURATION);
     while (Tape::tapePresentCentreWithUpdate()) {}
     delay(10);
-    while (!Tape::tapePresentCentreWithUpdate()) {}
+    
+    unsigned long firstTimeStamp = millis();
+    
+    while (!Tape::tapePresentCentreWithUpdate()) {
+        if (millis() - firstTimeStamp > GETTING_UNSTUCK_STARTING_TIME) {
+            Actuators::drive(VELOCITY_NORMAL, Actuators::Straight);
+            delay(GETTING_UNSTUCK_DELAY);
+        }
+    }
 }
 
 
