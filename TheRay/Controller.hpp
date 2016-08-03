@@ -32,8 +32,10 @@ public:
         if(Collision::occuredWithUpdate()){
             startOnOppositePath = true;
             Actuators::openClaw();
-            delay(OPEN_FINGERS_FOR_PASSENGER_DROP_OFF_DURATION);
+            delay(OPEN_FINGERS_FOR_PASSENGER_DROP_OFF_DURATION); //lift hand off!
             Actuators::closeClaw();
+            while(Collision::occuredWithUpdate()){}
+            delay(300);
         }
     }
     
