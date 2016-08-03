@@ -13,7 +13,8 @@ enum Direction {
     StraightAhead,
     Right,
     TurnAround,
-    Left
+    Left,
+    SlightRight
 };
 
 #endif /* Direction_hpp */
