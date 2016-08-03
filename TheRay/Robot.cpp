@@ -49,7 +49,7 @@ Status Robot::cruise(Direction direction) {
                 break;
                 
             case IR::WeakRight:
-                if (! )
+              
                 setVelocity(VELOCITY_SLOW);
                 break;
                 
