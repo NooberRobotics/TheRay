@@ -107,9 +107,15 @@ void Robot::handleIntersection(Direction direction){
             break;
             
         case SlightRight:
-            Tape::resetErrors();
             Actuators::drive(velocity(), SLIGHT_RIGHT_AT_SPECIAL_INTERSECTION_TURN);
             delay(SLIGHT_RIGHT_AT_SPECIAL_INTERSECTION_DURATION);
+           
+            Actuators::stop();
+            delay(200);
+
+            Tape::resetErrors();
+            resetVelocity();
+            
             findTape();
             break;
     }
