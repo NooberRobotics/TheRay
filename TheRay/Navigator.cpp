@@ -13,7 +13,14 @@
 void Navigator::changeStartingPositionToRightTurnFirst() {
     currentNode = 18;
     nextNode = 19;
-    primaryPath = false;
+    
+    if (returningToDropoff) {
+        startNodeIndex = nextNode;
+        nextNodeIndex = 0;
+        primaryPath = true;
+    } else {
+        primaryPath = false;
+    }
 }
 
 void Navigator::changePrimaryPath(){

@@ -146,7 +146,7 @@ bool CityMap::irValid(bool rightSide, int currentNode, int nextNode, unsigned lo
         else if(currentNode == 7 && nextNode == 6 && timeOnEdge > TIME_7_TO_6_MAX_TIME) return false;
         else if(currentNode == 8 && nextNode == 12 && (timeOnEdge > TIME_12_TO_8_MAX_TIME || timeOnEdge < TIME_12_TO_8_MIN_TIME)) return false;
         else if(currentNode == 12 && nextNode == 10 && timeOnEdge > TIME_12_TO_10_MAX_TIME) return false;
-        
+        else if(currentNode == 7 && nextNode == 2 && timeOnEdge > TIME_7_TO_2_MAX_TIME) return false;
         return true;
         
     } else { //leftside
@@ -162,6 +162,7 @@ bool CityMap::irValid(bool rightSide, int currentNode, int nextNode, unsigned lo
         else if(currentNode == 12 && nextNode == 8 && (timeOnEdge > TIME_12_TO_8_MAX_TIME || timeOnEdge < TIME_12_TO_8_MIN_TIME)) return false;
         else if(currentNode == 16 && nextNode == 14 && timeOnEdge < TIME_16_TO_14_MIN_TIME) return false;
         else if(currentNode == 8 && nextNode == 10 && timeOnEdge > TIME_8_TO_10_MAX_TIME) return false;
+        else if(currentNode == 17 && nextNode == 20 && timeOnEdge > TIME_17_TO_20_MAX_TIME) return false;
         return true;
     }
 }
