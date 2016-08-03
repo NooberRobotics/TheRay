@@ -228,6 +228,7 @@ bool Navigator::collisionOccurred() {
     return true; // mechanically turning to the right
 }
 
+
 bool Navigator::returnToDropoff(bool turnRightForPickup) {
     
     primaryPath = true;
