@@ -58,17 +58,26 @@ Status Robot::cruise(Direction direction) {
                 break;
                 
             case IR::StrongLeft:
-                Actuators::stop();
-                resetVelocity();
-                IR::resetIR();
-                return IRLeft;
+                if(!hasPassenger){
+                    Actuators::stop();
+                    resetVelocity();
+                    
+                    IR::resetIR();
+                    return IRLeft;
+                }
+                
                 break;
                 
             case IR::StrongRight:
-                Actuators::stop();
-                resetVelocity();
-                IR::resetIR();
-                return IRRight;
+                
+                if(!hasPassenger){
+                    Actuators::stop();
+                    resetVelocity();
+                    
+                    IR::resetIR();
+                    return IRRight;
+                }
+                
                 break;
         }
     }
