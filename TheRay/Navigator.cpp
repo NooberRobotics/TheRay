@@ -225,6 +225,11 @@ bool Navigator::collisionOccurred() {
         return false; // mechanically turning to the left
     }
     
+    if (currentNode == 19 && nextNode == 16) {
+        turnAroundOppositeDirection = true;
+        return false; // mechanically turning to the left
+    }
+    
     return true; // mechanically turning to the right
 }
 
