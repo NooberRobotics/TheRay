@@ -73,8 +73,15 @@ bool armNotInPosition(int switchNumber) {
 
 
 void Actuators::raiseArm() {
+    unsigned long startTime = millis();
     motor.speed(MOTOR_ARM, VELOCITY_ARM * MOTOR_ARM_SIGN_UP);
-    while (armNotInPosition(TOUCH_SWITCH_ARM_UP)){}
+    while (armNotInPosition(TOUCH_SWITCH_ARM_UP)){
+        if (millis() - startTime > ARM_RAISE_TIME) {
+            drive(60, Straight, true);
+            delay(50);
+            Actuators::stop();
+        }
+    }
     motor.speed(MOTOR_ARM, 0);
 }
 
