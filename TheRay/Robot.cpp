@@ -119,9 +119,15 @@ void Robot::handleIntersection(Direction direction){
             Actuators::drive(velocity(), SLIGHT_RIGHT_AT_SPECIAL_INTERSECTION_TURN);
             delay(SLIGHT_RIGHT_AT_SPECIAL_INTERSECTION_DURATION);
            
-            Actuators::stop();
-            delay(200);
-
+            Tape::resetErrors();
+            resetVelocity();
+            
+            findTape();
+            break;
+        case SlightLeft:
+            Actuators::drive(VELOCITY_SLOW, -SLIGHT_LEFT_AT_SPECIAL_INTERSECTION_TURN);
+            delay(SLIGHT_LEFT_AT_SPECIAL_INTERSECTION_DURATION);
+            
             Tape::resetErrors();
             resetVelocity();
             
@@ -237,13 +243,17 @@ void Robot::pickUpPassenger(bool turnRightBefore, bool turnRightAfter) {
     Actuators::raiseArm();
     Actuators::raiseArm();
     
-    bool successful = true; //!IR::frontDetected();
-    
     Actuators::drive(VELOCITY_SLOW, Actuators::Straight, true);
     
     unsigned long backupStartTime = millis();
     
-    while(millis() - backupStartTime < (approachTime)) {}
+    while(millis() - backupStartTime < (approachTime)) {
+        if (Tape::tapePresentCentreWithUpdate()) {
+            Actuators::drive(VELOCITY_SLOW, Actuators::Straight);
+            delay(DROP_OFF_PASSENGER_DRIVE_OFF_TRACK_DELAY);
+            break;
+        }
+    }
     
     turnOntoTape(turnRightAfter);
     

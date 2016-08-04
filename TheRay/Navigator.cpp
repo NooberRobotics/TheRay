@@ -92,6 +92,9 @@ Direction Navigator::getTurn() {
     lastNode = currentNode;
     currentNode = nextNode;
     
+    bool slightLeftAt7 = false;
+    if (lastNode == 6 && currentNode == 7 && nextNode == 11) slightLeftAt7 = true;
+    
     if (returningToDropoff) {
         
         nextNode = CityMap::getNextNodeToGoal(startNodeIndex, nextNodeIndex, primaryPath);
@@ -133,7 +136,9 @@ Direction Navigator::getTurn() {
         }
     }
     
-    if (lastNode == 14 && currentNode == 17 && turn == StraightAhead) return SlightRight;
+    if (lastNode == 14 && currentNode == 16 && turn == StraightAhead) return SlightRight;
+    if (lastNode == 8 && currentNode == 6 && nextNode == 7) return SlightLeft;
+    if (slightLeftAt7) return SlightLeft;
     
 //    Serial.print("Last Node: ");
 //    Serial.print(lastNode);
