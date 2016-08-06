@@ -4,6 +4,7 @@
 //
 //  Copyright © 2016 Noober Robotics. All rights reserved.
 //
+// All constants that we need in the program.
 
 #ifndef Config_hpp
 #define Config_hpp

@@ -4,6 +4,7 @@
 //
 //  Copyright © 2016 Noober Robotics. All rights reserved.
 //
+// This class is for when we collide with another robot or a sidewalk/wall.
 
 #include "Collision.hpp"
 

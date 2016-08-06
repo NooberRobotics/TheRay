@@ -4,23 +4,26 @@
 //
 //  Copyright © 2016 NooberRobotics. All rights reserved.
 //
+// This class represents the actual robot. It controls tape following and
+// other basic processes, and tells the actuators what to do.
 
 #include "Robot.hpp"
 
 unsigned long lastIntersectionTime = millis();
 
-
-//int clockCycles = 0;
-
+//Main function of the robot. Drives, detects IR, and detects collisions.
+//Most importantly, gives status updates to the controller so the controller
+//can decide what to do.
 Status Robot::cruise(Direction direction) {
     
     handleIntersection(direction);
     
     while (true) {
-        
+        //tape follows always
         Tape::update();
         followTape();
         
+        //we must be at an intersection, tell this to the controller
         if (Tape::atIntersection() && (millis() - lastIntersectionTime) > TIME_MIN_BETWEEN_INTERSECTIONS) {
             lastIntersectionTime = millis();
             Actuators::stop();
@@ -30,14 +33,14 @@ Status Robot::cruise(Direction direction) {
         
         
         Collision::update();
-        
+        //tell the controller we collided
         if (Collision::occured()) {
             resetVelocity();
             return Collided;
         }
         
         IR::update();
-        
+        //tell the controller the status of IR signals
         switch (IR::check()) {
                 
             case IR::None:
@@ -83,6 +86,7 @@ Status Robot::cruise(Direction direction) {
     }
 }
 
+//our tape following function, where the correction is determined in the tape class.
 void Robot::followTape(bool defaultTurn, bool turnRight) {
     
     int correction = defaultTurn ? Tape::driveCorrection(turnRight) : Tape::driveCorrection();
@@ -91,6 +95,7 @@ void Robot::followTape(bool defaultTurn, bool turnRight) {
     else Actuators::drive(velocity(), correction);
 }
 
+//figures out what needs to happen at an intersection based on the direction we want to turn
 void Robot::handleIntersection(Direction direction){
     
     switch (direction) {
@@ -150,7 +155,7 @@ void Robot::turnAtIntersection(bool turnRight, unsigned long time) {
     while (!Tape::tapePresentCentreWithUpdate()) {}
 }
 
-
+//if we somehow get off tape, we oscillate until we find it again
 void Robot::findTape() {
     
     int duration = INTIAL_FIND_TAPE_DURATION;
@@ -214,7 +219,7 @@ void Robot::turnOntoTape(Direction direction) {
     }
 }
 
-
+//our pickup algorithm, consists of driving turning, driving forwards, opening claw, lowering arm,
 void Robot::pickUpPassenger(bool turnRightBefore, bool turnRightAfter) {
     
     Actuators::drive(VELOCITY_SLOW, Actuators::Straight);
